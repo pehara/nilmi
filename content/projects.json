@@ -182,9 +182,15 @@
       "categories": [
         "Web"
       ],
+      "image": "assets/uploads/Screenshot_2026-10-01-10-38-08_1920x1080.png",
       "tags": [
-        "HTML"
-      ]
+        "HTML",
+        "Interactive",
+        "Website"
+      ],
+      "description": "Personal website I designed and created to help showcase myself.",
+      "link_label": "View source",
+      "link_url": "https://github.com/pehara/nilmi.git"
     }
   ]
 }
