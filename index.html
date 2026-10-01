@@ -548,7 +548,6 @@ body.locked{overflow:hidden}
     <h2 class="wonk sec-title" id="about-t">ABOUT ME</h2>
     <div class="portrait">
       <img src="assets/decor/portrait.webp" alt="Pehara in a UCSC graduation stole, sitting between library shelves" width="478" height="637">
-      <a class="pill pink" href="https://www.linkedin.com/in/pehara" target="_blank" rel="noopener">Let's connect</a>
     </div>
     <div class="copy">
       <h3>Close to the screen, Rarely close to done.</h3>
@@ -1170,15 +1169,6 @@ body.locked{overflow:hidden}
     const next=()=>{const im=queue.shift();if(!im)return;im.loading='eager';
       (im.decode?im.decode():Promise.resolve()).catch(()=>{}).then(()=>idle(next,{timeout:1500}));};
     idle(next,{timeout:1500});},2500));
-
-  /* ---- "Contact me?" buttons glide to the contact form at the bottom of the page ---- */
-  document.querySelectorAll('a[href="#contact"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();endIntro();
-    /* jump most of the way, then glide the last screen or so: looks the same, but the browser doesn't have to
-       draw every section on the way down */
-    const end=document.documentElement.scrollHeight-innerHeight;
-    if(!reduce&&end-scrollY>innerHeight*2){scrollTo({top:end-innerHeight*1.1,behavior:'instant'});requestAnimationFrame(()=>scrollTo({top:end,behavior:'smooth'}));}
-    else scrollTo({top:end,behavior:reduce?'auto':'smooth'});
-    setTimeout(()=>document.getElementById('f-name').focus({preventScroll:true}),reduce?0:900);}));
 
   /* ---- contact form: sends straight to your inbox through FormSubmit (formsubmit.co).
      The very first message triggers a one-time "confirm your email" from FormSubmit; after that every
