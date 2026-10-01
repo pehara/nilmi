@@ -1,0 +1,117 @@
+# Pages CMS (https://pagescms.org) — edit the site's content with forms instead of code.
+# Projects live in content/projects.json, everything else in content/hobbies.json. Images you upload go to assets/uploads/.
+media:
+  input: assets/uploads
+  output: assets/uploads
+
+content:
+  - name: projects
+    label: Projects
+    type: file
+    path: content/projects.json
+    format: json
+    fields:
+      - name: projects
+        label: Projects (shown in this order; more than 12 are shown 12 per page)
+        type: object
+        list: true
+        fields:
+          - { name: title, label: Title, type: string, required: true }
+          - { name: platform, label: "Platform / engine (e.g. Unity)", type: string }
+          - name: categories
+            label: Filter categories
+            type: select
+            options:
+              multiple: true
+              values: [Games, Web, Python]
+          - { name: image, label: "Screenshot (or video poster)", type: image }
+          - { name: video, label: "Gameplay clip (.mp4, optional)", type: file }
+          - { name: tags, label: Tags, type: string, list: true }
+          - { name: description, label: Description, type: text }
+          - { name: link_label, label: "Button text (e.g. View on Steam)", type: string }
+          - { name: link_url, label: Button link, type: string }
+
+  - name: hobbies
+    label: Outside of work
+    type: file
+    path: content/hobbies.json
+    format: json
+    fields:
+      - name: reading
+        label: Reading — books
+        type: object
+        list: true
+        fields:
+          - { name: cover, label: "Cover (2:3, e.g. 600x900)", type: image }
+          - { name: title, label: Title, type: string }
+          - { name: author, label: Author, type: string }
+          - { name: note, label: What I thought, type: text }
+      - name: gaming
+        label: Gaming — games
+        type: object
+        list: true
+        fields:
+          - { name: cover, label: "Cover (2:3). Leave empty to use the Steam cover", type: image }
+          - { name: steam_id, label: "Steam app ID (the number in the store link)", type: string }
+          - { name: title, label: Title, type: string }
+          - { name: by, label: "Studio · year", type: string }
+          - { name: note, label: Short description, type: text }
+      - name: travel
+        label: Travel — photos
+        type: object
+        list: true
+        fields:
+          - { name: photo, label: Photo, type: image }
+          - { name: place, label: "Place (e.g. Kyoto, Japan)", type: string }
+          - { name: when, label: "When (e.g. Spring 2025)", type: string }
+      - name: food_homemade
+        label: Food — homemade
+        type: object
+        list: true
+        fields:
+          - { name: photo, label: Photo, type: image }
+          - { name: name, label: Dish, type: string }
+          - { name: note, label: "Note (e.g. Made at home)", type: string }
+      - name: food_favorites
+        label: Food — favorites
+        type: object
+        list: true
+        fields:
+          - { name: photo, label: Photo, type: image }
+          - { name: name, label: Dish, type: string }
+          - { name: note, label: "Where (e.g. Ramen Nagi, Palo Alto)", type: string }
+      - name: art_2d
+        label: Digital art — 2D
+        type: object
+        list: true
+        fields:
+          - { name: image, label: Image, type: image }
+          - { name: thumb, label: "Small preview (optional)", type: image }
+      - name: art_3d
+        label: Digital art — 3D
+        type: object
+        list: true
+        fields:
+          - { name: image, label: Image, type: image }
+          - { name: thumb, label: "Small preview (optional)", type: image }
+      - name: nails
+        label: Gel-X nails
+        type: object
+        list: true
+        fields:
+          - { name: image, label: Image, type: image }
+          - { name: thumb, label: "Small preview (optional)", type: image }
+      - name: music
+        label: Music
+        type: object
+        fields:
+          - { name: playlist_name, label: Playlist name, type: string }
+          - { name: playlist_id, label: "Spotify playlist ID (from the playlist link)", type: string }
+          - name: tracks
+            label: Song list
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Song, type: string }
+              - { name: artist, label: Artist, type: string }
+              - { name: length, label: "Length (e.g. 3:25)", type: string }
