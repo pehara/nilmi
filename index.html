@@ -250,7 +250,12 @@ footer{position:relative;z-index:4;text-align:center;color:var(--maroon);font:40
   /* decorations: coordinates from Figma, z-order preserved */
   .sand-full{display:block;position:absolute;left:50%;bottom:calc(-132px * var(--z));width:max(100%, calc(1712px * var(--z)));height:calc(678px * var(--z));
     transform:translateX(-50%);max-width:none;z-index:2;pointer-events:none}
-  .d-kelp{left:0;top:6900px;width:1440px;height:2200px;z-index:1;overflow:visible;will-change:transform}
+  .d-kelp{left:0;top:6900px;width:1440px;height:2200px;z-index:1;overflow:visible}
+  /* kelp = chains of small jointed pieces; the graphics card just rotates each joint, nothing is redrawn */
+  .d-kelp .kj{position:absolute;left:0;top:0;width:0;height:0;will-change:transform}
+  .d-kelp .kj > b,.d-kelp .kj > i{position:absolute;display:block;background-size:128px 128px}
+  .d-kelp .kj > i{transform-origin:0 50%;border-radius:50%}
+  .d-kelp .ta{background-image:url(assets/decor/kelp-a.png)}.d-kelp .tb{background-image:url(assets/decor/kelp-b.png)}.d-kelp .tc{background-image:url(assets/decor/kelp-c.png)}
   .d-seaweed{left:-318px;top:7250px;width:1717px;z-index:1;transform-origin:50% 100%;animation:sway 9s ease-in-out infinite}
   .d-chest{left:278px;top:8374px;width:870px;z-index:3}
   .d-seaweedf{left:172px;top:7401px;width:1749px;z-index:4;transform-origin:50% 100%;animation:sway 11s ease-in-out infinite reverse}
@@ -258,12 +263,7 @@ footer{position:relative;z-index:4;text-align:center;color:var(--maroon);font:40
   .d-fsl{left:41px;top:8884px;width:291px;z-index:5}
   .d-lily{left:-627px;top:-11px;width:2373px;height:3254px;z-index:6}
   /* sunbeams slanting down through the water */
-  .d-rays{left:-760px;top:2550px;width:2960px;height:3300px;z-index:1;overflow:hidden;
-    -webkit-mask-image:linear-gradient(transparent,#000 14%,#000 62%,transparent);mask-image:linear-gradient(transparent,#000 14%,#000 62%,transparent)}
-  .d-rays i{position:absolute;top:-150px;height:3600px;transform-origin:50% 0;rotate:16deg;opacity:.35;
-    background:linear-gradient(90deg,transparent,rgba(240,255,225,.3) 30%,rgba(245,255,230,.42) 50%,rgba(240,255,225,.3) 70%,transparent);
-    animation:beam var(--rd) ease-in-out var(--rdl) infinite alternate}
-  @keyframes beam{0%{opacity:.25;translate:-30px 0}50%{opacity:.8}100%{opacity:.4;translate:40px 0}}
+  .d-rays{left:-760px;top:2550px;width:2960px;height:3300px;z-index:1}
   .d-fish{left:-576px;top:6008px;width:2623px;height:1709px;z-index:7}
   .d-fish .fishy{position:absolute;will-change:transform}
   .d-fish .fishy img{display:block;width:100%;height:100%}
@@ -326,7 +326,7 @@ footer{position:relative;z-index:4;text-align:center;color:var(--maroon);font:40
 .rv{transition:opacity .8s ease,translate .9s cubic-bezier(.2,.75,.25,1);transition-delay:var(--rvd,0s)}
 .rv.out{opacity:0;translate:0 34px}
 .hero h1 .ch{display:inline-block}
-@media (prefers-reduced-motion:reduce){.pad,.bub,.d-rays i{animation:none}.rv.out{opacity:1;translate:none}}
+@media (prefers-reduced-motion:reduce){.pad,.bub{animation:none}.rv.out{opacity:1;translate:none}}
 
 /* ---------- opening: petals drift across, then one big petal sweeps the page open ---------- */
 #intro{position:fixed;inset:0;z-index:300;overflow:hidden;cursor:pointer;perspective:1100px;perspective-origin:50% 40%}
@@ -479,71 +479,68 @@ body.locked{overflow:hidden}
 <body>
 <canvas id="motes" aria-hidden="true"></canvas>
 <div class="page">
-<img class="sand-full" src="assets/decor/sand.webp" srcset="assets/decor/sand@2x.webp 2x" alt="" aria-hidden="true">
+<img decoding="async" class="sand-full" src="assets/decor/sand.webp" srcset="assets/decor/sand@2x.webp 2x" alt="" aria-hidden="true">
 <main class="board" id="top">
-  <div class="deco d-rays" aria-hidden="true"><i style="left:60px;width:150px;--rd:12s;--rdl:-1s"></i><i style="left:370px;width:210px;--rd:11s;--rdl:-1s"></i><i style="left:698px;width:120px;--rd:13s;--rdl:-8s"></i><i style="left:965px;width:120px;--rd:11s;--rdl:-8s"></i><i style="left:1263px;width:180px;--rd:12s;--rdl:-12s"></i><i style="left:1575px;width:120px;--rd:12s;--rdl:-3s"></i><i style="left:1808px;width:180px;--rd:16s;--rdl:-4s"></i><i style="left:2122px;width:150px;--rd:12s;--rdl:-4s"></i><i style="left:2462px;width:180px;--rd:10s;--rdl:-9s"></i><i style="left:2795px;width:210px;--rd:14s;--rdl:-3s"></i><i style="left:3137px;width:150px;--rd:13s;--rdl:-4s"></i><i style="left:3408px;width:240px;--rd:16s;--rdl:-4s"></i></div>
+  <canvas class="deco d-rays" aria-hidden="true" width="370" height="413" data-beams='[[60, 150, 12, -1], [370, 210, 11, -1], [698, 120, 13, -8], [965, 120, 11, -8], [1263, 180, 12, -12], [1575, 120, 12, -3], [1808, 180, 16, -4], [2122, 150, 12, -4], [2462, 180, 10, -9], [2795, 210, 14, -3], [3137, 150, 13, -4], [3408, 240, 16, -4]]'></canvas>
 
   <!-- ===== decorations (desktop artboard) ===== -->
-  <img class="deco d-seaweed" src="assets/decor/seaweed.webp" srcset="assets/decor/seaweed@2x.webp 2x" alt="" width="1717" height="1755" loading="lazy">
-  <svg class="deco d-kelp" aria-hidden="true" viewBox="0 0 1440 2200" width="1440" height="2200"><defs>
-    <pattern id="kelp-a" patternUnits="userSpaceOnUse" width="192" height="192"><image href="assets/decor/kelp-a.png" width="192" height="192"/></pattern>
-    <pattern id="kelp-b" patternUnits="userSpaceOnUse" width="192" height="192"><image href="assets/decor/kelp-b.png" width="192" height="192"/></pattern>
-    <pattern id="kelp-c" patternUnits="userSpaceOnUse" width="192" height="192"><image href="assets/decor/kelp-c.png" width="192" height="192"/></pattern></defs></svg>
-  <img class="deco d-chest" src="assets/decor/chest.webp" srcset="assets/decor/chest@2x.webp 2x" alt="" width="870" height="590" loading="lazy">
-  <img class="deco d-seaweedf" src="assets/decor/seaweed-front.webp" srcset="assets/decor/seaweed-front@2x.webp 2x" alt="" width="1749" height="1893" loading="lazy">
-  <div class="deco lotus d-fsr" aria-hidden="true" style="height:521px"><img class="petal" src="assets/decor/lotus/flower-sand-r/p1.webp" srcset="assets/decor/lotus/flower-sand-r/p1@2x.webp 2x" data-c="269.8,214.0,124.8" alt="" loading="lazy" style="left:203px;top:87px;width:147px;transform-origin:108.0px 251.9px"><img class="petal" src="assets/decor/lotus/flower-sand-r/p2.webp" srcset="assets/decor/lotus/flower-sand-r/p2@2x.webp 2x" data-c="203.8,331.3,118.0" alt="" loading="lazy" style="left:83px;top:248px;width:241px;transform-origin:238.8px 97.6px"><img class="petal" src="assets/decor/lotus/flower-sand-r/p3.webp" srcset="assets/decor/lotus/flower-sand-r/p3@2x.webp 2x" data-c="411.0,266.1,100.3" alt="" loading="lazy" style="left:308px;top:186px;width:202px;transform-origin:2.7px 153.2px"><img class="petal" src="assets/decor/lotus/flower-sand-r/p4.webp" srcset="assets/decor/lotus/flower-sand-r/p4@2x.webp 2x" data-c="333.3,228.6,123.7" alt="" loading="lazy" style="left:269px;top:102px;width:142px;transform-origin:45.9px 250.3px"><img class="petal" src="assets/decor/lotus/flower-sand-r/p5.webp" srcset="assets/decor/lotus/flower-sand-r/p5@2x.webp 2x" data-c="223.8,254.3,101.4" alt="" loading="lazy" style="left:120px;top:169px;width:206px;transform-origin:203.2px 169.3px"><img class="petal" src="assets/decor/lotus/flower-sand-r/p6.webp" srcset="assets/decor/lotus/flower-sand-r/p6@2x.webp 2x" data-c="207.5,358.3,115.3" alt="" loading="lazy" style="left:90px;top:288px;width:235px;transform-origin:232.9px 48.1px"></div>
-  <div class="deco lotus d-fsl" aria-hidden="true" style="height:266px"><img class="petal" src="assets/decor/lotus/flower-sand-l/p1.webp" srcset="assets/decor/lotus/flower-sand-l/p1@2x.webp 2x" data-c="161.6,110.6,61.8" alt="" loading="lazy" style="left:118px;top:46px;width:84px;transform-origin:4.8px 125.6px"><img class="petal" src="assets/decor/lotus/flower-sand-l/p2.webp" srcset="assets/decor/lotus/flower-sand-l/p2@2x.webp 2x" data-c="95.5,126.7,56.8" alt="" loading="lazy" style="left:54px;top:68px;width:80px;transform-origin:70.0px 110.3px"><img class="petal" src="assets/decor/lotus/flower-sand-l/p3.webp" srcset="assets/decor/lotus/flower-sand-l/p3@2x.webp 2x" data-c="181.2,187.0,58.7" alt="" loading="lazy" style="left:120px;top:142px;width:122px;transform-origin:2.6px 29.6px"><img class="petal" src="assets/decor/lotus/flower-sand-l/p4.webp" srcset="assets/decor/lotus/flower-sand-l/p4@2x.webp 2x" data-c="175.4,144.4,56.3" alt="" loading="lazy" style="left:117px;top:96px;width:117px;transform-origin:2.1px 82.3px"><img class="petal" src="assets/decor/lotus/flower-sand-l/p5.webp" srcset="assets/decor/lotus/flower-sand-l/p5@2x.webp 2x" data-c="120.8,108.0,68.0" alt="" loading="lazy" style="left:85px;top:38px;width:76px;transform-origin:42.2px 138.0px"><img class="petal" src="assets/decor/lotus/flower-sand-l/p6.webp" srcset="assets/decor/lotus/flower-sand-l/p6@2x.webp 2x" data-c="76.9,147.2,51.1" alt="" loading="lazy" style="left:25px;top:101px;width:105px;transform-origin:102.9px 74.0px"></div>
+  <img decoding="async" class="deco d-seaweed" src="assets/decor/seaweed.webp" srcset="assets/decor/seaweed@2x.webp 2x" alt="" width="1717" height="1755" loading="lazy">
+  <div class="deco d-kelp" aria-hidden="true"></div>
+  <img decoding="async" class="deco d-chest" src="assets/decor/chest.webp" srcset="assets/decor/chest@2x.webp 2x" alt="" width="870" height="590" loading="lazy">
+  <img decoding="async" class="deco d-seaweedf" src="assets/decor/seaweed-front.webp" srcset="assets/decor/seaweed-front@2x.webp 2x" alt="" width="1749" height="1893" loading="lazy">
+  <div class="deco lotus d-fsr" aria-hidden="true" style="height:521px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-sand-r/p1.webp" srcset="assets/decor/lotus/flower-sand-r/p1@2x.webp 2x" data-c="269.8,214.0,124.8" alt="" loading="lazy" style="left:203px;top:87px;width:147px;transform-origin:108.0px 251.9px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-sand-r/p2.webp" srcset="assets/decor/lotus/flower-sand-r/p2@2x.webp 2x" data-c="203.8,331.3,118.0" alt="" loading="lazy" style="left:83px;top:248px;width:241px;transform-origin:238.8px 97.6px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-sand-r/p3.webp" srcset="assets/decor/lotus/flower-sand-r/p3@2x.webp 2x" data-c="411.0,266.1,100.3" alt="" loading="lazy" style="left:308px;top:186px;width:202px;transform-origin:2.7px 153.2px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-sand-r/p4.webp" srcset="assets/decor/lotus/flower-sand-r/p4@2x.webp 2x" data-c="333.3,228.6,123.7" alt="" loading="lazy" style="left:269px;top:102px;width:142px;transform-origin:45.9px 250.3px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-sand-r/p5.webp" srcset="assets/decor/lotus/flower-sand-r/p5@2x.webp 2x" data-c="223.8,254.3,101.4" alt="" loading="lazy" style="left:120px;top:169px;width:206px;transform-origin:203.2px 169.3px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-sand-r/p6.webp" srcset="assets/decor/lotus/flower-sand-r/p6@2x.webp 2x" data-c="207.5,358.3,115.3" alt="" loading="lazy" style="left:90px;top:288px;width:235px;transform-origin:232.9px 48.1px"></div>
+  <div class="deco lotus d-fsl" aria-hidden="true" style="height:266px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-sand-l/p1.webp" srcset="assets/decor/lotus/flower-sand-l/p1@2x.webp 2x" data-c="161.6,110.6,61.8" alt="" loading="lazy" style="left:118px;top:46px;width:84px;transform-origin:4.8px 125.6px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-sand-l/p2.webp" srcset="assets/decor/lotus/flower-sand-l/p2@2x.webp 2x" data-c="95.5,126.7,56.8" alt="" loading="lazy" style="left:54px;top:68px;width:80px;transform-origin:70.0px 110.3px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-sand-l/p3.webp" srcset="assets/decor/lotus/flower-sand-l/p3@2x.webp 2x" data-c="181.2,187.0,58.7" alt="" loading="lazy" style="left:120px;top:142px;width:122px;transform-origin:2.6px 29.6px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-sand-l/p4.webp" srcset="assets/decor/lotus/flower-sand-l/p4@2x.webp 2x" data-c="175.4,144.4,56.3" alt="" loading="lazy" style="left:117px;top:96px;width:117px;transform-origin:2.1px 82.3px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-sand-l/p5.webp" srcset="assets/decor/lotus/flower-sand-l/p5@2x.webp 2x" data-c="120.8,108.0,68.0" alt="" loading="lazy" style="left:85px;top:38px;width:76px;transform-origin:42.2px 138.0px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-sand-l/p6.webp" srcset="assets/decor/lotus/flower-sand-l/p6@2x.webp 2x" data-c="76.9,147.2,51.1" alt="" loading="lazy" style="left:25px;top:101px;width:105px;transform-origin:102.9px 74.0px"></div>
   <div class="deco d-lily" aria-hidden="true">
-    <img class="pad" src="assets/decor/lily/pad-1.webp" srcset="assets/decor/lily/pad-1@2x.webp 2x" alt="" style="left:1208px;top:563px;width:1025px;--d:8.3s;--rd:5.5s;--dl:-5.2s;--dx:-6.3px;--dy:-3.3px;--r:0.86deg">
-    <img class="pad" src="assets/decor/lily/pad-2.webp" srcset="assets/decor/lily/pad-2@2x.webp 2x" alt="" style="left:345px;top:1045px;width:1338px;--d:7.9s;--rd:5.3s;--dl:-3.3s;--dx:-3.4px;--dy:-4.3px;--r:0.88deg">
-    <img class="pad" src="assets/decor/lily/pad-3.webp" srcset="assets/decor/lily/pad-3@2x.webp 2x" alt="" style="left:304px;top:2706px;width:2073px;--d:9.5s;--rd:7.0s;--dl:-0.5s;--dx:3.2px;--dy:-3.7px;--r:0.62deg">
-    <img class="pad" src="assets/decor/lily/pad-4.webp" srcset="assets/decor/lily/pad-4@2x.webp 2x" alt="" style="left:824px;top:355px;width:518px;--d:7.6s;--rd:5.4s;--dl:-2.5s;--dx:-4.5px;--dy:-4.7px;--r:1.3deg">
-    <img class="pad" src="assets/decor/lily/pad-5.webp" srcset="assets/decor/lily/pad-5@2x.webp 2x" alt="" style="left:1498px;top:135px;width:422px;--d:9.2s;--rd:5.2s;--dl:-0.5s;--dx:-6.5px;--dy:4.6px;--r:1.37deg">
-    <img class="pad" src="assets/decor/lily/pad-6.webp" srcset="assets/decor/lily/pad-6@2x.webp 2x" alt="" style="left:467px;top:170px;width:310px;--d:10.7s;--rd:6.3s;--dl:-2.0s;--dx:-7.5px;--dy:3.7px;--r:1.42deg">
-    <img class="pad" src="assets/decor/lily/pad-7.webp" srcset="assets/decor/lily/pad-7@2x.webp 2x" alt="" style="left:822px;top:-8px;width:202px;--d:10.5s;--rd:7.6s;--dl:-2.3s;--dx:-4.6px;--dy:4.3px;--r:1.12deg">
-    <img class="pad" src="assets/decor/lily/pad-8.webp" srcset="assets/decor/lily/pad-8@2x.webp 2x" alt="" style="left:1330px;top:1634px;width:964px;--d:9.0s;--rd:5.1s;--dl:-5.3s;--dx:4.4px;--dy:4.1px;--r:0.73deg">
-    <img class="pad" src="assets/decor/lily/pad-9.webp" srcset="assets/decor/lily/pad-9@2x.webp 2x" alt="" style="left:-6px;top:2331px;width:1089px;--d:8.8s;--rd:7.9s;--dl:-7.6s;--dx:5.8px;--dy:3.2px;--r:0.76deg">
+    <img decoding="async" class="pad" src="assets/decor/lily/pad-1.webp" srcset="assets/decor/lily/pad-1@2x.webp 2x" alt="" style="left:1208px;top:563px;width:1025px;--d:8.3s;--rd:5.5s;--dl:-5.2s;--dx:-6.3px;--dy:-3.3px;--r:0.86deg">
+    <img decoding="async" class="pad" src="assets/decor/lily/pad-2.webp" srcset="assets/decor/lily/pad-2@2x.webp 2x" alt="" style="left:345px;top:1045px;width:1338px;--d:7.9s;--rd:5.3s;--dl:-3.3s;--dx:-3.4px;--dy:-4.3px;--r:0.88deg">
+    <img decoding="async" class="pad" src="assets/decor/lily/pad-3.webp" srcset="assets/decor/lily/pad-3@2x.webp 2x" alt="" style="left:304px;top:2706px;width:2073px;--d:9.5s;--rd:7.0s;--dl:-0.5s;--dx:3.2px;--dy:-3.7px;--r:0.62deg">
+    <img decoding="async" class="pad" src="assets/decor/lily/pad-4.webp" srcset="assets/decor/lily/pad-4@2x.webp 2x" alt="" style="left:824px;top:355px;width:518px;--d:7.6s;--rd:5.4s;--dl:-2.5s;--dx:-4.5px;--dy:-4.7px;--r:1.3deg">
+    <img decoding="async" class="pad" src="assets/decor/lily/pad-5.webp" srcset="assets/decor/lily/pad-5@2x.webp 2x" alt="" style="left:1498px;top:135px;width:422px;--d:9.2s;--rd:5.2s;--dl:-0.5s;--dx:-6.5px;--dy:4.6px;--r:1.37deg">
+    <img decoding="async" class="pad" src="assets/decor/lily/pad-6.webp" srcset="assets/decor/lily/pad-6@2x.webp 2x" alt="" style="left:467px;top:170px;width:310px;--d:10.7s;--rd:6.3s;--dl:-2.0s;--dx:-7.5px;--dy:3.7px;--r:1.42deg">
+    <img decoding="async" class="pad" src="assets/decor/lily/pad-7.webp" srcset="assets/decor/lily/pad-7@2x.webp 2x" alt="" style="left:822px;top:-8px;width:202px;--d:10.5s;--rd:7.6s;--dl:-2.3s;--dx:-4.6px;--dy:4.3px;--r:1.12deg">
+    <img decoding="async" class="pad" src="assets/decor/lily/pad-8.webp" srcset="assets/decor/lily/pad-8@2x.webp 2x" alt="" style="left:1330px;top:1634px;width:964px;--d:9.0s;--rd:5.1s;--dl:-5.3s;--dx:4.4px;--dy:4.1px;--r:0.73deg">
+    <img decoding="async" class="pad" src="assets/decor/lily/pad-9.webp" srcset="assets/decor/lily/pad-9@2x.webp 2x" alt="" style="left:-6px;top:2331px;width:1089px;--d:8.8s;--rd:7.9s;--dl:-7.6s;--dx:5.8px;--dy:3.2px;--r:0.76deg">
   </div>
-  <div class="deco d-fish" aria-hidden="true"><div class="fishy" data-face="1" data-mx="1686" data-my="283.9" style="left:0px;top:0px;width:1696px;height:540px"><img src="assets/decor/fish-1.webp" alt="" width="1696" height="540" loading="lazy"><span class="mouth" style="left:1641.9px;top:268.1px;width:39.1px;height:31.5px"></span><span class="eye" style="left:1466.4px;top:213.7px;width:103.8px;height:107.0px"><i style="width:82.0px;height:82.0px" data-max="10.9"></i></span></div><div class="fishy" data-face="1" data-mx="384" data-my="112.3" style="left:1467px;top:426px;width:393px;height:213px"><img src="assets/decor/fish-2.webp" alt="" width="393" height="213" loading="lazy"><span class="mouth" style="left:372.7px;top:108.3px;width:10.0px;height:8.0px"></span><span class="eye" style="left:330.2px;top:93.6px;width:28.6px;height:25.4px"><i style="width:22.4px;height:22.4px" data-max="1.5"></i></span></div><div class="fishy" data-face="-1" data-mx="8" data-my="252.4" style="left:1305px;top:852px;width:1318px;height:477px"><img src="assets/decor/fish-3.webp" alt="" width="1318" height="477" loading="lazy"><span class="mouth" style="left:12.0px;top:239.9px;width:31.0px;height:25.0px"></span><span class="eye" style="left:98.8px;top:199.9px;width:80.4px;height:77.6px"><i style="width:66.4px;height:66.4px" data-max="5.6"></i></span></div><div class="fishy" data-face="-1" data-mx="9" data-my="177.8" style="left:821px;top:1378px;width:797px;height:331px"><img src="assets/decor/fish-4.webp" alt="" width="797" height="331" loading="lazy"><span class="mouth" style="left:11.2px;top:170.8px;width:17.4px;height:14.0px"></span><span class="eye" style="left:61.1px;top:144.4px;width:49.0px;height:49.0px"><i style="width:42.4px;height:42.4px" data-max="3.3"></i></span></div></div>
-  <div class="deco lotus d-fabout" aria-hidden="true" style="height:235px"><img class="petal" src="assets/decor/lotus/flower-about/p1.webp" srcset="assets/decor/lotus/flower-about/p1@2x.webp 2x" data-c="98.7,132.7,57.6" alt="" style="left:45px;top:74px;width:107px;transform-origin:101.4px 109.3px"><img class="petal" src="assets/decor/lotus/flower-about/p2.webp" srcset="assets/decor/lotus/flower-about/p2@2x.webp 2x" data-c="189.3,123.2,57.8" alt="" style="left:137px;top:65px;width:108px;transform-origin:5.7px 113.3px"><img class="petal" src="assets/decor/lotus/flower-about/p3.webp" srcset="assets/decor/lotus/flower-about/p3@2x.webp 2x" data-c="125.6,111.1,69.6" alt="" style="left:84px;top:39px;width:92px;transform-origin:65.9px 141.7px"><img class="petal" src="assets/decor/lotus/flower-about/p4.webp" srcset="assets/decor/lotus/flower-about/p4@2x.webp 2x" data-c="82.6,154.8,68.0" alt="" style="left:12px;top:107px;width:141px;transform-origin:138.6px 72.7px"></div>
-  <div class="deco lotus d-fhob" aria-hidden="true" style="height:576px"><img class="petal" src="assets/decor/lotus/flower-hobbies/p1.webp" srcset="assets/decor/lotus/flower-hobbies/p1@2x.webp 2x" data-c="448.1,211.0,207.6" alt="" loading="lazy" style="left:316px;top:1px;width:247px;transform-origin:77.9px 417.6px"><img class="petal" src="assets/decor/lotus/flower-hobbies/p2.webp" srcset="assets/decor/lotus/flower-hobbies/p2@2x.webp 2x" data-c="232.8,331.2,173.3" alt="" loading="lazy" style="left:61px;top:190px;width:348px;transform-origin:345.2px 246.0px"><img class="petal" src="assets/decor/lotus/flower-hobbies/p3.webp" srcset="assets/decor/lotus/flower-hobbies/p3@2x.webp 2x" data-c="601.0,378.5,207.7" alt="" loading="lazy" style="left:391px;top:263px;width:420px;transform-origin:2.3px 155.9px"><img class="petal" src="assets/decor/lotus/flower-hobbies/p4.webp" srcset="assets/decor/lotus/flower-hobbies/p4@2x.webp 2x" data-c="520.2,278.3,169.6" alt="" loading="lazy" style="left:377px;top:113px;width:296px;transform-origin:13.1px 328.1px"><img class="petal" src="assets/decor/lotus/flower-hobbies/p5.webp" srcset="assets/decor/lotus/flower-hobbies/p5@2x.webp 2x" data-c="301.4,242.5,183.7" alt="" loading="lazy" style="left:175px;top:58px;width:263px;transform-origin:238.9px 368.2px"><img class="petal" src="assets/decor/lotus/flower-hobbies/p6.webp" srcset="assets/decor/lotus/flower-hobbies/p6@2x.webp 2x" data-c="208.0,400.9,207.1" alt="" loading="lazy" style="left:0px;top:269px;width:418px;transform-origin:415.1px 153.7px"></div>
-  <div class="deco lotus d-fhero" aria-hidden="true" style="height:654px"><img class="petal" src="assets/decor/lotus/hero/p1.webp" data-c="675.2,448.9,269.8" alt="" style="left:405.5px;top:244.6px;width:539.5px;transform-origin:46.5px 233.5px"><img class="petal" src="assets/decor/lotus/hero/p2.webp" data-c="482.2,257.6,220.8" alt="" style="left:349.5px;top:36.9px;width:265.5px;transform-origin:97.5px 433.5px"><img class="petal" src="assets/decor/lotus/hero/p3.webp" data-c="257.7,382.3,188.5" alt="" style="left:69.2px;top:237.3px;width:377.0px;transform-origin:375.0px 243.5px"><img class="petal" src="assets/decor/lotus/hero/p4.webp" data-c="576.2,329.5,174.0" alt="" style="left:416.5px;top:155.5px;width:319.5px;transform-origin:35.5px 322.5px"><img class="petal" src="assets/decor/lotus/hero/p5.webp" data-c="326.8,291.0,291.0" alt="" style="left:59.5px;top:0.0px;width:534.5px;transform-origin:388.5px 476.5px"><img class="petal" src="assets/decor/lotus/hero/p6.webp" data-c="228.3,451.0,227.5" alt="" style="left:0.8px;top:321.5px;width:455.0px;transform-origin:451.0px 156.5px"></div>
-  <div class="deco d-buds" aria-hidden="true" style="height:2933px"><img class="bud" src="assets/decor/buds/bud1.webp" alt="" style="left:3px;top:4px;width:119px;--bb:4.9s"><img class="bud" src="assets/decor/buds/bud2.webp" alt="" style="left:1122px;top:1465px;width:311px;--bb:5.8s"><img class="bud" src="assets/decor/buds/bud3.webp" alt="" style="left:796px;top:2706px;width:319px;--bb:6.7s"></div>
-  <div class="deco lotus d-fhob2" aria-hidden="true" style="height:420px"><img class="petal" src="assets/decor/lotus/flower-hobbies-2/p1.webp" srcset="assets/decor/lotus/flower-hobbies-2/p1@2x.webp 2x" data-c="345.2,154.1,151.6" alt="" loading="lazy" style="left:243px;top:0px;width:191px;transform-origin:60.5px 305.7px"><img class="petal" src="assets/decor/lotus/flower-hobbies-2/p2.webp" srcset="assets/decor/lotus/flower-hobbies-2/p2@2x.webp 2x" data-c="179.4,241.9,133.6" alt="" loading="lazy" style="left:46px;top:138px;width:269px;transform-origin:267.0px 180.4px"><img class="petal" src="assets/decor/lotus/flower-hobbies-2/p3.webp" srcset="assets/decor/lotus/flower-hobbies-2/p3@2x.webp 2x" data-c="463.1,276.4,160.1" alt="" loading="lazy" style="left:301px;top:191px;width:325px;transform-origin:12.0px 130.3px"><img class="petal" src="assets/decor/lotus/flower-hobbies-2/p4.webp" srcset="assets/decor/lotus/flower-hobbies-2/p4@2x.webp 2x" data-c="400.8,203.2,123.9" alt="" loading="lazy" style="left:290px;top:82px;width:229px;transform-origin:10.6px 240.1px"><img class="petal" src="assets/decor/lotus/flower-hobbies-2/p5.webp" srcset="assets/decor/lotus/flower-hobbies-2/p5@2x.webp 2x" data-c="232.2,177.1,134.1" alt="" loading="lazy" style="left:135px;top:42px;width:203px;transform-origin:183.9px 269.2px"><img class="petal" src="assets/decor/lotus/flower-hobbies-2/p6.webp" srcset="assets/decor/lotus/flower-hobbies-2/p6@2x.webp 2x" data-c="160.2,292.7,159.6" alt="" loading="lazy" style="left:0px;top:196px;width:322px;transform-origin:319.8px 112.7px"></div>
+  <div class="deco d-fish" aria-hidden="true"><div class="fishy" data-face="1" data-mx="1686" data-my="283.9" style="left:0px;top:0px;width:1696px;height:540px"><img decoding="async" src="assets/decor/fish-1.webp" alt="" width="1696" height="540" loading="lazy"><span class="mouth" style="left:1641.9px;top:268.1px;width:39.1px;height:31.5px"></span><span class="eye" style="left:1466.4px;top:213.7px;width:103.8px;height:107.0px"><i style="width:82.0px;height:82.0px" data-max="10.9"></i></span></div><div class="fishy" data-face="1" data-mx="384" data-my="112.3" style="left:1467px;top:426px;width:393px;height:213px"><img decoding="async" src="assets/decor/fish-2.webp" alt="" width="393" height="213" loading="lazy"><span class="mouth" style="left:372.7px;top:108.3px;width:10.0px;height:8.0px"></span><span class="eye" style="left:330.2px;top:93.6px;width:28.6px;height:25.4px"><i style="width:22.4px;height:22.4px" data-max="1.5"></i></span></div><div class="fishy" data-face="-1" data-mx="8" data-my="252.4" style="left:1305px;top:852px;width:1318px;height:477px"><img decoding="async" src="assets/decor/fish-3.webp" alt="" width="1318" height="477" loading="lazy"><span class="mouth" style="left:12.0px;top:239.9px;width:31.0px;height:25.0px"></span><span class="eye" style="left:98.8px;top:199.9px;width:80.4px;height:77.6px"><i style="width:66.4px;height:66.4px" data-max="5.6"></i></span></div><div class="fishy" data-face="-1" data-mx="9" data-my="177.8" style="left:821px;top:1378px;width:797px;height:331px"><img decoding="async" src="assets/decor/fish-4.webp" alt="" width="797" height="331" loading="lazy"><span class="mouth" style="left:11.2px;top:170.8px;width:17.4px;height:14.0px"></span><span class="eye" style="left:61.1px;top:144.4px;width:49.0px;height:49.0px"><i style="width:42.4px;height:42.4px" data-max="3.3"></i></span></div></div>
+  <div class="deco lotus d-fabout" aria-hidden="true" style="height:235px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-about/p1.webp" srcset="assets/decor/lotus/flower-about/p1@2x.webp 2x" data-c="98.7,132.7,57.6" alt="" style="left:45px;top:74px;width:107px;transform-origin:101.4px 109.3px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-about/p2.webp" srcset="assets/decor/lotus/flower-about/p2@2x.webp 2x" data-c="189.3,123.2,57.8" alt="" style="left:137px;top:65px;width:108px;transform-origin:5.7px 113.3px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-about/p3.webp" srcset="assets/decor/lotus/flower-about/p3@2x.webp 2x" data-c="125.6,111.1,69.6" alt="" style="left:84px;top:39px;width:92px;transform-origin:65.9px 141.7px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-about/p4.webp" srcset="assets/decor/lotus/flower-about/p4@2x.webp 2x" data-c="82.6,154.8,68.0" alt="" style="left:12px;top:107px;width:141px;transform-origin:138.6px 72.7px"></div>
+  <div class="deco lotus d-fhob" aria-hidden="true" style="height:576px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-hobbies/p1.webp" srcset="assets/decor/lotus/flower-hobbies/p1@2x.webp 2x" data-c="448.1,211.0,207.6" alt="" loading="lazy" style="left:316px;top:1px;width:247px;transform-origin:77.9px 417.6px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-hobbies/p2.webp" srcset="assets/decor/lotus/flower-hobbies/p2@2x.webp 2x" data-c="232.8,331.2,173.3" alt="" loading="lazy" style="left:61px;top:190px;width:348px;transform-origin:345.2px 246.0px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-hobbies/p3.webp" srcset="assets/decor/lotus/flower-hobbies/p3@2x.webp 2x" data-c="601.0,378.5,207.7" alt="" loading="lazy" style="left:391px;top:263px;width:420px;transform-origin:2.3px 155.9px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-hobbies/p4.webp" srcset="assets/decor/lotus/flower-hobbies/p4@2x.webp 2x" data-c="520.2,278.3,169.6" alt="" loading="lazy" style="left:377px;top:113px;width:296px;transform-origin:13.1px 328.1px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-hobbies/p5.webp" srcset="assets/decor/lotus/flower-hobbies/p5@2x.webp 2x" data-c="301.4,242.5,183.7" alt="" loading="lazy" style="left:175px;top:58px;width:263px;transform-origin:238.9px 368.2px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-hobbies/p6.webp" srcset="assets/decor/lotus/flower-hobbies/p6@2x.webp 2x" data-c="208.0,400.9,207.1" alt="" loading="lazy" style="left:0px;top:269px;width:418px;transform-origin:415.1px 153.7px"></div>
+  <div class="deco lotus d-fhero" aria-hidden="true" style="height:654px"><img decoding="async" class="petal" src="assets/decor/lotus/hero/p1.webp" data-c="675.2,448.9,269.8" alt="" style="left:405.5px;top:244.6px;width:539.5px;transform-origin:46.5px 233.5px"><img decoding="async" class="petal" src="assets/decor/lotus/hero/p2.webp" data-c="482.2,257.6,220.8" alt="" style="left:349.5px;top:36.9px;width:265.5px;transform-origin:97.5px 433.5px"><img decoding="async" class="petal" src="assets/decor/lotus/hero/p3.webp" data-c="257.7,382.3,188.5" alt="" style="left:69.2px;top:237.3px;width:377.0px;transform-origin:375.0px 243.5px"><img decoding="async" class="petal" src="assets/decor/lotus/hero/p4.webp" data-c="576.2,329.5,174.0" alt="" style="left:416.5px;top:155.5px;width:319.5px;transform-origin:35.5px 322.5px"><img decoding="async" class="petal" src="assets/decor/lotus/hero/p5.webp" data-c="326.8,291.0,291.0" alt="" style="left:59.5px;top:0.0px;width:534.5px;transform-origin:388.5px 476.5px"><img decoding="async" class="petal" src="assets/decor/lotus/hero/p6.webp" data-c="228.3,451.0,227.5" alt="" style="left:0.8px;top:321.5px;width:455.0px;transform-origin:451.0px 156.5px"></div>
+  <div class="deco d-buds" aria-hidden="true" style="height:2933px"><img decoding="async" class="bud" src="assets/decor/buds/bud1.webp" alt="" style="left:3px;top:4px;width:119px;--bb:4.9s"><img decoding="async" class="bud" src="assets/decor/buds/bud2.webp" alt="" style="left:1122px;top:1465px;width:311px;--bb:5.8s"><img decoding="async" class="bud" src="assets/decor/buds/bud3.webp" alt="" style="left:796px;top:2706px;width:319px;--bb:6.7s"></div>
+  <div class="deco lotus d-fhob2" aria-hidden="true" style="height:420px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-hobbies-2/p1.webp" srcset="assets/decor/lotus/flower-hobbies-2/p1@2x.webp 2x" data-c="345.2,154.1,151.6" alt="" loading="lazy" style="left:243px;top:0px;width:191px;transform-origin:60.5px 305.7px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-hobbies-2/p2.webp" srcset="assets/decor/lotus/flower-hobbies-2/p2@2x.webp 2x" data-c="179.4,241.9,133.6" alt="" loading="lazy" style="left:46px;top:138px;width:269px;transform-origin:267.0px 180.4px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-hobbies-2/p3.webp" srcset="assets/decor/lotus/flower-hobbies-2/p3@2x.webp 2x" data-c="463.1,276.4,160.1" alt="" loading="lazy" style="left:301px;top:191px;width:325px;transform-origin:12.0px 130.3px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-hobbies-2/p4.webp" srcset="assets/decor/lotus/flower-hobbies-2/p4@2x.webp 2x" data-c="400.8,203.2,123.9" alt="" loading="lazy" style="left:290px;top:82px;width:229px;transform-origin:10.6px 240.1px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-hobbies-2/p5.webp" srcset="assets/decor/lotus/flower-hobbies-2/p5@2x.webp 2x" data-c="232.2,177.1,134.1" alt="" loading="lazy" style="left:135px;top:42px;width:203px;transform-origin:183.9px 269.2px"><img decoding="async" class="petal" src="assets/decor/lotus/flower-hobbies-2/p6.webp" srcset="assets/decor/lotus/flower-hobbies-2/p6@2x.webp 2x" data-c="160.2,292.7,159.6" alt="" loading="lazy" style="left:0px;top:196px;width:322px;transform-origin:319.8px 112.7px"></div>
   <div class="deco d-bubbles" aria-hidden="true">
-    <img class="bub" src="assets/decor/bubbles/b1.webp" alt="" style="left:569px;top:15px;width:117px;--bd:4.2s;--bdl:-3.3s">
-    <img class="bub" src="assets/decor/bubbles/b2.webp" alt="" style="left:522px;top:126px;width:58px;--bd:2.9s;--bdl:-1.5s">
-    <img class="bub" src="assets/decor/bubbles/b3.webp" alt="" style="left:596px;top:182px;width:28px;--bd:3.6s;--bdl:-0.1s">
-    <img class="bub" src="assets/decor/bubbles/b4.webp" alt="" style="left:1279px;top:539px;width:177px;--bd:3.2s;--bdl:-0.7s">
-    <img class="bub" src="assets/decor/bubbles/b5.webp" alt="" style="left:183px;top:1170px;width:62px;--bd:2.6s;--bdl:-0.2s">
-    <img class="bub" src="assets/decor/bubbles/b6.webp" alt="" style="left:36px;top:1244px;width:244px;--bd:3.8s;--bdl:-0.5s">
-    <img class="bub" src="assets/decor/bubbles/b7.webp" alt="" style="left:1319px;top:1849px;width:102px;--bd:2.8s;--bdl:-1.6s">
-    <img class="bub" src="assets/decor/bubbles/b8.webp" alt="" style="left:1271px;top:1926px;width:41px;--bd:4.0s;--bdl:-0.3s">
-    <img class="bub" src="assets/decor/bubbles/b9.webp" alt="" style="left:253px;top:2655px;width:138px;--bd:3.2s;--bdl:-2.2s">
-    <img class="bub" src="assets/decor/bubbles/b10.webp" alt="" style="left:0px;top:2661px;width:242px;--bd:4.0s;--bdl:-3.3s">
-    <img class="bub" src="assets/decor/bubbles/b11.webp" alt="" style="left:1157px;top:5274px;width:244px;--bd:4.0s;--bdl:-1.1s">
-    <img class="bub" src="assets/decor/bubbles/b12.webp" alt="" style="left:1297px;top:5525px;width:34px;--bd:3.1s;--bdl:-1.4s">
-    <img class="bub" src="assets/decor/bubbles/b13.webp" alt="" style="left:1190px;top:5554px;width:62px;--bd:4.0s;--bdl:-3.8s">
-    <img class="bub" src="assets/decor/bubbles/b14.webp" alt="" style="left:1247px;top:5657px;width:34px;--bd:2.7s;--bdl:-0.7s">
-    <img class="bub" src="assets/decor/bubbles/b15.webp" alt="" style="left:489px;top:5949px;width:239px;--bd:2.8s;--bdl:-0.9s">
-    <img class="bub" src="assets/decor/bubbles/b16.webp" alt="" style="left:785px;top:6127px;width:202px;--bd:3.3s;--bdl:-2.4s">
-    <img class="bub" src="assets/decor/bubbles/b17.webp" alt="" style="left:802px;top:6336px;width:34px;--bd:2.9s;--bdl:-0.0s">
-    <img class="bub" src="assets/decor/bubbles/b18.webp" alt="" style="left:695px;top:6365px;width:62px;--bd:3.2s;--bdl:-1.5s">
-    <img class="bub" src="assets/decor/bubbles/b19.webp" alt="" style="left:752px;top:6468px;width:34px;--bd:3.4s;--bdl:-3.8s">
+    <img decoding="async" class="bub" src="assets/decor/bubbles/b1.webp" alt="" style="left:569px;top:15px;width:117px;--bd:4.2s;--bdl:-3.3s">
+    <img decoding="async" class="bub" src="assets/decor/bubbles/b2.webp" alt="" style="left:522px;top:126px;width:58px;--bd:2.9s;--bdl:-1.5s">
+    <img decoding="async" class="bub" src="assets/decor/bubbles/b3.webp" alt="" style="left:596px;top:182px;width:28px;--bd:3.6s;--bdl:-0.1s">
+    <img decoding="async" class="bub" src="assets/decor/bubbles/b4.webp" alt="" style="left:1279px;top:539px;width:177px;--bd:3.2s;--bdl:-0.7s">
+    <img decoding="async" class="bub" src="assets/decor/bubbles/b5.webp" alt="" style="left:183px;top:1170px;width:62px;--bd:2.6s;--bdl:-0.2s">
+    <img decoding="async" class="bub" src="assets/decor/bubbles/b6.webp" alt="" style="left:36px;top:1244px;width:244px;--bd:3.8s;--bdl:-0.5s">
+    <img decoding="async" class="bub" src="assets/decor/bubbles/b7.webp" alt="" style="left:1319px;top:1849px;width:102px;--bd:2.8s;--bdl:-1.6s">
+    <img decoding="async" class="bub" src="assets/decor/bubbles/b8.webp" alt="" style="left:1271px;top:1926px;width:41px;--bd:4.0s;--bdl:-0.3s">
+    <img decoding="async" class="bub" src="assets/decor/bubbles/b9.webp" alt="" style="left:253px;top:2655px;width:138px;--bd:3.2s;--bdl:-2.2s">
+    <img decoding="async" class="bub" src="assets/decor/bubbles/b10.webp" alt="" style="left:0px;top:2661px;width:242px;--bd:4.0s;--bdl:-3.3s">
+    <img decoding="async" class="bub" src="assets/decor/bubbles/b11.webp" alt="" style="left:1157px;top:5274px;width:244px;--bd:4.0s;--bdl:-1.1s">
+    <img decoding="async" class="bub" src="assets/decor/bubbles/b12.webp" alt="" style="left:1297px;top:5525px;width:34px;--bd:3.1s;--bdl:-1.4s">
+    <img decoding="async" class="bub" src="assets/decor/bubbles/b13.webp" alt="" style="left:1190px;top:5554px;width:62px;--bd:4.0s;--bdl:-3.8s">
+    <img decoding="async" class="bub" src="assets/decor/bubbles/b14.webp" alt="" style="left:1247px;top:5657px;width:34px;--bd:2.7s;--bdl:-0.7s">
+    <img decoding="async" class="bub" src="assets/decor/bubbles/b15.webp" alt="" style="left:489px;top:5949px;width:239px;--bd:2.8s;--bdl:-0.9s">
+    <img decoding="async" class="bub" src="assets/decor/bubbles/b16.webp" alt="" style="left:785px;top:6127px;width:202px;--bd:3.3s;--bdl:-2.4s">
+    <img decoding="async" class="bub" src="assets/decor/bubbles/b17.webp" alt="" style="left:802px;top:6336px;width:34px;--bd:2.9s;--bdl:-0.0s">
+    <img decoding="async" class="bub" src="assets/decor/bubbles/b18.webp" alt="" style="left:695px;top:6365px;width:62px;--bd:3.2s;--bdl:-1.5s">
+    <img decoding="async" class="bub" src="assets/decor/bubbles/b19.webp" alt="" style="left:752px;top:6468px;width:34px;--bd:3.4s;--bdl:-3.8s">
   </div>
 
   <!-- ===== hero ===== -->
   <section class="hero" aria-labelledby="name">
-    <img class="m-lily" src="assets/decor/lilypads.webp" srcset="assets/decor/lilypads@2x.webp 2x" alt="">
+    <img decoding="async" class="m-lily" src="assets/decor/lilypads.webp" srcset="assets/decor/lilypads@2x.webp 2x" alt="">
     <p class="kicker" id="name">Pehara - Vidanagamachchi</p>
     <h1 class="wonk">PORTFOLIO</h1>
-    <img class="m-flower" src="assets/decor/flower-hero.webp" alt="">
+    <img decoding="async" class="m-flower" src="assets/decor/flower-hero.webp" alt="">
   </section>
 
   <section class="programmer" aria-labelledby="role">
     <h2 id="role">PROGRAMMER</h2>
     <p>Software Engineer, Game Developer,<br>Creating meaningful products and experiences.</p>
-    <a class="pill" href="#contact">Contact me?</a>
+    <a class="pill" href="https://www.linkedin.com/in/pehara" target="_blank" rel="noopener">Let's connect</a>
   </section>
 
   <!-- ===== about ===== -->
@@ -551,7 +548,7 @@ body.locked{overflow:hidden}
     <h2 class="wonk sec-title" id="about-t">ABOUT ME</h2>
     <div class="portrait">
       <img src="assets/decor/portrait.webp" alt="Pehara in a UCSC graduation stole, sitting between library shelves" width="478" height="637">
-      <a class="pill pink" href="#contact">Contact me?</a>
+      <a class="pill pink" href="https://www.linkedin.com/in/pehara" target="_blank" rel="noopener">Let's connect</a>
     </div>
     <div class="copy">
       <h3>Close to the screen, Rarely close to done.</h3>
@@ -595,7 +592,7 @@ body.locked{overflow:hidden}
   </section>
 
   <!-- ===== skills ===== -->
-  <img class="m-fish" src="assets/decor/fish.webp" alt="" loading="lazy">
+  <img decoding="async" class="m-fish" src="assets/decor/fish.webp" alt="" loading="lazy">
   <section class="skills" id="skills" aria-labelledby="sk-t">
     <h2 class="wonk sec-title" id="sk-t">SKILLS</h2>
     <div class="skill-cols">
@@ -690,7 +687,7 @@ body.locked{overflow:hidden}
          Plays once per visit; click or press any key to skip. ---- */
   if('scrollRestoration' in history)history.scrollRestoration='manual';
   scrollTo({top:0,behavior:'instant'});
-  let introDelay=0;
+  let introDelay=0,endIntro=()=>{};
   (function intro(){
     if(matchMedia('(prefers-reduced-motion: reduce)').matches||!document.body.animate)return;
     try{if(sessionStorage.getItem('pondIntro'))return;sessionStorage.setItem('pondIntro','1');}catch(e){}
@@ -718,15 +715,16 @@ body.locked{overflow:hidden}
     /* the water backdrop melts away while the petals keep falling over the page, like the reveal in an anime opening */
     const fadeAt=1500;
     const back=[water,sky].map(el=>el.animate([{opacity:1},{opacity:0}],{duration:1300,delay:fadeAt,easing:'ease-in-out',fill:'forwards'}));
-    setTimeout(()=>{box.style.pointerEvents='none';box.style.cursor='auto';document.body.classList.remove('locked');scrollTo({top:0,behavior:'instant'});},fadeAt+700);
+    setTimeout(()=>{box.style.pointerEvents='none';box.style.cursor='auto';document.body.classList.remove('locked');if(scrollY<innerHeight)scrollTo({top:0,behavior:'instant'});},fadeAt+700);
     introDelay=fadeAt+300;
-    let done=false;const finish=()=>{if(done)return;done=true;scrollTo({top:0,behavior:'instant'});
+    let done=false;const finish=()=>{if(done)return;done=true;   /* no scroll reset here: the visitor may already be heading somewhere */
       box.animate([{opacity:1},{opacity:0}],{duration:400,fill:'forwards'}).onfinish=()=>box.remove();document.body.classList.remove('locked');};
     Promise.all(anims.map(a=>a.finished)).then(finish,finish);
     const skip=()=>{anims.forEach(a=>a.cancel());back.forEach(a=>a.finish());finish();};
     box.querySelector('.skip').addEventListener('click',skip);box.addEventListener('click',e=>{if(box.style.pointerEvents!=='none')skip();});
     addEventListener('keydown',function k(){removeEventListener('keydown',k);skip();});
     setTimeout(finish,7500);
+    endIntro=skip;
   })();
 
   /* ---- projects ---- */
@@ -1011,52 +1009,49 @@ body.locked{overflow:hidden}
 
 
   /* ---- kelp: swaying strands rooted in the sand that bend away from the cursor ---- */
-  const kelpSvg=document.querySelector('.d-kelp');
-  if(kelpSvg){
-    const NS='http://www.w3.org/2000/svg',TOP=6900;
+  const kelpBox=document.querySelector('.d-kelp');
+  if(kelpBox){
+    const TOP=6900;
     const sandPts=[[68.9,395.1],[455.9,235],[699,287.7],[812.4,147.9],[994.8,117.5],[1122.4,188.4],[1294.6,208.7],[1393.9,105.4],[1582.3,0],[1712,72.9]].map(([x,y])=>[x-142.5,8552+y]);
     const sandY=x=>{if(x<=sandPts[0][0])return sandPts[0][1]+(sandPts[0][0]-x)*.4;for(let i=1;i<sandPts.length;i++){const [x0,y0]=sandPts[i-1],[x1,y1]=sandPts[i];if(x<=x1)return y0+(y1-y0)*(x-x0)/(x1-x0);}return sandPts[sandPts.length-1][1];};
     let seed=7;const rand=()=>(seed=(seed*16807)%2147483647)/2147483647;
     const spots=[-120,-40,40,140,235,330,1040,1110,1180,1260,1340,1420,1500,1580];
-    const g=document.createElementNS(NS,'g');kelpSvg.appendChild(g);
+    const mk=(tag,cls,parent,css)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(css)e.style.cssText=css;parent.appendChild(e);return e;};
     const strands=spots.map((x,i)=>{
       const side=x<700?-1:1,edge=Math.min(1,Math.abs(x-700)/700);
       const len=260+edge*420+rand()*160,n=5+Math.round(len/120),style=i%3===1?'ribbon':'leafy';
-      const tone=['a','b','c'][Math.floor(rand()*3)],root=[x+rand()*30,sandY(x)+28-TOP];
-      const el=document.createElementNS(NS,'g');g.appendChild(el);
-      const stem=document.createElementNS(NS,'path');stem.setAttribute('fill','none');stem.setAttribute('stroke',`url(#kelp-${tone})`);
-      stem.setAttribute('stroke-width',style==='ribbon'?0:(10+rand()*4).toFixed(1));stem.setAttribute('stroke-linecap','round');el.appendChild(stem);
-      const blade=document.createElementNS(NS,'path');blade.setAttribute('fill',`url(#kelp-${tone})`);if(style==='ribbon')el.appendChild(blade);
-      const leaves=[];if(style==='leafy')for(let k=1;k<n;k++)for(const s of [-1,1]){if(k===n-1&&s===1)continue;
-        const e=document.createElementNS(NS,'ellipse');const t=k/n,L=(58-t*24)*(.85+rand()*.3);
-        e.setAttribute('rx',L.toFixed(1));e.setAttribute('ry',(L*.58).toFixed(1));e.setAttribute('fill',`url(#kelp-${tone})`);el.appendChild(e);
-        leaves.push({e,k,s,L,tilt:48+rand()*18});}
-      return {root,len,n,seg:len/n,style,stem,blade,leaves,lean:side*(4+rand()*8)*(Math.PI/180),ph:rand()*6,sp:.5+rand()*.4,a:0,v:0,w:style==='ribbon'?26+rand()*12:0};
+      const tone='t'+['a','b','c'][Math.floor(rand()*3)],root=[x+rand()*30,sandY(x)+28-TOP],seg=len/n;
+      const stemW=style==='ribbon'?0:10+rand()*4,bw=style==='ribbon'?26+rand()*12:0;
+      const joints=[];let parent=mk('div','kj',kelpBox,`left:${root[0].toFixed(1)}px;top:${root[1].toFixed(1)}px`);
+      for(let k=1;k<=n;k++){
+        const j=k===1?parent:mk('div','kj',parent,`top:${(-seg).toFixed(1)}px`);joints.push(j);parent=j;
+        const t0=(k-1)/n,t1=k/n;
+        if(style==='leafy'){
+          mk('b',tone,j,`left:${(-stemW/2).toFixed(1)}px;bottom:${(-stemW/2).toFixed(1)}px;width:${stemW.toFixed(1)}px;height:${(seg+stemW).toFixed(1)}px;border-radius:${stemW}px;background-position:${(-root[0]).toFixed(0)}px 0`);
+          if(k>=1)for(const sd of [-1,1]){if(k===n&&sd===1)continue;
+            const L=(58-t1*24)*(.85+rand()*.3),tilt=48+rand()*18;
+            mk('i',tone,j,`left:0;top:${(-seg-L*.58).toFixed(1)}px;width:${(2*L).toFixed(1)}px;height:${(1.16*L).toFixed(1)}px;transform:rotate(${(-90+sd*tilt).toFixed(1)}deg) translateX(${(-.2*L).toFixed(1)}px)`);}
+        }else{
+          const w0=2*bw*(1-t0*.85),w1=2*bw*(1-t1*.85),w=(w0+w1)/2,last=k===n;
+          mk('b',tone,j,`left:${(-w/2).toFixed(1)}px;bottom:${(-w/2).toFixed(1)}px;width:${w.toFixed(1)}px;height:${(seg+w).toFixed(1)}px;border-radius:${last?'50% 50% 45% 45% / 75% 75% 25% 25%':(w/2).toFixed(1)+'px'}`);
+        }}
+      return {root,len,n,seg,joints,lean:side*(4+rand()*8)*(Math.PI/180),ph:rand()*6,sp:.5+rand()*.4,a:0,v:0};
     });
-    let kelpOn=false;new IntersectionObserver(es=>{kelpOn=es[0].isIntersecting},{rootMargin:'200px'}).observe(kelpSvg);
+    let kelpOn=false;new IntersectionObserver(es=>{kelpOn=es[0].isIntersecting},{rootMargin:'200px'}).observe(kelpBox);
     function drawKelp(ts){
       for(const s of strands){
         s.v+=(-2.2*s.a-.55*s.v)*.016*6;s.a+=s.v*.016*6;s.a=Math.max(-1.6,Math.min(1.6,s.a));
-        let [x,y]=s.root,ang=-Math.PI/2+s.lean;const pts=[[x,y]],angs=[ang];
+        let [x,y]=s.root,ang=-Math.PI/2+s.lean,prev=-Math.PI/2;const pts=[[x,y]];
         for(let k=1;k<=s.n;k++){const t=k/s.n;
           ang+=Math.sin(ts*s.sp-k*.45+s.ph)*.07*t+s.a*.2*t*t*1.6;
-          x+=Math.cos(ang)*s.seg;y+=Math.sin(ang)*s.seg;pts.push([x,y]);angs.push(ang);}
-        s.pts=pts;
-        let d=`M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
-        for(let k=1;k<pts.length-1;k++){const mx=(pts[k][0]+pts[k+1][0])/2,my=(pts[k][1]+pts[k+1][1])/2;d+=`Q${pts[k][0].toFixed(1)} ${pts[k][1].toFixed(1)} ${mx.toFixed(1)} ${my.toFixed(1)}`;}
-        if(s.style==='leafy'){s.stem.setAttribute('d',d);
-          for(const l of s.leaves){const p=pts[l.k],a=angs[l.k]*180/Math.PI+l.s*l.tilt+Math.sin(ts*1.3+l.k+s.ph)*6;
-            l.e.setAttribute('transform',`translate(${p[0].toFixed(1)} ${p[1].toFixed(1)}) rotate(${a.toFixed(1)}) translate(${(l.L*.8).toFixed(1)} 0)`);}}
-        else{const L=[],R=[];pts.forEach((p,k)=>{const t=k/(pts.length-1),w=s.w*(1-t*.85)*(1+Math.sin(ts*2+k*.9+s.ph)*.08),a=angs[k]+Math.PI/2;
-            L.push([p[0]+Math.cos(a)*w,p[1]+Math.sin(a)*w]);R.push([p[0]-Math.cos(a)*w,p[1]-Math.sin(a)*w]);});
-          const tip=pts[pts.length-1];const f=q=>`${q[0].toFixed(1)} ${q[1].toFixed(1)}`;
-          s.blade.setAttribute('d',`M${f(L[0])}`+L.slice(1).map(q=>`L${f(q)}`).join('')+`Q${f([tip[0]+Math.cos(angs[angs.length-1])*s.w,tip[1]+Math.sin(angs[angs.length-1])*s.w])} ${f(R[R.length-1])}`+R.slice(0,-1).reverse().map(q=>`L${f(q)}`).join('')+'Z');}
-      }}
+          s.joints[k-1].style.rotate=((ang-prev)*57.2958).toFixed(2)+'deg';prev=ang;
+          x+=Math.cos(ang)*s.seg;y+=Math.sin(ang)*s.seg;pts.push([x,y]);}
+        s.pts=pts;}}
     drawKelp(0);
     if(motionOK){
       /* gentle idle sway updates at ~30fps; full rate while the kelp is being pushed */
       let odd=false;(function loop(t){odd=!odd;if(kelpOn&&(odd||strands.some(s=>Math.abs(s.v)>.02||Math.abs(s.a)>.02)))drawKelp(t/1000);requestAnimationFrame(loop);})(0);
-      const toBoard=(cx,cy)=>{const r=kelpSvg.getBoundingClientRect(),k=r.width/1440;return [(cx-r.left)/k,(cy-r.top)/k];};
+      const toBoard=(cx,cy)=>{const r=kelpBox.getBoundingClientRect(),k=r.width/1440;return [(cx-r.left)/k,(cy-r.top)/k];};
       let kx=null;
       addEventListener('pointermove',e=>{if(!kelpOn||!isDesktop())return;const [bx,by]=toBoard(e.clientX,e.clientY);const dx=kx===null?0:bx-kx;kx=bx;
         for(const s of strands){if(!s.pts)continue;for(const p of s.pts){if(Math.abs(p[0]-bx)<75&&Math.abs(p[1]-by)<75){s.v+=Math.max(-.35,Math.min(.35,dx*.018));break;}}}},{passive:true});
@@ -1076,6 +1071,9 @@ body.locked{overflow:hidden}
     function kick(){if(!raf){last=performance.now();raf=requestAnimationFrame(step);}}
     const mouth=f=>{const s=f.dir*f.face;return [f.hx+f.x+(s>0?f.mx:f.w-f.mx),f.hy+f.y+f.my];};
     function step(t){raf=0;if(!on)return;const dt=Math.min(.05,(t-last)/1000);last=t;const ts=t/1000;
+      /* measure everything first, then move things, so the browser never has to recalculate layout mid-frame */
+      const fbr=fishBox.getBoundingClientRect(),fk=fbr.width/fishBox.offsetWidth;
+      for(const f of fish)for(const e of f.pupils){e.r=e.p.parentNode.getBoundingClientRect();e.oh=e.oh||e.p.parentNode.offsetHeight;}
       for(let i=flakes.length-1;i>=0;i--){const k=flakes[i];k.age+=dt;k.vy+=(26-k.vy)*dt*1.5;k.y+=k.vy*dt;k.x+=Math.sin(ts*2.2+k.ph)*14*dt;k.r+=k.vr*dt;
         if(k.age>16||k.y>1760){k.el.style.opacity=0;setTimeout(()=>k.el.remove(),400);flakes.splice(i,1);continue;}
         k.el.style.transform=`translate(${k.x.toFixed(1)}px,${k.y.toFixed(1)}px) rotate(${k.r.toFixed(0)}deg)`;}
@@ -1104,10 +1102,10 @@ body.locked{overflow:hidden}
         const tilt=Math.max(-10,Math.min(10,f.vy/30))*f.dir,g=1+Math.sin(f.gulp*Math.PI)*.05;
         f.el.style.transform=`translate(${f.x.toFixed(1)}px,${f.y.toFixed(1)}px) rotate(${tilt.toFixed(2)}deg) scale(${(f.turn*g).toFixed(3)},${g.toFixed(3)})`;
         /* eyes: watch the cursor, or the food when there is some */
-        const lookAt=tgt?(()=>{const r=fishBox.getBoundingClientRect(),k=r.width/fishBox.offsetWidth;return [r.left+tgt.x*k,r.top+tgt.y*k];})():(px===null?null:[px,py]);
+        const lookAt=tgt?[fbr.left+tgt.x*fk,fbr.top+tgt.y*fk]:(px===null?null:[px,py]);
         for(const e of f.pupils){let tx=0,ty=0;
-          if(lookAt){const r=e.p.parentNode.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dx=lookAt[0]-cx,dy=lookAt[1]-cy,d=Math.hypot(dx,dy)||1,
-            reach=Math.min(1,d/(260*(r.height/e.p.parentNode.offsetHeight||1)));tx=dx/d*e.max*reach*Math.sign(f.turn||1);ty=dy/d*e.max*reach;}
+          if(lookAt){const r=e.r,cx=r.left+r.width/2,cy=r.top+r.height/2,dx=lookAt[0]-cx,dy=lookAt[1]-cy,d=Math.hypot(dx,dy)||1,
+            reach=Math.min(1,d/(260*(r.height/e.oh||1)));tx=dx/d*e.max*reach*Math.sign(f.turn||1);ty=dy/d*e.max*reach;}
           e.x+=(tx-e.x)*.18;e.y+=(ty-e.y)*.18;e.p.style.transform=`translate(${e.x.toFixed(2)}px,${e.y.toFixed(2)}px)`;}}
       raf=requestAnimationFrame(step);}
     addEventListener('pointermove',e=>{px=e.clientX;py=e.clientY;},{passive:true});
@@ -1121,15 +1119,35 @@ body.locked{overflow:hidden}
       kick();});
   }
 
+  /* ---- sunbeams: drawn small on one canvas and stretched (they're soft gradients, so nothing is lost),
+     redrawn ~20 times a second only while on screen ---- */
+  const raysC=document.querySelector('.d-rays');
+  if(raysC){const rc=raysC.getContext('2d'),S=raysC.width/2960,B=JSON.parse(raysC.dataset.beams);let raysOn=false,rt=0;
+    function drawRays(t){rc.clearRect(0,0,raysC.width,raysC.height);
+      for(const [x,w,d,dl] of B){const ph=((t/1000-dl)/d)%2,u=ph<1?ph:2-ph,e=u*u*(3-2*u);   /* eased back-and-forth like the old CSS */
+        const op=e<.5?.25+(.8-.25)*(e/.5):.8+(.4-.8)*((e-.5)/.5),dx=-30+70*e;
+        rc.save();rc.translate((x+w/2+dx)*S,-150*S);rc.rotate(16*Math.PI/180);
+        const g=rc.createLinearGradient(-w/2*S,0,w/2*S,0);
+        g.addColorStop(0,'rgba(240,255,225,0)');g.addColorStop(.3,'rgba(240,255,225,.3)');g.addColorStop(.5,'rgba(245,255,230,.42)');g.addColorStop(.7,'rgba(240,255,225,.3)');g.addColorStop(1,'rgba(240,255,225,0)');
+        rc.globalAlpha=op;rc.fillStyle=g;rc.fillRect(-w/2*S,0,w*S,3600*S);rc.restore();}
+      /* soft fade in at the top and out at the bottom (drawn in, so no extra mask layer is needed) */
+      rc.globalCompositeOperation='destination-in';const fg=rc.createLinearGradient(0,0,0,raysC.height);
+      fg.addColorStop(0,'rgba(0,0,0,0)');fg.addColorStop(.14,'#000');fg.addColorStop(.62,'#000');fg.addColorStop(1,'rgba(0,0,0,0)');
+      rc.fillStyle=fg;rc.fillRect(0,0,raysC.width,raysC.height);rc.globalCompositeOperation='source-over';}
+    drawRays(0);
+    if(motionOK){new IntersectionObserver(es=>{raysOn=es[0].isIntersecting;if(raysOn)requestAnimationFrame(loopRays);},{rootMargin:'100px'}).observe(raysC);
+      function loopRays(t){if(!raysOn)return;if(t-rt>48){rt=t;drawRays(t);}requestAnimationFrame(loopRays);}}}
+
   /* ---- drifting specks in the deeper water: a single small canvas, only drawn while you're underwater ---- */
   const motes=document.getElementById('motes');
   if(motes&&motionOK){const ctx=motes.getContext('2d');let W=0,H=0,dpr=1,lastY=scrollY,running=false,lt=0;
     const P=Array.from({length:46},()=>({x:Math.random(),y:Math.random(),r:.8+Math.random()*2.4,s:4+Math.random()*10,ph:Math.random()*6,a:.18+Math.random()*.32,z:.3+Math.random()*.7}));
-    function size(){dpr=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;motes.width=W*dpr;motes.height=H*dpr;}
+    function size(){dpr=1;W=innerWidth;H=innerHeight;motes.width=W*dpr;motes.height=H*dpr;}
     size();addEventListener('resize',size);
     /* how far into the deep water the viewport is (0 near the surface, 1 down by the fish) */
-    const board=document.querySelector('.board');
-    function depth(){const r=board.getBoundingClientRect(),k=r.height/9098,mid=(H/2-r.top)/k;return Math.max(0,Math.min(1,(mid-2600)/1400))*(mid>8500?Math.max(0,1-(mid-8500)/500):1);}
+    const board=document.querySelector('.board');let bTop=0,bK=1;
+    const measure=()=>{const r=board.getBoundingClientRect();bTop=r.top+scrollY;bK=r.height/9098;};measure();addEventListener('resize',measure);addEventListener('load',measure);
+    function depth(){const mid=(scrollY+H/2-bTop)/bK;   /* from the scroll position only, no layout work */return Math.max(0,Math.min(1,(mid-2600)/1400))*(mid>8500?Math.max(0,1-(mid-8500)/500):1);}
     function draw(t){const dt=Math.min(.05,(t-lt)/1000||0);lt=t;
       const d=isDesktop()?depth():0;motes.style.opacity=d;
       if(d<=0.01){running=false;return;}
@@ -1143,9 +1161,23 @@ body.locked{overflow:hidden}
     function wake(){if(!running&&isDesktop()&&depth()>0.01){running=true;lt=performance.now();requestAnimationFrame(draw);}else if(!running)motes.style.opacity=0;}
     addEventListener('scroll',wake,{passive:true});wake();}
 
+  /* ---- once the page has settled, quietly fetch and decode the lower images one at a time, so jumping
+     straight to the bottom doesn't have to do it all at once ---- */
+  addEventListener('load',()=>setTimeout(()=>{
+    const idle=window.requestIdleCallback||(f=>setTimeout(f,200));
+    const queue=[...document.querySelectorAll('.board img[loading="lazy"]')].filter(im=>!im.complete||!im.naturalWidth)
+      .sort((a,b)=>a.getBoundingClientRect().top-b.getBoundingClientRect().top);
+    const next=()=>{const im=queue.shift();if(!im)return;im.loading='eager';
+      (im.decode?im.decode():Promise.resolve()).catch(()=>{}).then(()=>idle(next,{timeout:1500}));};
+    idle(next,{timeout:1500});},2500));
+
   /* ---- "Contact me?" buttons glide to the contact form at the bottom of the page ---- */
-  document.querySelectorAll('a[href="#contact"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();
-    scrollTo({top:document.documentElement.scrollHeight,behavior:reduce?'auto':'smooth'});
+  document.querySelectorAll('a[href="#contact"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();endIntro();
+    /* jump most of the way, then glide the last screen or so: looks the same, but the browser doesn't have to
+       draw every section on the way down */
+    const end=document.documentElement.scrollHeight-innerHeight;
+    if(!reduce&&end-scrollY>innerHeight*2){scrollTo({top:end-innerHeight*1.1,behavior:'instant'});requestAnimationFrame(()=>scrollTo({top:end,behavior:'smooth'}));}
+    else scrollTo({top:end,behavior:reduce?'auto':'smooth'});
     setTimeout(()=>document.getElementById('f-name').focus({preventScroll:true}),reduce?0:900);}));
 
   /* ---- contact form: sends straight to your inbox through FormSubmit (formsubmit.co).
