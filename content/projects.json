@@ -1,0 +1,187 @@
+{
+  "projects": [
+    {
+      "title": "Stay The Night?",
+      "platform": "Unity",
+      "categories": [
+        "Games"
+      ],
+      "image": "assets/projects/StayTheNight.webp",
+      "video": "",
+      "tags": [
+        "Horror",
+        "Low Poly",
+        "Unity"
+      ],
+      "description": "First-person indie horror game. The player has to survive an unexpected night after a first date, using whatever they can find without getting caught.",
+      "link_label": "Play on itch.io",
+      "link_url": "https://nilmi.itch.io/stay-the-night"
+    },
+    {
+      "title": "Room For One",
+      "platform": "Unity",
+      "categories": [
+        "Games"
+      ],
+      "image": "assets/projects/RoomForOne.webp",
+      "video": "",
+      "tags": [
+        "Multiplayer",
+        "Physics",
+        "Unity"
+      ],
+      "description": "Multiplayer platforming racer: race friends to the last available hotel room. Programmed the networking, UI, and art direction.",
+      "link_label": "View on Steam",
+      "link_url": "https://store.steampowered.com/app/3693260/Room_For_One/"
+    },
+    {
+      "title": "Golf Bash: Online",
+      "platform": "Unity",
+      "categories": [
+        "Games"
+      ],
+      "image": "assets/projects/GolfBash.jpg",
+      "video": "assets/projects/GolfBash.mp4",
+      "tags": [
+        "Multiplayer",
+        "Physics",
+        "Unity"
+      ],
+      "description": "A multiplayer golf party game built around physics-based chaos. Built with Netcode for GameObjects.",
+      "link_label": "View on Steam",
+      "link_url": "https://store.steampowered.com/app/2976320/Golf_Bash_Online/"
+    },
+    {
+      "title": "The Greatest Film of All Time",
+      "platform": "Phaser",
+      "categories": [
+        "Games",
+        "Web"
+      ],
+      "image": "assets/projects/GreatestFilm.jpg",
+      "video": "assets/projects/GreatestFilm.mp4",
+      "tags": [
+        "JavaScript",
+        "Browser"
+      ],
+      "description": "A game adaptation inspired by Grave of the Fireflies. You play as Seita, navigating a war-torn landscape while keeping his sister alive.",
+      "link_label": "Play in browser",
+      "link_url": "https://pehara.github.io/Game-Development-Experiences/The%20Greatest%20Film%20of%20All%20Time/"
+    },
+    {
+      "title": "Aura Game",
+      "platform": "Godot",
+      "categories": [
+        "Games"
+      ],
+      "image": "assets/projects/AuraGame.jpg",
+      "video": "assets/projects/AuraGame.mp4",
+      "tags": [
+        "Rhythm",
+        "Hand Drawn",
+        "Godot"
+      ],
+      "description": "A hand-drawn rhythm game built to capture the vibe of Rhythm Heaven. Keep the beat and don't let him trip.",
+      "link_label": "",
+      "link_url": ""
+    },
+    {
+      "title": "Lethal Love",
+      "platform": "Ren'Py",
+      "categories": [
+        "Games"
+      ],
+      "image": "assets/projects/LethalLove.jpg",
+      "video": "assets/projects/LethalLove.mp4",
+      "tags": [
+        "Visual Novel",
+        "Horror"
+      ],
+      "description": "A dating sim with a thriller edge. The environment reveals more about itself the further you get into the story.",
+      "link_label": "Download build",
+      "link_url": "https://www.nilmi.net/_files/archives/4d702e_86733a831a574eb7b18b48a57ff02649.zip?dn=Lethal_Love-1.0-pc.zip"
+    },
+    {
+      "title": "Sketchpad",
+      "platform": "TypeScript",
+      "categories": [
+        "Web"
+      ],
+      "image": "assets/projects/Sketchpad.jpg",
+      "video": "assets/projects/Sketchpad.mp4",
+      "tags": [
+        "TypeScript",
+        "Vite",
+        "Canvas"
+      ],
+      "description": "A TypeScript + HTML5 Canvas drawing app with adjustable brush tools, sticker placement, and undo/redo, built to demonstrate clean state management.",
+      "link_label": "View source",
+      "link_url": "https://github.com/pehara/Sticker-Sketchpad"
+    },
+    {
+      "title": "Tidal Residual Analysis",
+      "platform": "Python",
+      "categories": [
+        "Python"
+      ],
+      "image": "assets/projects/TidalResidual.webp",
+      "video": "",
+      "tags": [
+        "NumPy",
+        "Matplotlib"
+      ],
+      "description": "Analyzed real tidal datasets to evaluate the accuracy of predicted tide models by computing residuals between observed and expected values.",
+      "link_label": "View source",
+      "link_url": "https://github.com/pehara/Tidal-Report-Data"
+    },
+    {
+      "title": "Astronomical Data Analysis",
+      "platform": "Python",
+      "categories": [
+        "Python"
+      ],
+      "image": "assets/projects/AstronomicalData.webp",
+      "video": "",
+      "tags": [
+        "Python",
+        "Imaging"
+      ],
+      "description": "Processed astronomical image data to detect and evaluate objects captured in telescopic imagery.",
+      "link_label": "View source",
+      "link_url": "https://github.com/pehara/astr-19"
+    },
+    {
+      "title": "Creative Coding",
+      "platform": "p5.js",
+      "categories": [
+        "Web"
+      ],
+      "image": "assets/projects/CreativeCoding.jpg",
+      "video": "assets/projects/CreativeCoding.mp4",
+      "tags": [
+        "p5.js",
+        "Interactive"
+      ],
+      "description": "A series of interactive creative coding experiments built with JavaScript and p5.js: procedural generation, visual systems, and real-time rendering in the browser.",
+      "link_label": "View project",
+      "link_url": "https://pehara.github.io/cmpm-169/"
+    },
+    {
+      "title": "HeatSync",
+      "platform": "Unity",
+      "categories": [
+        "Games"
+      ],
+      "image": "assets/projects/HeatSync.webp",
+      "video": "",
+      "tags": [
+        "Unity",
+        "Blender",
+        "HLSL"
+      ],
+      "description": "A wave-based survival combat game: fight off a horde of snowmen while managing your own heat level.",
+      "link_label": "Play on itch.io",
+      "link_url": "https://aguizaro.itch.io/strike-when-the-iron-is-hot"
+    }
+  ]
+}

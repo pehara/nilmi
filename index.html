@@ -1,704 +1,1176 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./image-slot.js"></script>
-<script src="./support.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pehara Vidanagamachchi Portfolio</title>
+<meta name="description" content="Portfolio of Pehara Vidanagamachchi, software engineer and game developer. Games on Steam, data analysis, web tools, and art.">
+<link rel="canonical" href="https://www.nilmi.net/">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#AEEDC8">
+<!-- Visitor stats (GoatCounter: free, no cookies, no banner needed). Only counts visits on nilmi.net.
+     To turn on: sign up at goatcounter.com with the code below (or change it to the code you picked). -->
+<script>
+  (function(){var CODE='nilmi';
+    if(!/(^|\.)nilmi\.net$/.test(location.hostname))return;
+    var s=document.createElement('script');s.async=true;s.src='https://gc.zgo.at/count.js';
+    s.setAttribute('data-goatcounter','https://'+CODE+'.goatcounter.com/count');document.head.appendChild(s);})();
+</script>
+<meta property="og:title" content="Pehara Vidanagamachchi | Portfolio">
+<meta property="og:description" content="Software engineer and game developer creating meaningful products and experiences.">
+<meta property="og:url" content="https://www.nilmi.net/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://www.nilmi.net/assets/social-preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#AEEDC8">
+<link rel="preload" href="assets/fonts/desevon.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/fonts/ethereal-Regular.woff" as="font" type="font/woff" crossorigin>
+<style>
+@font-face{font-family:"Desevon";src:url(assets/fonts/desevon.woff) format("woff");font-weight:400;font-display:swap}
+@font-face{font-family:"Semika";src:url(assets/fonts/semika.woff) format("woff");font-weight:400;font-display:swap}
+@font-face{font-family:"Sparky Dream";src:url(assets/fonts/sparky-dream.woff) format("woff");font-weight:400;font-display:swap}
+@font-face{font-family:"Crimson Text";src:url(assets/fonts/crimson-Regular.woff) format("woff");font-weight:400;font-display:swap}
+@font-face{font-family:"Crimson Text";src:url(assets/fonts/crimson-Bold.woff) format("woff");font-weight:700;font-display:swap}
+@font-face{font-family:"Playfair Display";src:url(assets/fonts/playfair.woff) format("woff");font-weight:400 900;font-display:swap}
+@font-face{font-family:"Source Serif 4";src:url(assets/fonts/sourceserif4.woff) format("woff");font-weight:400;font-display:swap}
+@font-face{font-family:"Ethereal";src:url(assets/fonts/ethereal-Regular.woff) format("woff");font-weight:400;font-display:swap}
+@font-face{font-family:"Ethereal";src:url(assets/fonts/ethereal-Medium.woff) format("woff");font-weight:500;font-display:swap}
+@font-face{font-family:"Ethereal";src:url(assets/fonts/ethereal-SemiBold.woff) format("woff");font-weight:600;font-display:swap}
+@font-face{font-family:"Ethereal";src:url(assets/fonts/ethereal-Bold.woff) format("woff");font-weight:700;font-display:swap}
+/* Layout: a 1440px pond "artboard" copied 1:1 from the Figma frame. From 640px up the whole artboard scales
+   proportionally with the window so nothing moves relative to anything else; phones get a stacked column. */
+:root{
+  --pink:#ED809D;      /* headings + body copy */
+  --maroon:#461312;    /* cards, pills, chest */
+  --leaf:#A1C85A;      /* lily-pad green: links, inputs, tags */
+  --butter:#E9F896;    /* sand, submit */
+  --mint:#AEEDC8;      /* surface water */
+  --deep:#2C6255;      /* pond floor */
+  --display:"Desevon", Didot, Georgia, serif;             /* big section titles */
+  --heavy:"Semika", "Desevon", Georgia, serif;            /* bold sub-headings */
+  --name:"Sparky Dream", "Desevon", Georgia, serif;       /* project names, form labels */
+  --ui:"Ethereal", "Optima", Candara, sans-serif;         /* buttons, tags, small labels */
+  --body:"Crimson Text", "Iowan Old Style", Georgia, serif; /* paragraphs (as in Figma) */
+  --card:"Playfair Display", Georgia, serif;              /* card text, inputs (as in Figma) */
+  --link:"Source Serif 4", "Source Serif Pro", Georgia, serif;
+  --z:1;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{
+  background:var(--mint) linear-gradient(180deg,var(--mint) 0%,var(--mint) 27.88%,var(--deep) 72.6%,var(--deep) 100%);
+  scroll-behavior:smooth;
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;min-height:100vh;color:var(--pink);font-family:var(--body);
+  background:url(assets/decor/noise-bg.png) 0 0/256px 256px repeat;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img,video{max-width:100%;display:block}
+[hidden]{display:none!important}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--butter);outline-offset:3px;border-radius:6px}
+.wonk{letter-spacing:0;font-family:var(--display);font-variation-settings:"SOFT" 0,"WONK" 1;font-weight:400;line-height:1.23;margin:0;letter-spacing:0;text-wrap:balance}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* pills (Figma "Grabber") */
+.pill{display:inline-flex;white-space:nowrap;align-items:center;justify-content:center;height:36px;min-width:138px;padding:0 18px;border-radius:100px;
+  background:var(--maroon);color:var(--leaf);font:600 19px/1 var(--ui);letter-spacing:.02em;text-decoration:none;border:0;cursor:pointer;
+  transition:transform .2s ease, background-color .2s ease, color .2s ease}
+.pill:hover{transform:translateY(-2px)}
+.pill.pink{background:var(--pink);color:var(--maroon)}
+.pill.small{height:30px;min-width:121px;font-size:18px}
+.pill[aria-pressed="true"]{background:var(--leaf);color:var(--maroon)}
+
+/* ---------- decorations ---------- */
+.deco{pointer-events:none;user-select:none;position:absolute;max-width:none}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes drift{0%,100%{transform:translateX(0)}50%{transform:translateX(-26px)}}
+@keyframes sway{0%,100%{transform:skewX(0deg)}50%{transform:skewX(-1.2deg)}}
+@keyframes rise{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+@keyframes spinslow{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+/* ---------- mobile / tablet flow (default) ---------- */
+.page{position:relative;overflow:hidden;width:100%}
+#motes{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0;transition:opacity 1.2s}
+.board{position:relative;margin:0 auto;padding:0 20px 0}
+.board > .deco{display:none}
+section{position:relative;z-index:3}
+.hero{padding-top:28px;text-align:center;position:relative;min-height:0}
+.hero .kicker{font:600 clamp(16px,4.2vw,28px)/1.2 var(--ui);letter-spacing:.08em;text-transform:uppercase;margin:0;position:relative;z-index:2}
+.hero h1{font-size:clamp(52px,14.5vw,128px);line-height:1;margin-top:4px;position:relative;z-index:2}
+.programmer > *{position:relative;z-index:2}
+.m-lily{display:block;position:absolute;left:50%;top:-30px;width:760px;transform:translateX(-56%);max-width:none;pointer-events:none;z-index:0;opacity:.9;-webkit-mask-image:linear-gradient(#000 55%,transparent 80%);mask-image:linear-gradient(#000 55%,transparent 80%)}
+.m-flower{display:block;width:min(420px,78vw);margin:10px auto -20px;pointer-events:none}
+.programmer{margin-top:28px;padding:14px 16px 18px;border-radius:24px;background:rgba(174,237,200,.82)}
+.programmer h2{font:400 clamp(36px,8vw,48px)/1.2 var(--heavy);font-variation-settings:"SOFT" 0,"WONK" 1;margin:0}
+.programmer p{font-size:20px;margin:6px 0 16px;line-height:1.35}
+.sec-title{font-size:clamp(56px,13vw,128px);line-height:1.05}
+.about{margin-top:72px;display:grid;gap:24px}
+.about .portrait{position:relative;width:min(100%,478px);margin:0 auto}
+.about .portrait img{width:100%;aspect-ratio:478/637;object-fit:cover;border-radius:239px;background:var(--maroon)}
+.about .portrait .pill{position:absolute;right:-6px;top:73px}
+.about .copy{color:var(--maroon);max-width:730px}
+.about .copy h3{font:400 32px/1.25 var(--body);margin:0 0 8px}
+.about .copy p{font-size:20px;line-height:1.33;margin:0 0 .6em}
+.facts{display:flex;flex-wrap:wrap;gap:14px 36px;margin-top:10px}
+.facts div{min-width:0}
+.facts dt{font-size:20px;text-transform:lowercase;color:var(--pink);line-height:1.25}
+.facts dd{margin:0;font:700 20px/1.3 var(--body);text-transform:uppercase;color:var(--pink)}
+.hobbies{margin-top:80px;text-align:center}
+.hobbies .intro{font-size:clamp(22px,4.6vw,32px);line-height:1.3;max-width:901px;margin:6px auto 30px}
+.hobby-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:36px 24px;text-align:left}
+.hobby h3{font:400 48px/1.2 var(--heavy);font-variation-settings:"SOFT" 0,"WONK" 1;text-transform:uppercase;margin:0;white-space:nowrap}
+.hobby p{font-size:20px;line-height:1.3;margin:2px 0 10px;min-height:0}
+.projects{margin-top:90px}
+.projects .head{text-align:right}
+.projects .desc{font-size:clamp(22px,4.6vw,32px);line-height:1.3;text-align:right;margin:8px 0 18px}
+.filters{display:flex;flex-wrap:wrap;gap:20px;justify-content:flex-end;margin-bottom:32px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,419px));gap:46px 34px;justify-content:center}
+.pager{display:none}
+.card{position:relative;height:564px;border-radius:16px;background:var(--maroon);overflow:hidden;color:var(--pink);font-family:var(--card);
+  transition:transform .25s ease, box-shadow .25s ease;box-shadow:0 10px 24px rgba(20,45,40,.18)}
+.card::after{content:"";position:absolute;inset:0;background:url(assets/decor/noise-card.png) 0 0/128px 128px;pointer-events:none;border-radius:inherit;opacity:.9}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(20,45,40,.3)}
+.card .media{position:absolute;left:0;right:0;top:21px;height:220px;background:#d9d9d9;overflow:hidden}
+.card .media img,.card .media video{width:100%;height:100%;object-fit:cover}
+.card .type{position:absolute;left:12px;top:248px;display:flex;align-items:center;gap:9px;font:600 20px/21px var(--ui);letter-spacing:.03em;text-transform:lowercase}
+.card .type::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--leaf)}
+.card h3{position:absolute;left:12px;right:12px;top:272px;margin:0;font:400 30px/1.3 var(--name);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .blurb{position:absolute;left:17px;width:387px;max-width:calc(100% - 30px);top:317px;height:144px;margin:0;font:400 20px/1.33 var(--card);overflow:hidden;
+  display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical}
+.card .tags{position:absolute;left:12px;right:12px;top:469px;display:flex;gap:8px;flex-wrap:nowrap;overflow:hidden}
+.card .tags span{flex:none;height:38px;padding:0 12px;border-radius:100px;background:var(--leaf);color:var(--maroon);font:600 18px/38px var(--ui);letter-spacing:.02em}
+.card .go{position:absolute;left:17px;top:520px;font:400 20px/1.3 var(--link);color:var(--leaf);text-underline-offset:3px;z-index:2}
+.card .go:hover{color:var(--butter)}
+.card.hide{display:none}
+.skills{margin-top:90px;min-height:0}
+.skill-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px 60px;margin-top:14px}
+.skill-cols h3{font:400 48px/1.2 var(--heavy);font-variation-settings:"SOFT" 0,"WONK" 1;margin:0}
+.skill-cols ul{margin:4px 0 0;padding:0 0 0 48px;font-size:32px;line-height:1.31}
+.m-fish{display:block;width:150%;max-width:none;margin:-40px 0 0 -20%;pointer-events:none}
+.contact{margin-top:40px;text-align:center;padding-bottom:40px}
+.contact .lead{font-size:clamp(22px,4.6vw,32px);line-height:1.3;max-width:901px;margin:8px auto 24px}
+.form{position:relative;max-width:466px;margin:0 auto;display:flex;flex-direction:column;gap:10px;padding:28px 22px;border-radius:24px;background:var(--maroon)}
+.form label{font:400 32px/1.3 var(--name);color:var(--leaf)}
+.form input,.form textarea{width:100%;border:1px solid #DDD6FE;border-radius:12px;background:var(--leaf);color:var(--maroon);
+  font:400 14px/1.4 var(--card);text-align:center;padding:12px 16px;height:48px;margin-bottom:8px}
+.form textarea{height:140px;resize:vertical;text-align:left}
+.form input::placeholder,.form textarea::placeholder{color:var(--maroon);opacity:.85}
+.form input:focus,.form textarea:focus{outline:3px solid var(--butter);outline-offset:1px}
+.submit{height:52px;border:0;border-radius:14px;background:var(--butter);color:var(--maroon);font:400 32px/1 var(--name);display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;margin-top:8px;transition:transform .2s ease}
+.submit:hover{transform:translateY(-2px)}
+.submit:disabled{opacity:.6;cursor:progress}
+.load-note{grid-column:1/-1;font:500 20px/1.4 var(--body);color:var(--maroon);text-align:center;padding:40px}
+.form .note a{color:inherit;text-decoration:underline}
+.submit svg{width:36px;height:36px;margin-left:8px}
+.form .note{font:400 16px/1.4 var(--body);color:var(--butter);margin:4px 0 0;min-height:1.4em}
+.form .note button{font:inherit;color:var(--maroon);background:var(--butter);border:0;border-radius:100px;padding:2px 10px;cursor:pointer;margin-left:4px}
+.elsewhere{display:flex;flex-wrap:wrap;gap:10px 30px;justify-content:center;margin:0 0 24px;font:600 19px/1.3 var(--ui);letter-spacing:.02em}
+.elsewhere a{display:inline-flex;align-items:center;gap:8px;color:var(--butter);text-decoration:none}
+.elsewhere a:hover{text-decoration:underline;text-underline-offset:4px}
+.elsewhere svg{width:20px;height:20px;flex:none}
+.sand-full{display:none}
+.m-bottom{position:relative;height:420px;margin:0 -20px;overflow:hidden;pointer-events:none}
+.m-bottom img{position:absolute;max-width:none}
+footer{position:relative;z-index:4;text-align:center;color:var(--maroon);font:400 16px/1.4 var(--body);padding:14px 0 24px;margin-top:-60px}
+
+/* ---------- desktop: 1:1 Figma artboard ---------- */
+@media (min-width:640px){
+  .board{width:1440px;height:9098px;padding:0;zoom:var(--z)}
+  .board > .deco{display:block}
+  .m-lily,.m-flower,.m-fish,.m-bottom{display:none}
+  section{position:static}
+  .abs{position:absolute;left:var(--x);top:var(--y);margin:0;z-index:var(--k,3)}
+  .hero{padding:0;position:static}
+  .hero .kicker{position:absolute;left:426px;top:26px;width:600px;font-size:28px;line-height:42px;text-align:center;white-space:nowrap;z-index:30}
+  .hero h1{position:absolute;left:0;width:1440px;text-align:center;top:98px;font-size:100px;line-height:100px;margin:0;z-index:30;white-space:nowrap}
+  .sec-title{font-size:100px;line-height:100px;white-space:nowrap}
+  .programmer{margin:0;padding:0;background:none;border-radius:0}
+  .programmer h2{position:absolute;left:83px;top:559px;font-size:48px;line-height:59px;z-index:20}
+  .programmer p{position:absolute;left:83px;top:613px;margin:0;white-space:nowrap;line-height:26px;z-index:20}
+  .programmer .pill{position:absolute;left:83px;top:679px;z-index:20}
+  .about{margin:0;display:block}
+  .about .sec-title{position:absolute;left:53px;top:1022px;z-index:29}
+  .about .portrait{position:absolute;left:863px;top:1087px;width:478px;margin:0;z-index:auto}
+  .about .portrait img{position:relative;z-index:12}
+  .about .portrait .pill{position:absolute;left:358px;right:auto;top:73px;z-index:40}
+  .about .copy{position:absolute;left:105px;top:1118px;width:730px;z-index:29}
+  .about .copy h3{line-height:41px;margin:0 0 4px}
+  .about .copy p{font-size:20px;line-height:25px;margin:0}
+  .facts{position:absolute;left:105px;top:1432px;margin:0;gap:0;flex-wrap:nowrap;z-index:29}
+  .facts div{width:170px}
+  .facts div:nth-child(2){width:230px}
+  .facts div:nth-child(3){width:304px}
+  .facts dt,.facts dd{line-height:24px}
+  .hobbies{margin:0}
+  .hobbies .sec-title{position:absolute;left:0;top:1735px;width:1440px;text-align:center;z-index:32}
+  .hobbies .intro{position:absolute;left:220px;top:1862px;width:1000px;text-align:center;font-size:32px;line-height:40px;margin:0;z-index:25}
+  .hobby-grid{position:absolute;left:215px;top:2043px;grid-template-columns:repeat(4,248px);column-gap:21px;row-gap:50px;z-index:20}
+  .hobby-grid .hobby:nth-child(5){grid-column-start:2}
+  .hobby{min-height:191px;display:flex;flex-direction:column;align-items:flex-start}
+  .hobby p{margin:0 0 6px;font-size:20px;line-height:26px}
+  .hobby .pill{margin-top:auto}
+  .projects{margin:0}
+  .projects .sec-title{position:absolute;right:63px;top:3080px;z-index:24}
+  .projects .desc{position:absolute;left:444px;top:3240px;width:901px;margin:0;line-height:40px;z-index:24}
+  .filters{position:absolute;left:742px;top:3390px;width:612px;flex-wrap:nowrap;gap:20px;margin:0;justify-content:flex-start;z-index:24}
+  .cards{position:absolute;left:57px;top:3477px;width:1325px;grid-template-columns:repeat(3,419px);justify-content:start;z-index:24}
+  /* the page fits 12 cards (4 rows); with more, they're shown 12 at a time */
+  .card.off{display:none}
+  .pager{position:absolute;left:0;width:1440px;top:5915px;display:flex;align-items:center;justify-content:center;gap:22px;z-index:24}
+  .pager[hidden]{display:none}
+  .pager span{font:600 18px/1 var(--ui);letter-spacing:.08em;color:var(--pink)}
+  .pager .pill:disabled{opacity:.4;cursor:default}
+  .skills{margin:0}
+  .skills .sec-title{position:absolute;left:27px;top:6375px;z-index:22}
+  .skill-cols{position:absolute;left:76px;top:6501px;margin:0;display:grid;grid-template-columns:308px 330px;grid-template-rows:auto auto;gap:22px 0;z-index:22}
+  .skill-cols > div:first-child{grid-column:1 / span 2}
+  .skill-cols h3{line-height:59px}
+  .skill-cols ul{line-height:42px;margin:0}
+  .contact{margin:0;padding:0}
+  .contact .sec-title{position:absolute;left:0;top:8110px;width:1440px;text-align:center;z-index:22}
+  .contact .lead{position:absolute;left:262px;top:8226px;width:901px;margin:0;line-height:42px;z-index:22}
+  .elsewhere{position:absolute;left:0;top:8990px;width:1440px;margin:0;z-index:40;font-size:20px}
+  .elsewhere a{color:var(--maroon)}
+  .form{position:absolute;left:480px;top:8381px;width:466px;padding:0;background:none;border-radius:0;gap:0;display:block;height:560px;z-index:22}
+  .form label{position:absolute;left:0;width:466px;text-align:center;line-height:43px}
+  .form input,.form textarea{position:absolute;left:0;margin:0}
+  .form .l1{top:0}.form .i1{top:43px}
+  .form .l2{top:103px}.form .i2{top:146px}
+  .form .l3{top:282px}.form .i3{top:336px;resize:none}
+  .form .submit{position:absolute;left:0;width:466px;top:503px;margin:0}
+  .form .note{position:absolute;top:564px;left:-60px;width:586px;text-align:center}
+  footer{position:absolute;left:0;width:1440px;top:9046px;margin:0;padding:0;z-index:40}
+  /* decorations: coordinates from Figma, z-order preserved */
+  .sand-full{display:block;position:absolute;left:50%;bottom:calc(-132px * var(--z));width:max(100%, calc(1712px * var(--z)));height:calc(678px * var(--z));
+    transform:translateX(-50%);max-width:none;z-index:2;pointer-events:none}
+  .d-kelp{left:0;top:6900px;width:1440px;height:2200px;z-index:1;overflow:visible;will-change:transform}
+  .d-seaweed{left:-318px;top:7250px;width:1717px;z-index:1;transform-origin:50% 100%;animation:sway 9s ease-in-out infinite}
+  .d-chest{left:278px;top:8374px;width:870px;z-index:3}
+  .d-seaweedf{left:172px;top:7401px;width:1749px;z-index:4;transform-origin:50% 100%;animation:sway 11s ease-in-out infinite reverse}
+  .d-fsr{left:1090px;top:8878px;width:579px;z-index:5}
+  .d-fsl{left:41px;top:8884px;width:291px;z-index:5}
+  .d-lily{left:-627px;top:-11px;width:2373px;height:3254px;z-index:6}
+  /* sunbeams slanting down through the water */
+  .d-rays{left:-760px;top:2550px;width:2960px;height:3300px;z-index:1;overflow:hidden;
+    -webkit-mask-image:linear-gradient(transparent,#000 14%,#000 62%,transparent);mask-image:linear-gradient(transparent,#000 14%,#000 62%,transparent)}
+  .d-rays i{position:absolute;top:-150px;height:3600px;transform-origin:50% 0;rotate:16deg;opacity:.35;
+    background:linear-gradient(90deg,transparent,rgba(240,255,225,.3) 30%,rgba(245,255,230,.42) 50%,rgba(240,255,225,.3) 70%,transparent);
+    animation:beam var(--rd) ease-in-out var(--rdl) infinite alternate}
+  @keyframes beam{0%{opacity:.25;translate:-30px 0}50%{opacity:.8}100%{opacity:.4;translate:40px 0}}
+  .d-fish{left:-576px;top:6008px;width:2623px;height:1709px;z-index:7}
+  .d-fish .fishy{position:absolute;will-change:transform}
+  .d-fish .fishy img{display:block;width:100%;height:100%}
+  .d-fish .mouth{position:absolute;border-radius:50% 50% 48% 48%;background:radial-gradient(ellipse at 50% 42%,#1a0505 0 40%,#3a0f0e 68%,#5a1c1a 100%);box-shadow:0 0 0 1.5px rgba(26,5,5,.55);opacity:0;transform:scale(.5,0);will-change:transform,opacity}
+  .d-fish .flake{position:absolute;left:0;top:0;width:13px;height:9px;margin:-5px 0 0 -7px;border-radius:45% 55% 50% 40%;background:#F2B27A;box-shadow:inset -2px -2px 0 rgba(70,19,18,.18);will-change:transform,opacity;transition:opacity .4s}
+  .d-fish .flake:nth-child(3n){background:var(--butter);width:10px;height:8px}
+  .d-fish .flake:nth-child(4n){background:#E98D78;width:9px;height:9px}
+  .d-fish .eye{position:absolute;border-radius:50%;background:#CBD3C7}
+  .d-fish .eye i{position:absolute;left:50%;top:50%;border-radius:50%;background:#4C332C;translate:-50% -50%;will-change:transform}
+  .d-fabout{left:945px;top:1548px;width:272px;z-index:26}
+  .d-fhob{left:564px;top:2490px;width:836px;z-index:27}
+  .d-fhero{left:676px;top:217px;width:945px;z-index:28}
+  .d-buds{left:-64.4px;top:109.6px;width:1437px;z-index:31}
+  .d-fhob2{left:212px;top:2705px;width:645px;z-index:32}
+  .d-bubbles{left:-80px;top:574px;width:1456px;height:6500px;z-index:35}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+
+/* ---------- life on the pond ---------- */
+/* lily pads: each pad drifts and rocks on its own, like it's floating */
+.pad{position:absolute;max-width:none;will-change:transform;transform-origin:50% 55%;
+  animation:padDrift var(--d) ease-in-out var(--dl) infinite alternate,padRock var(--rd) ease-in-out var(--dl) infinite alternate}
+/* drift and rock are a bit larger than the raw values so the movement reads clearly */
+@keyframes padDrift{from{translate:calc(var(--dx) * -.6) calc(var(--dy) * -.6)}to{translate:calc(var(--dx) * 1.8) calc(var(--dy) * 1.8)}}
+@keyframes padRock{from{rotate:calc(var(--r) * -1.7)}to{rotate:calc(var(--r) * 1.7)}}
+/* bubbles: bob gently, pop, and come back */
+.bub{position:absolute;max-width:none;will-change:transform,opacity;transform-origin:50% 60%;
+  animation:bobble var(--bd) ease-in-out var(--bdl) infinite alternate;transition:opacity .7s ease,scale .7s cubic-bezier(.3,1.7,.5,1)}
+@keyframes bobble{0%{translate:0 0}55%{translate:2px -10px}100%{translate:-1px -18px}}
+.bub.popped{opacity:0;scale:1.4;transition:opacity .18s ease-out,scale .18s ease-out}
+.bub.gone{opacity:0;scale:.15;transition:none}
+.splash{position:absolute;border-radius:50%;pointer-events:none;border:2px solid rgba(255,255,255,.75);translate:-50% -50%;animation:splash .5s ease-out forwards}
+.splash.dot{border:0;background:rgba(255,255,255,.8);animation:spray .5s ease-out forwards}
+@keyframes splash{from{width:var(--s0);height:var(--s0);opacity:.9}to{width:var(--s1);height:var(--s1);opacity:0}}
+@keyframes spray{from{opacity:.9;transform:translate(0,0)}to{opacity:0;transform:translate(var(--tx),var(--ty))}}
+/* lotus flowers: rotation is driven from script so they sway and react to the cursor */
+.lotus{will-change:transform}
+.petal{position:absolute;max-width:none;will-change:transform}
+.bud{position:absolute;max-width:none;will-change:transform;transform-origin:50% 60%;animation:budBob var(--bb) ease-in-out infinite alternate}
+@keyframes budBob{from{translate:0 -3px}to{translate:2px 4px}}
+/* ripples where the water is clicked */
+.ripples{position:absolute;inset:0;pointer-events:none;z-index:60;overflow:hidden}
+.ripple{position:absolute;width:0;height:0}
+.ripple i{position:absolute;left:0;top:0;border-radius:50%;translate:-50% -50%;border:2.5px solid rgba(255,255,255,.8);
+  box-shadow:0 0 0 1px rgba(44,98,85,.18),inset 0 0 12px rgba(255,255,255,.25);animation:ring 1.7s cubic-bezier(.2,.6,.3,1) forwards}
+.ripple i:nth-child(2){animation-delay:.16s;border-width:1.5px}
+.ripple i:nth-child(3){animation-delay:.34s;border-width:1px}
+.ripple b{position:absolute;left:0;top:0;width:220px;height:220px;translate:-50% -50%;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.28),rgba(255,255,255,0) 65%);animation:glint 1.2s ease-out forwards}
+@keyframes ring{0%{width:6px;height:6px;opacity:1}100%{width:340px;height:340px;opacity:0}}
+@keyframes glint{0%{scale:.2;opacity:1}100%{scale:1.3;opacity:0}}
+/* buttons: a water-drop ripple from where you press */
+.pill,.submit,.nav button,.close,.mini{position:relative;overflow:hidden;isolation:isolate}
+.drop{position:absolute;border-radius:50%;background:currentColor;opacity:.32;translate:-50% -50%;pointer-events:none;z-index:-1;animation:drop .6s ease-out forwards}
+@keyframes drop{from{width:0;height:0;opacity:.4}to{width:var(--ds);height:var(--ds);opacity:0}}
+.pill:active,.submit:active{scale:.96}
+.pill,.submit{transition:transform .2s ease,background-color .2s ease,color .2s ease,scale .12s ease}
+/* scroll reveal (applied only by script, so the page is complete without it) */
+.rv{transition:opacity .8s ease,translate .9s cubic-bezier(.2,.75,.25,1);transition-delay:var(--rvd,0s)}
+.rv.out{opacity:0;translate:0 34px}
+.hero h1 .ch{display:inline-block}
+@media (prefers-reduced-motion:reduce){.pad,.bub,.d-rays i{animation:none}.rv.out{opacity:1;translate:none}}
+
+/* ---------- opening: petals drift across, then one big petal sweeps the page open ---------- */
+#intro{position:fixed;inset:0;z-index:300;overflow:hidden;cursor:pointer;perspective:1100px;perspective-origin:50% 40%}
+#intro .water{position:absolute;inset:0;background:var(--mint) url(assets/decor/noise-bg.png) 0 0/256px 256px}
+#intro .sky{position:absolute;inset:0;background:radial-gradient(120% 80% at 70% 0%,rgba(255,255,255,.55),rgba(255,255,255,0) 60%)}
+#intro .fl{position:absolute;left:0;top:0;max-width:none;will-change:transform,opacity;pointer-events:none;backface-visibility:visible;filter:drop-shadow(0 6px 10px rgba(70,19,18,.12))}
+#intro .name{position:absolute;left:0;right:0;top:50%;translate:0 -50%;margin:0;text-align:center;font:400 clamp(44px,8vw,110px)/1 var(--display);color:var(--pink);pointer-events:none}
+#intro .name small{display:block;margin-top:14px;font:600 clamp(12px,1.4vw,17px)/1 var(--ui);letter-spacing:.3em;text-transform:uppercase}
+#intro .skip{pointer-events:auto;position:absolute;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));font:600 14px/1 var(--ui);letter-spacing:.12em;text-transform:uppercase;color:var(--maroon);opacity:.55;background:none;border:0;cursor:pointer;padding:8px}
+
+/* ---------- hobby pop-up (Figma "Hobbies Template", 1180x801) ---------- */
+.modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:rgba(20,45,40,.55);backdrop-filter:blur(4px);transition:opacity .2s ease}
+.modal.away{visibility:hidden;opacity:0;pointer-events:none}
+.sheet{position:relative;width:1180px;height:801px;zoom:var(--mz,1);background:var(--maroon);border-radius:48px;box-shadow:0 0 10px 5px rgba(70,19,18,.55);overflow:hidden}
+.sheet::after{content:"";position:absolute;inset:0;background:url(assets/decor/noise-card.png) 0 0/128px 128px;pointer-events:none;opacity:.8;border-radius:inherit}
+.sheet h2{position:absolute;left:47px;top:26px;font-size:104px;line-height:128px;color:var(--pink);white-space:nowrap;z-index:1}
+.tabs{position:absolute;right:62px;top:122px;display:flex;gap:12px;z-index:1}
+.tabs .pill{box-shadow:inset 0 0 0 1.5px var(--leaf)}
+.close{position:absolute;top:26px;right:30px;width:48px;height:48px;border-radius:50%;border:0;background:var(--pink);color:var(--maroon);font:700 24px/1 var(--body);cursor:pointer;z-index:3}
+.stage{position:absolute;left:47px;top:187px;width:439px;height:562px;border-radius:32px;background:#d9d9d9;overflow:hidden;z-index:1}
+.stage img{width:100%;height:100%;object-fit:contain;background:#2a0b0a;cursor:zoom-in}
+.stage .soon{position:absolute;inset:0;margin:0;display:grid;place-items:center;font:500 22px/1.35 var(--body);color:var(--maroon);opacity:.6;text-align:center;padding:40px}
+.chip{position:absolute;left:14px;bottom:52px;display:flex;align-items:center;gap:7px;max-width:calc(100% - 28px);background:rgba(70,19,18,.9);color:var(--butter);
+  font:600 17px/1.25 var(--body);letter-spacing:.02em;padding:8px 15px 8px 11px;border-radius:100px}
+.chip svg{width:17px;height:17px;flex:none;color:var(--pink)}
+.chip small{font-weight:400;color:var(--pink);margin-left:4px}
+.nav{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);display:flex;gap:6px;background:var(--maroon);border-radius:100px;padding:3px 10px}
+.nav button{width:36px;height:30px;border:0;background:none;color:var(--leaf);cursor:pointer;display:grid;place-items:center}
+.nav button:disabled{opacity:.4;cursor:default}
+.nav button svg{width:18px;height:18px}
+.count{position:absolute;left:16px;top:14px;background:rgba(70,19,18,.85);color:var(--pink);font:500 16px/1 var(--body);padding:6px 12px;border-radius:100px;font-variant-numeric:tabular-nums}
+.thumbs{position:absolute;left:576px;top:187px;width:560px;height:562px;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;padding:6px 12px 6px 6px;z-index:1;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:123px;gap:17px 18px;align-content:start;scrollbar-width:thin;scrollbar-color:var(--pink) transparent}
+.thumbs::-webkit-scrollbar{width:6px}.thumbs::-webkit-scrollbar-thumb{background:var(--pink);border-radius:6px}
+.thumbs button,.thumbs span{position:relative;display:block;width:100%;height:123px;padding:0;border:0;border-radius:16px;overflow:hidden;background:#d9d9d9;cursor:pointer;transition:transform .15s ease}
+.thumbs span{cursor:default}
+.thumbs button:hover{transform:scale(1.04)}
+.thumbs button[aria-current="true"]{outline:3px solid var(--leaf);outline-offset:2px}
+.thumbs img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* title card shown when a cover image is missing */
+.tcard{position:absolute;inset:0;display:flex;font-weight:400;flex-direction:column;justify-content:center;gap:8px;padding:10px;text-align:center;
+  background:linear-gradient(160deg,#7a2a2b,#461312 70%);color:var(--pink);border-radius:inherit;box-shadow:inset 0 0 0 2px rgba(237,128,157,.35)}
+.tcard b{font:400 17px/1.15 var(--name)}
+.tcard i{font:600 11px/1.2 var(--ui);font-style:normal;letter-spacing:.06em;text-transform:lowercase;color:var(--leaf)}
+.thumbs .tcard{z-index:0}.thumbs img{z-index:1}
+.thumbs .tcard b{font-size:14px}
+.tcard.big{border-radius:0;gap:18px;padding:40px}
+.tcard.big b{font-size:44px}.tcard.big i{font-size:18px}
+/* bookshelf layout: Reading + Gaming (cover left, notes top-right, covers below) */
+.info{display:none;position:absolute;left:576px;top:187px;width:542px;height:214px;overflow-y:auto;overflow-x:hidden;z-index:1;padding-right:8px}
+.info h3{font:400 34px/1.15 var(--name);margin:0 0 6px;color:var(--pink)}
+.info .by{font:600 16px/1.3 var(--ui);letter-spacing:.04em;text-transform:uppercase;color:var(--leaf);margin:0 0 10px}
+.info .note{font:400 20px/1.45 var(--body);color:var(--pink);margin:0}
+.sheet[data-kind="shelf"] .info{display:block}
+.sheet[data-kind="shelf"] .thumbs{top:421px;height:328px;grid-auto-rows:176px}
+.sheet[data-kind="shelf"] .thumbs button,.sheet[data-kind="shelf"] .thumbs span{height:176px;border-radius:10px}
+/* Reading: covers stand on wooden shelves (back panel + a plank under each row) */
+.sheet[data-g="reading"] .thumbs{border-radius:18px;padding:12px 12px 0 14px;column-gap:14px;row-gap:24px;grid-template-columns:repeat(4,minmax(0,1fr));
+  background:repeating-linear-gradient(transparent 0 176px,rgba(255,200,180,.22) 176px 178px,rgba(0,0,0,0) 178px 196px,rgba(0,0,0,.45) 196px 200px) 0 12px/100% 200px local,
+    repeating-linear-gradient(transparent 0 176px,#5e2219 176px 200px) 0 12px/100% 200px local,
+    linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2)) local,
+    image-set(url(assets/decor/wood.webp) 1x,url(assets/decor/wood@2x.webp) 2x) 0 0/512px 256px local,#461312;
+  box-shadow:inset 0 0 0 6px #3a0f0e}
+.sheet[data-g="reading"] .thumbs button,.sheet[data-g="reading"] .thumbs span{border-radius:4px 8px 8px 4px;box-shadow:0 6px 10px rgba(0,0,0,.4),inset 3px 0 0 rgba(0,0,0,.18)}
+/* music: spinning record + Spotify player */
+.music{display:none}
+.sheet[data-kind="music"] .music{display:block}
+.sheet[data-kind="music"] .stage,.sheet[data-kind="music"] .thumbs,.sheet[data-kind="music"] .tabs{display:none}
+.vinyl{position:absolute;left:47px;top:187px;width:439px;height:562px;border-radius:32px;overflow:hidden;z-index:1;
+  background:radial-gradient(circle at 50% 42%,rgba(255,190,170,.12),rgba(0,0,0,.28) 78%),image-set(url(assets/decor/wood.webp) 1x,url(assets/decor/wood@2x.webp) 2x) 0 0/512px 256px,#461312;
+  box-shadow:inset 0 2px 0 rgba(255,210,190,.18),inset 0 -6px 0 rgba(0,0,0,.25),inset 0 0 0 10px rgba(0,0,0,.12)}
+.vinyl::before{content:"";position:absolute;left:24px;top:50px;width:390px;height:390px;border-radius:50%;background:rgba(0,0,0,.28);box-shadow:0 0 0 3px rgba(255,210,190,.08)}
+.record{position:absolute;left:34px;top:62px;width:370px;height:370px;border-radius:50%;
+  background:repeating-radial-gradient(circle at 50% 50%,#1b0807 0 1.5px,#2a0d0c 1.5px 3.5px);box-shadow:0 14px 34px rgba(0,0,0,.5),inset 0 0 0 7px #120504;
+  cursor:pointer}
+.sheen{position:absolute;left:34px;top:62px;width:370px;height:370px;pointer-events:none;border-radius:50%;background:conic-gradient(from 20deg,transparent 0 18%,rgba(255,220,230,.09) 24%,transparent 31%,transparent 68%,rgba(255,220,230,.07) 74%,transparent 81%)}
+.record .label{position:absolute;left:50%;top:50%;width:136px;height:136px;margin:-68px 0 0 -68px;border-radius:50%;
+  background:radial-gradient(circle,var(--butter) 0 7px,var(--pink) 7.5px);box-shadow:inset 0 0 0 4px #d96d8b}
+.record .label::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:#120504}
+.record .label b{position:absolute;left:0;right:0;top:24px;text-align:center;font:400 19px/1 var(--card);color:var(--maroon)}
+.record .label i{position:absolute;left:0;right:0;bottom:26px;text-align:center;font:600 11px/1 var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--maroon);font-style:normal}
+.record:focus-visible{outline:3px solid var(--leaf);outline-offset:6px}
+.record .label b{transition:opacity .3s}
+.record .label b.song{top:30px;left:14px;right:14px;font-size:14px;line-height:1.15;max-height:34px;overflow:hidden}
+.arm{position:absolute;left:356px;top:40px;width:30px;height:30px;border-radius:50%;background:var(--butter);box-shadow:0 0 0 7px rgba(233,248,150,.25);
+  transform-origin:15px 15px;transform:rotate(-6deg);transition:transform .9s cubic-bezier(.3,.7,.2,1);z-index:2}
+.arm::before{content:"";position:absolute;left:12px;top:15px;width:6px;height:250px;border-radius:3px;background:linear-gradient(var(--butter),#c9d77a)}
+.arm::after{content:"";position:absolute;left:5px;top:258px;width:20px;height:34px;border-radius:5px;background:var(--pink)}
+.vinyl.playing .arm{transform:rotate(18deg)}
+.vinyl .hint{position:absolute;left:0;right:0;bottom:26px;margin:0;text-align:center;font:500 18px/1.35 var(--body);color:var(--pink);padding:0 30px}
+.player{position:absolute;left:576px;top:187px;width:542px;height:562px;z-index:1;border-radius:24px;overflow:hidden;background:var(--pink) url(assets/decor/noise-card.png) 0 0/128px 128px;display:flex;flex-direction:column}
+.pl-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:18px 22px 10px;border-bottom:1px solid rgba(70,19,18,.18)}
+.pl-head b{font:400 28px/1.1 var(--name);color:var(--maroon)}
+.pl-head span{font:600 14px/1 var(--ui);letter-spacing:.06em;text-transform:lowercase;color:var(--maroon);opacity:.75}
+.tracks{list-style:none;margin:0;padding:6px 8px 8px;flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--maroon) transparent;counter-reset:t}
+.tracks::-webkit-scrollbar{width:6px}.tracks::-webkit-scrollbar-thumb{background:var(--maroon);border-radius:6px}
+.tracks a{display:grid;grid-template-columns:30px 1fr auto;align-items:center;gap:12px;padding:8px 12px;border-radius:12px;color:inherit;text-decoration:none;transition:background .15s}
+.tracks a:hover,.tracks a:focus-visible{background:rgba(70,19,18,.1);outline:none}
+.tracks .n{font:500 15px/1 var(--body);color:rgba(70,19,18,.55);text-align:right;font-variant-numeric:tabular-nums}
+.tracks a:hover .n,.tracks a[aria-current] .n{color:var(--maroon)}
+.tracks a[aria-current]{background:rgba(233,248,150,.45)}
+.tracks .tt{min-width:0}
+.tracks .tt b{display:block;font:500 18px/1.25 var(--card);color:var(--maroon);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tracks .tt i{display:block;font:400 15px/1.3 var(--body);font-style:normal;color:rgba(70,19,18,.75);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tracks .d{font:400 15px/1 var(--body);color:rgba(70,19,18,.6);font-variant-numeric:tabular-nums}
+.dock{position:relative;flex:none;height:152px;border-top:1px solid rgba(70,19,18,.18);background:transparent}
+.dock iframe{position:relative;z-index:1;width:100%;height:100%;border:0;display:block}
+.dock .fallback{position:absolute;inset:0;display:grid;place-items:center}
+.dock.blocked{height:76px}
+/* when Spotify's player loads it takes over the whole panel: it has the full song list and plays previews */
+.player.live .dock{position:absolute;inset:0;height:auto;border:0;background:transparent;padding:12px}
+.player.live .dock iframe{border-radius:14px}
+.player.live .dock .fallback{display:none}
+.mini{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:90;display:flex;align-items:center;gap:10px;height:48px;padding:0 18px 0 8px;border:0;border-radius:100px;
+  background:var(--maroon);color:var(--butter);font:600 17px/1 var(--body);cursor:pointer;box-shadow:0 8px 24px rgba(20,45,40,.35)}
+.mini .disc{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle,var(--pink) 0 7px,#1b0807 7.5px);animation:spinslow 3.2s linear infinite}
+.zoom{position:fixed;inset:0;z-index:120;background:rgba(15,8,8,.94);display:grid;place-items:center;padding:16px;cursor:zoom-out}
+.zoom[hidden]{display:none}
+.zoom img{max-width:100%;max-height:100%;object-fit:contain}
+@media (max-width:639px){
+  .modal{place-items:stretch;padding:10px}
+  .sheet{zoom:1;width:auto;height:auto;border-radius:28px;display:flex;flex-direction:column;gap:12px;padding:18px 16px 16px;overflow-y:auto;overflow-x:hidden}
+  .sheet > *,.music > *{position:relative!important;left:auto!important;top:auto!important;right:auto!important}
+  .sheet h2{font-size:52px;line-height:1.15;padding-right:52px}
+  .close{position:absolute!important;top:14px!important;right:14px!important;width:42px;height:42px}
+  .tabs{order:1}
+  .stage{order:2;width:100%;height:auto;flex:1 0 46vh;border-radius:22px}
+  .info{order:3;width:100%;height:auto;max-height:none;overflow:visible}
+  .thumbs{order:4;width:100%;height:auto;flex:0 0 auto;overflow:visible;padding-right:0;grid-template-columns:repeat(4,1fr);grid-auto-rows:min-content;gap:10px}
+  .thumbs button,.thumbs span{width:100%;height:0!important;padding-top:100.8%;border-radius:12px}
+  .sheet[data-kind="shelf"] .thumbs button,.sheet[data-kind="shelf"] .thumbs span{padding-top:150%}
+  .sheet[data-kind="music"] .music{display:flex;flex-direction:column;gap:12px;order:2}
+  .vinyl{width:100%;height:300px;border-radius:22px}
+  .record{left:50%!important;top:22px!important;margin-left:-110px;width:220px;height:220px}
+  .sheen{left:50%;top:22px;margin-left:-110px;width:220px;height:220px}
+  .vinyl::before{left:50%;top:14px;margin-left:-118px;width:236px;height:236px}
+  .record .label b.song{top:16px;left:8px;right:8px;font-size:10px;max-height:24px}
+  .record .label{width:86px;height:86px;margin:-43px 0 0 -43px}
+  .record .label b{top:14px;font-size:14px}.record .label i{bottom:15px;font-size:8px}
+  .arm{left:auto!important;right:34px;top:18px!important;transform:rotate(-6deg) scale(.6)}
+  .vinyl.playing .arm{transform:rotate(18deg) scale(.6)}
+  .vinyl .hint{position:absolute!important;bottom:12px;top:auto!important;font-size:15px}
+  .player{width:100%;height:420px}
+  .sheet[data-g="reading"] .thumbs{background:linear-gradient(rgba(0,0,0,.38),rgba(0,0,0,.38)),image-set(url(assets/decor/wood.webp) 1x,url(assets/decor/wood@2x.webp) 2x) 0 0/512px 256px,#461312;padding:12px}
+  .thumbs .tcard{padding:4px;gap:4px}.thumbs .tcard b{font-size:11px}.thumbs .tcard i{font-size:8px}
+}
+body.locked{overflow:hidden}
+</style>
 </head>
 <body>
-<x-dc>
-<helmet>
-  <title>Pehara Vidana: Game Developer &amp; Software Engineer Portfolio</title>
-  <meta name="description" content="Portfolio of Pehara Vidana, a game developer and software engineer specializing in Unity, multiplayer systems, and interactive experiences.">
-  <link rel="canonical" href="https://www.nilmi.net/">
-  <meta property="og:title" content="Pehara Vidana: Game Developer &amp; Software Engineer">
-  <meta property="og:description" content="Selected work, galleries, and contact for Pehara Vidana, game developer and software engineer.">
-  <meta property="og:url" content="https://www.nilmi.net/">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Pehara Vidana: Portfolio">
-  <meta name="twitter:description" content="Game developer and software engineer, selected work and galleries.">
-  <link rel="stylesheet" href="_ds/nocturne-ca6ad50b-e47e-487e-af18-4f15641f09f4/styles.css">
-  <script src="_ds/nocturne-ca6ad50b-e47e-487e-af18-4f15641f09f4/_ds_bundle.js"></script>
-  <template id="__bundler_thumbnail">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-      <rect width="200" height="200" fill="#1c1710"></rect>
-      <text x="100" y="112" font-family="serif" font-size="64" fill="#c8c793" text-anchor="middle">PV</text>
-    </svg>
-  </template>
-  <style>
-    @font-face { font-family: 'Desevon'; src: url('fonts/Desevon-Regular.otf') format('opentype'); font-weight: 700; }
-    @font-face { font-family: 'Desevon'; src: url('fonts/Desevon-Italic.otf') format('opentype'); font-style: italic; font-weight: 700; }
-    @font-face { font-family: 'Sparky Dream'; src: url('fonts/SparkyDream.otf') format('opentype'); font-weight: 400; }
-    @font-face { font-family: 'Semika'; src: url('fonts/Semika.otf') format('opentype'); font-weight: 400; }
-    @font-face { font-family: 'Ethereal'; src: url('fonts/Ethereal-25900205/Ethereal Thin.otf') format('opentype'); font-weight: 100; }
-    @font-face { font-family: 'Ethereal'; src: url('fonts/Ethereal-25900205/Ethereal ExtraLight.otf') format('opentype'); font-weight: 200; }
-    @font-face { font-family: 'Ethereal'; src: url('fonts/Ethereal-25900205/Ethereal Light.otf') format('opentype'); font-weight: 300; }
-    @font-face { font-family: 'Ethereal'; src: url('fonts/Ethereal-25900205/Ethereal Regular.otf') format('opentype'); font-weight: 400; }
-    @font-face { font-family: 'Ethereal'; src: url('fonts/Ethereal-25900205/Ethereal Medium.otf') format('opentype'); font-weight: 500; }
-    @font-face { font-family: 'Ethereal'; src: url('fonts/Ethereal-25900205/Ethereal SemiBold.otf') format('opentype'); font-weight: 600; }
-    @font-face { font-family: 'Ethereal'; src: url('fonts/Ethereal-25900205/Ethereal Bold.otf') format('opentype'); font-weight: 700; }
-    @font-face { font-family: 'Ethereal'; src: url('fonts/Ethereal-25900205/Ethereal ExtraBold.otf') format('opentype'); font-weight: 800; }
-    @font-face { font-family: 'Ethereal'; src: url('fonts/Ethereal-25900205/Ethereal Black.otf') format('opentype'); font-weight: 900; }
-    html { scroll-behavior: smooth; }
-    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-    body { margin: 0; text-wrap: pretty; font-family: 'Ethereal', var(--font-body); }
-    body, .btn, .tag, .card-body, .card-kicker, .card-meta, .input, .field label { font-family: 'Ethereal', var(--font-body) !important; }
-    @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.08); } }
-    @keyframes drift { 0% { transform: translateY(0); } 50% { transform: translateY(-12px); } 100% { transform: translateY(0); } }
-    @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    @keyframes beam-shift { 0%, 100% { transform: translate(-4%, -2%) rotate(-18deg); } 50% { transform: translate(2%, 3%) rotate(-14deg); } }
-    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-    @keyframes marquee-bounce { from { transform: translateX(0); } to { transform: translateX(-35%); } }
-    @keyframes pulse-glow { 0%, 100% { opacity: 0.7; box-shadow: 0 0 6px currentColor; } 50% { opacity: 1; box-shadow: 0 0 16px currentColor; } }
-    [data-anim="off"] * { animation: none !important; }
-    @keyframes star-bounce { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-16px) scale(1.06); } }
-    @keyframes shooting-star { 0% { transform: translate(0, 0) rotate(-35deg); opacity: 0; } 4% { opacity: 1; } 14% { transform: translate(160px, 112px) rotate(-35deg); opacity: 0; } 100% { opacity: 0; } }
-    html, body { min-height: auto !important; height: auto !important; overflow-x: hidden !important; }
-    html { overflow-y: auto !important; }
-    body { overflow-y: visible !important; }
-    [style*="top: 6138px"], [style*="top: 6524px"], [style*="top: 3955px"], [style*="top: 1928px"], [style*="top: 419px"] { display: none !important; }
-    @media (pointer: fine) {
-      [data-anim], [data-anim] * { cursor: none !important; }
-    }
-    #hero-portrait::part(empty), #hero-portrait::part(ring) { display: none !important; }
-    @media (max-width: 760px) {
-      #hero-grid, #about, #contact { grid-template-columns: 1fr !important; }
-      .nav { flex-wrap: wrap; row-gap: 8px; }
-      [style*="top: 40px; left: clamp(20px, 5vw, 72px)"],
-      [style*="top: 150px; right: clamp(20px, 6vw, 140px)"],
-      [style*="left: 272px; top: 70px"],
-      [style*="left: 1129px"],
-      [style*="left: 562px; top: 240px"],
-      [style*="left: 189px; top: 227px"],
-      [style*="left: 153px; top: -143px"],
-      [style*="left: 87px; top: 25px"],
-      [style*="left: -90px; top: -52px"],
-      [style*="left: 945px"] { display: none !important; }
-    }
-  </style>
-</helmet>
+<canvas id="motes" aria-hidden="true"></canvas>
+<div class="page">
+<img class="sand-full" src="assets/decor/sand.webp" srcset="assets/decor/sand@2x.webp 2x" alt="" aria-hidden="true">
+<main class="board" id="top">
+  <div class="deco d-rays" aria-hidden="true"><i style="left:60px;width:150px;--rd:12s;--rdl:-1s"></i><i style="left:370px;width:210px;--rd:11s;--rdl:-1s"></i><i style="left:698px;width:120px;--rd:13s;--rdl:-8s"></i><i style="left:965px;width:120px;--rd:11s;--rdl:-8s"></i><i style="left:1263px;width:180px;--rd:12s;--rdl:-12s"></i><i style="left:1575px;width:120px;--rd:12s;--rdl:-3s"></i><i style="left:1808px;width:180px;--rd:16s;--rdl:-4s"></i><i style="left:2122px;width:150px;--rd:12s;--rdl:-4s"></i><i style="left:2462px;width:180px;--rd:10s;--rdl:-9s"></i><i style="left:2795px;width:210px;--rd:14s;--rdl:-3s"></i><i style="left:3137px;width:150px;--rd:13s;--rdl:-4s"></i><i style="left:3408px;width:240px;--rd:16s;--rdl:-4s"></i></div>
 
-<div style="--color-bg: #1c1710; --color-surface: #2c2320; --color-text: #ece6d6; --color-accent: #8a8ce0; --color-accent-100: #f7f6ff; --color-accent-200: #e4e2fa; --color-accent-300: #c6c3f2; --color-accent-400: #a2a1e8; --color-accent-500: #8a8ce0; --color-accent-600: #6a67b8; --color-accent-700: #4d4a8a; --color-accent-800: #3F2548; --color-accent-900: #241a2b; --color-accent-2: #c8c793; --color-accent-2-300: #e4e3c5; --color-accent-2-500: #c8c793; --color-accent-2-800: #4a4735; --color-accent-2-900: #2a2820; --color-divider: color-mix(in srgb, #c8c793 18%, transparent); --color-neutral-700: #6b5f52; --color-neutral-800: #423a30; --color-neutral-900: #2c2520; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); min-height: 100vh; position: relative; overflow-x: hidden; overflow-y: clip;" data-anim="{{ animState }}">
-
-  <!-- decorative art layer -->
-  <div style="position: absolute; inset: -10%; pointer-events: none; z-index: 0;">
-    <div style="position: absolute; top: -20%; right: -15%; width: 90%; height: 140%; background: radial-gradient(ellipse at center, color-mix(in srgb, #35369C 65%, transparent) 0%, color-mix(in srgb, #7C679E 40%, transparent) 35%, transparent 70%); filter: blur(60px); mix-blend-mode: lighten; animation: beam-shift 14s ease-in-out infinite;"></div>
-    <div style="position: absolute; bottom: -25%; left: -20%; width: 70%; height: 90%; background: radial-gradient(ellipse at center, color-mix(in srgb, #3F2548 70%, transparent), transparent 65%); filter: blur(70px);"></div>
-    <div style="position: absolute; inset: 0; background-image: radial-gradient(1.5px 1.5px at 15% 12%, rgba(236,230,214,0.7), transparent), radial-gradient(1px 1px at 72% 6%, rgba(236,230,214,0.6), transparent), radial-gradient(1.5px 1.5px at 85% 20%, rgba(236,230,214,0.55), transparent), radial-gradient(1px 1px at 40% 28%, rgba(236,230,214,0.5), transparent), radial-gradient(1.5px 1.5px at 8% 45%, rgba(236,230,214,0.6), transparent), radial-gradient(1px 1px at 92% 55%, rgba(236,230,214,0.45), transparent), radial-gradient(1.5px 1.5px at 25% 65%, rgba(236,230,214,0.5), transparent), radial-gradient(1px 1px at 60% 75%, rgba(236,230,214,0.4), transparent), radial-gradient(1.5px 1.5px at 78% 88%, rgba(236,230,214,0.5), transparent); background-repeat: no-repeat;"></div>
-    <div style="position: absolute; inset: 0; opacity: 0.05; mix-blend-mode: overlay; background-image: url('data:image/svg+xml;utf8,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22&gt;&lt;filter id=%22n%22&gt;&lt;feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/&gt;&lt;/filter&gt;&lt;rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/&gt;&lt;/svg&gt;');"></div>
-
-    <svg viewBox="0 0 200 320" style="position: absolute; top: 4%; left: 2%; width: 220px; height: 340px; opacity: 0.55; animation: drift 9s ease-in-out infinite;" fill="none">
-      <defs><linearGradient id="blobline" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8a8ce0"></stop><stop offset="50%" stop-color="#c8c793"></stop><stop offset="100%" stop-color="#7C679E"></stop></linearGradient></defs>
-      <path d="M70 18c34-12 66 4 60 30-4 16-27 18-18 34 16 20 56 8 62 38 5 24-28 34-22 58 5 26 42 20 46 48" stroke="url(#blobline)" stroke-width="2.5" stroke-linecap="round"></path>
-      <circle cx="32" cy="56" r="15" stroke="url(#blobline)" stroke-width="2.5"></circle>
-      <circle cx="20" cy="96" r="6" stroke="url(#blobline)" stroke-width="2"></circle>
-      <circle cx="150" cy="250" r="9" stroke="url(#blobline)" stroke-width="2.5"></circle>
-    </svg>
-
-    <div style="position: absolute; top: 6%; right: 4%; width: 170px; height: 210px; background-image: radial-gradient(circle, #c8c793 1.4px, transparent 1.4px); background-size: 7px 7px; -webkit-mask-image: radial-gradient(circle at 35% 30%, black 0%, black 25%, transparent 70%); mask-image: radial-gradient(circle at 35% 30%, black 0%, black 25%, transparent 70%); opacity: 0.55; transform: rotate(-6deg);"></div>
-    <div style="position: absolute; bottom: 8%; left: 6%; width: 280px; height: 254px; background-image: radial-gradient(circle, #8a8ce0 1.4px, transparent 1.4px); background-size: 7px 7px; -webkit-mask-image: radial-gradient(circle at 65% 60%, black 0%, black 25%, transparent 68%); mask-image: radial-gradient(circle at 65% 60%, black 0%, black 25%, transparent 68%); opacity: 0.5; transform: rotate(10deg)"></div>
-
-    <!-- ambient halos -->
-    <div aria-hidden="true" style="position: absolute; top: 14%; left: 18%; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, #8a8ce0 55%, transparent) 0%, transparent 72%); filter: blur(18px); animation: pulse-glow 7s ease-in-out infinite; color: #8a8ce0;"></div>
-    <div aria-hidden="true" style="position: absolute; top: 30%; right: 16%; width: 130px; height: 130px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, #c8c793 55%, transparent) 0%, transparent 72%); filter: blur(16px); animation: pulse-glow 8.5s ease-in-out infinite 1.4s; color: #c8c793;"></div>
-    <div aria-hidden="true" style="position: absolute; top: 48%; left: 8%; width: 190px; height: 190px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, #8a8ce0 50%, transparent) 0%, transparent 70%); filter: blur(22px); animation: pulse-glow 9s ease-in-out infinite 0.6s; color: #8a8ce0;"></div>
-    <div aria-hidden="true" style="position: absolute; top: 62%; right: 22%; width: 145px; height: 145px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, #c8c793 50%, transparent) 0%, transparent 70%); filter: blur(18px); animation: pulse-glow 7.5s ease-in-out infinite 2.2s; color: #c8c793;"></div>
-    <div aria-hidden="true" style="position: absolute; top: 78%; left: 30%; width: 170px; height: 170px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, #8a8ce0 55%, transparent) 0%, transparent 72%); filter: blur(20px); animation: pulse-glow 8s ease-in-out infinite 3s; color: #8a8ce0;"></div>
-    <div aria-hidden="true" style="position: absolute; top: 90%; right: 10%; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, #c8c793 50%, transparent) 0%, transparent 70%); filter: blur(14px); animation: pulse-glow 6.5s ease-in-out infinite 1s; color: #c8c793;"></div>
+  <!-- ===== decorations (desktop artboard) ===== -->
+  <img class="deco d-seaweed" src="assets/decor/seaweed.webp" srcset="assets/decor/seaweed@2x.webp 2x" alt="" width="1717" height="1755" loading="lazy">
+  <svg class="deco d-kelp" aria-hidden="true" viewBox="0 0 1440 2200" width="1440" height="2200"><defs>
+    <pattern id="kelp-a" patternUnits="userSpaceOnUse" width="192" height="192"><image href="assets/decor/kelp-a.png" width="192" height="192"/></pattern>
+    <pattern id="kelp-b" patternUnits="userSpaceOnUse" width="192" height="192"><image href="assets/decor/kelp-b.png" width="192" height="192"/></pattern>
+    <pattern id="kelp-c" patternUnits="userSpaceOnUse" width="192" height="192"><image href="assets/decor/kelp-c.png" width="192" height="192"/></pattern></defs></svg>
+  <img class="deco d-chest" src="assets/decor/chest.webp" srcset="assets/decor/chest@2x.webp 2x" alt="" width="870" height="590" loading="lazy">
+  <img class="deco d-seaweedf" src="assets/decor/seaweed-front.webp" srcset="assets/decor/seaweed-front@2x.webp 2x" alt="" width="1749" height="1893" loading="lazy">
+  <div class="deco lotus d-fsr" aria-hidden="true" style="height:521px"><img class="petal" src="assets/decor/lotus/flower-sand-r/p1.webp" srcset="assets/decor/lotus/flower-sand-r/p1@2x.webp 2x" data-c="269.8,214.0,124.8" alt="" loading="lazy" style="left:203px;top:87px;width:147px;transform-origin:108.0px 251.9px"><img class="petal" src="assets/decor/lotus/flower-sand-r/p2.webp" srcset="assets/decor/lotus/flower-sand-r/p2@2x.webp 2x" data-c="203.8,331.3,118.0" alt="" loading="lazy" style="left:83px;top:248px;width:241px;transform-origin:238.8px 97.6px"><img class="petal" src="assets/decor/lotus/flower-sand-r/p3.webp" srcset="assets/decor/lotus/flower-sand-r/p3@2x.webp 2x" data-c="411.0,266.1,100.3" alt="" loading="lazy" style="left:308px;top:186px;width:202px;transform-origin:2.7px 153.2px"><img class="petal" src="assets/decor/lotus/flower-sand-r/p4.webp" srcset="assets/decor/lotus/flower-sand-r/p4@2x.webp 2x" data-c="333.3,228.6,123.7" alt="" loading="lazy" style="left:269px;top:102px;width:142px;transform-origin:45.9px 250.3px"><img class="petal" src="assets/decor/lotus/flower-sand-r/p5.webp" srcset="assets/decor/lotus/flower-sand-r/p5@2x.webp 2x" data-c="223.8,254.3,101.4" alt="" loading="lazy" style="left:120px;top:169px;width:206px;transform-origin:203.2px 169.3px"><img class="petal" src="assets/decor/lotus/flower-sand-r/p6.webp" srcset="assets/decor/lotus/flower-sand-r/p6@2x.webp 2x" data-c="207.5,358.3,115.3" alt="" loading="lazy" style="left:90px;top:288px;width:235px;transform-origin:232.9px 48.1px"></div>
+  <div class="deco lotus d-fsl" aria-hidden="true" style="height:266px"><img class="petal" src="assets/decor/lotus/flower-sand-l/p1.webp" srcset="assets/decor/lotus/flower-sand-l/p1@2x.webp 2x" data-c="161.6,110.6,61.8" alt="" loading="lazy" style="left:118px;top:46px;width:84px;transform-origin:4.8px 125.6px"><img class="petal" src="assets/decor/lotus/flower-sand-l/p2.webp" srcset="assets/decor/lotus/flower-sand-l/p2@2x.webp 2x" data-c="95.5,126.7,56.8" alt="" loading="lazy" style="left:54px;top:68px;width:80px;transform-origin:70.0px 110.3px"><img class="petal" src="assets/decor/lotus/flower-sand-l/p3.webp" srcset="assets/decor/lotus/flower-sand-l/p3@2x.webp 2x" data-c="181.2,187.0,58.7" alt="" loading="lazy" style="left:120px;top:142px;width:122px;transform-origin:2.6px 29.6px"><img class="petal" src="assets/decor/lotus/flower-sand-l/p4.webp" srcset="assets/decor/lotus/flower-sand-l/p4@2x.webp 2x" data-c="175.4,144.4,56.3" alt="" loading="lazy" style="left:117px;top:96px;width:117px;transform-origin:2.1px 82.3px"><img class="petal" src="assets/decor/lotus/flower-sand-l/p5.webp" srcset="assets/decor/lotus/flower-sand-l/p5@2x.webp 2x" data-c="120.8,108.0,68.0" alt="" loading="lazy" style="left:85px;top:38px;width:76px;transform-origin:42.2px 138.0px"><img class="petal" src="assets/decor/lotus/flower-sand-l/p6.webp" srcset="assets/decor/lotus/flower-sand-l/p6@2x.webp 2x" data-c="76.9,147.2,51.1" alt="" loading="lazy" style="left:25px;top:101px;width:105px;transform-origin:102.9px 74.0px"></div>
+  <div class="deco d-lily" aria-hidden="true">
+    <img class="pad" src="assets/decor/lily/pad-1.webp" srcset="assets/decor/lily/pad-1@2x.webp 2x" alt="" style="left:1208px;top:563px;width:1025px;--d:8.3s;--rd:5.5s;--dl:-5.2s;--dx:-6.3px;--dy:-3.3px;--r:0.86deg">
+    <img class="pad" src="assets/decor/lily/pad-2.webp" srcset="assets/decor/lily/pad-2@2x.webp 2x" alt="" style="left:345px;top:1045px;width:1338px;--d:7.9s;--rd:5.3s;--dl:-3.3s;--dx:-3.4px;--dy:-4.3px;--r:0.88deg">
+    <img class="pad" src="assets/decor/lily/pad-3.webp" srcset="assets/decor/lily/pad-3@2x.webp 2x" alt="" style="left:304px;top:2706px;width:2073px;--d:9.5s;--rd:7.0s;--dl:-0.5s;--dx:3.2px;--dy:-3.7px;--r:0.62deg">
+    <img class="pad" src="assets/decor/lily/pad-4.webp" srcset="assets/decor/lily/pad-4@2x.webp 2x" alt="" style="left:824px;top:355px;width:518px;--d:7.6s;--rd:5.4s;--dl:-2.5s;--dx:-4.5px;--dy:-4.7px;--r:1.3deg">
+    <img class="pad" src="assets/decor/lily/pad-5.webp" srcset="assets/decor/lily/pad-5@2x.webp 2x" alt="" style="left:1498px;top:135px;width:422px;--d:9.2s;--rd:5.2s;--dl:-0.5s;--dx:-6.5px;--dy:4.6px;--r:1.37deg">
+    <img class="pad" src="assets/decor/lily/pad-6.webp" srcset="assets/decor/lily/pad-6@2x.webp 2x" alt="" style="left:467px;top:170px;width:310px;--d:10.7s;--rd:6.3s;--dl:-2.0s;--dx:-7.5px;--dy:3.7px;--r:1.42deg">
+    <img class="pad" src="assets/decor/lily/pad-7.webp" srcset="assets/decor/lily/pad-7@2x.webp 2x" alt="" style="left:822px;top:-8px;width:202px;--d:10.5s;--rd:7.6s;--dl:-2.3s;--dx:-4.6px;--dy:4.3px;--r:1.12deg">
+    <img class="pad" src="assets/decor/lily/pad-8.webp" srcset="assets/decor/lily/pad-8@2x.webp 2x" alt="" style="left:1330px;top:1634px;width:964px;--d:9.0s;--rd:5.1s;--dl:-5.3s;--dx:4.4px;--dy:4.1px;--r:0.73deg">
+    <img class="pad" src="assets/decor/lily/pad-9.webp" srcset="assets/decor/lily/pad-9@2x.webp 2x" alt="" style="left:-6px;top:2331px;width:1089px;--d:8.8s;--rd:7.9s;--dl:-7.6s;--dx:5.8px;--dy:3.2px;--r:0.76deg">
+  </div>
+  <div class="deco d-fish" aria-hidden="true"><div class="fishy" data-face="1" data-mx="1686" data-my="283.9" style="left:0px;top:0px;width:1696px;height:540px"><img src="assets/decor/fish-1.webp" alt="" width="1696" height="540" loading="lazy"><span class="mouth" style="left:1641.9px;top:268.1px;width:39.1px;height:31.5px"></span><span class="eye" style="left:1466.4px;top:213.7px;width:103.8px;height:107.0px"><i style="width:82.0px;height:82.0px" data-max="10.9"></i></span></div><div class="fishy" data-face="1" data-mx="384" data-my="112.3" style="left:1467px;top:426px;width:393px;height:213px"><img src="assets/decor/fish-2.webp" alt="" width="393" height="213" loading="lazy"><span class="mouth" style="left:372.7px;top:108.3px;width:10.0px;height:8.0px"></span><span class="eye" style="left:330.2px;top:93.6px;width:28.6px;height:25.4px"><i style="width:22.4px;height:22.4px" data-max="1.5"></i></span></div><div class="fishy" data-face="-1" data-mx="8" data-my="252.4" style="left:1305px;top:852px;width:1318px;height:477px"><img src="assets/decor/fish-3.webp" alt="" width="1318" height="477" loading="lazy"><span class="mouth" style="left:12.0px;top:239.9px;width:31.0px;height:25.0px"></span><span class="eye" style="left:98.8px;top:199.9px;width:80.4px;height:77.6px"><i style="width:66.4px;height:66.4px" data-max="5.6"></i></span></div><div class="fishy" data-face="-1" data-mx="9" data-my="177.8" style="left:821px;top:1378px;width:797px;height:331px"><img src="assets/decor/fish-4.webp" alt="" width="797" height="331" loading="lazy"><span class="mouth" style="left:11.2px;top:170.8px;width:17.4px;height:14.0px"></span><span class="eye" style="left:61.1px;top:144.4px;width:49.0px;height:49.0px"><i style="width:42.4px;height:42.4px" data-max="3.3"></i></span></div></div>
+  <div class="deco lotus d-fabout" aria-hidden="true" style="height:235px"><img class="petal" src="assets/decor/lotus/flower-about/p1.webp" srcset="assets/decor/lotus/flower-about/p1@2x.webp 2x" data-c="98.7,132.7,57.6" alt="" style="left:45px;top:74px;width:107px;transform-origin:101.4px 109.3px"><img class="petal" src="assets/decor/lotus/flower-about/p2.webp" srcset="assets/decor/lotus/flower-about/p2@2x.webp 2x" data-c="189.3,123.2,57.8" alt="" style="left:137px;top:65px;width:108px;transform-origin:5.7px 113.3px"><img class="petal" src="assets/decor/lotus/flower-about/p3.webp" srcset="assets/decor/lotus/flower-about/p3@2x.webp 2x" data-c="125.6,111.1,69.6" alt="" style="left:84px;top:39px;width:92px;transform-origin:65.9px 141.7px"><img class="petal" src="assets/decor/lotus/flower-about/p4.webp" srcset="assets/decor/lotus/flower-about/p4@2x.webp 2x" data-c="82.6,154.8,68.0" alt="" style="left:12px;top:107px;width:141px;transform-origin:138.6px 72.7px"></div>
+  <div class="deco lotus d-fhob" aria-hidden="true" style="height:576px"><img class="petal" src="assets/decor/lotus/flower-hobbies/p1.webp" srcset="assets/decor/lotus/flower-hobbies/p1@2x.webp 2x" data-c="448.1,211.0,207.6" alt="" loading="lazy" style="left:316px;top:1px;width:247px;transform-origin:77.9px 417.6px"><img class="petal" src="assets/decor/lotus/flower-hobbies/p2.webp" srcset="assets/decor/lotus/flower-hobbies/p2@2x.webp 2x" data-c="232.8,331.2,173.3" alt="" loading="lazy" style="left:61px;top:190px;width:348px;transform-origin:345.2px 246.0px"><img class="petal" src="assets/decor/lotus/flower-hobbies/p3.webp" srcset="assets/decor/lotus/flower-hobbies/p3@2x.webp 2x" data-c="601.0,378.5,207.7" alt="" loading="lazy" style="left:391px;top:263px;width:420px;transform-origin:2.3px 155.9px"><img class="petal" src="assets/decor/lotus/flower-hobbies/p4.webp" srcset="assets/decor/lotus/flower-hobbies/p4@2x.webp 2x" data-c="520.2,278.3,169.6" alt="" loading="lazy" style="left:377px;top:113px;width:296px;transform-origin:13.1px 328.1px"><img class="petal" src="assets/decor/lotus/flower-hobbies/p5.webp" srcset="assets/decor/lotus/flower-hobbies/p5@2x.webp 2x" data-c="301.4,242.5,183.7" alt="" loading="lazy" style="left:175px;top:58px;width:263px;transform-origin:238.9px 368.2px"><img class="petal" src="assets/decor/lotus/flower-hobbies/p6.webp" srcset="assets/decor/lotus/flower-hobbies/p6@2x.webp 2x" data-c="208.0,400.9,207.1" alt="" loading="lazy" style="left:0px;top:269px;width:418px;transform-origin:415.1px 153.7px"></div>
+  <div class="deco lotus d-fhero" aria-hidden="true" style="height:654px"><img class="petal" src="assets/decor/lotus/hero/p1.webp" data-c="675.2,448.9,269.8" alt="" style="left:405.5px;top:244.6px;width:539.5px;transform-origin:46.5px 233.5px"><img class="petal" src="assets/decor/lotus/hero/p2.webp" data-c="482.2,257.6,220.8" alt="" style="left:349.5px;top:36.9px;width:265.5px;transform-origin:97.5px 433.5px"><img class="petal" src="assets/decor/lotus/hero/p3.webp" data-c="257.7,382.3,188.5" alt="" style="left:69.2px;top:237.3px;width:377.0px;transform-origin:375.0px 243.5px"><img class="petal" src="assets/decor/lotus/hero/p4.webp" data-c="576.2,329.5,174.0" alt="" style="left:416.5px;top:155.5px;width:319.5px;transform-origin:35.5px 322.5px"><img class="petal" src="assets/decor/lotus/hero/p5.webp" data-c="326.8,291.0,291.0" alt="" style="left:59.5px;top:0.0px;width:534.5px;transform-origin:388.5px 476.5px"><img class="petal" src="assets/decor/lotus/hero/p6.webp" data-c="228.3,451.0,227.5" alt="" style="left:0.8px;top:321.5px;width:455.0px;transform-origin:451.0px 156.5px"></div>
+  <div class="deco d-buds" aria-hidden="true" style="height:2933px"><img class="bud" src="assets/decor/buds/bud1.webp" alt="" style="left:3px;top:4px;width:119px;--bb:4.9s"><img class="bud" src="assets/decor/buds/bud2.webp" alt="" style="left:1122px;top:1465px;width:311px;--bb:5.8s"><img class="bud" src="assets/decor/buds/bud3.webp" alt="" style="left:796px;top:2706px;width:319px;--bb:6.7s"></div>
+  <div class="deco lotus d-fhob2" aria-hidden="true" style="height:420px"><img class="petal" src="assets/decor/lotus/flower-hobbies-2/p1.webp" srcset="assets/decor/lotus/flower-hobbies-2/p1@2x.webp 2x" data-c="345.2,154.1,151.6" alt="" loading="lazy" style="left:243px;top:0px;width:191px;transform-origin:60.5px 305.7px"><img class="petal" src="assets/decor/lotus/flower-hobbies-2/p2.webp" srcset="assets/decor/lotus/flower-hobbies-2/p2@2x.webp 2x" data-c="179.4,241.9,133.6" alt="" loading="lazy" style="left:46px;top:138px;width:269px;transform-origin:267.0px 180.4px"><img class="petal" src="assets/decor/lotus/flower-hobbies-2/p3.webp" srcset="assets/decor/lotus/flower-hobbies-2/p3@2x.webp 2x" data-c="463.1,276.4,160.1" alt="" loading="lazy" style="left:301px;top:191px;width:325px;transform-origin:12.0px 130.3px"><img class="petal" src="assets/decor/lotus/flower-hobbies-2/p4.webp" srcset="assets/decor/lotus/flower-hobbies-2/p4@2x.webp 2x" data-c="400.8,203.2,123.9" alt="" loading="lazy" style="left:290px;top:82px;width:229px;transform-origin:10.6px 240.1px"><img class="petal" src="assets/decor/lotus/flower-hobbies-2/p5.webp" srcset="assets/decor/lotus/flower-hobbies-2/p5@2x.webp 2x" data-c="232.2,177.1,134.1" alt="" loading="lazy" style="left:135px;top:42px;width:203px;transform-origin:183.9px 269.2px"><img class="petal" src="assets/decor/lotus/flower-hobbies-2/p6.webp" srcset="assets/decor/lotus/flower-hobbies-2/p6@2x.webp 2x" data-c="160.2,292.7,159.6" alt="" loading="lazy" style="left:0px;top:196px;width:322px;transform-origin:319.8px 112.7px"></div>
+  <div class="deco d-bubbles" aria-hidden="true">
+    <img class="bub" src="assets/decor/bubbles/b1.webp" alt="" style="left:569px;top:15px;width:117px;--bd:4.2s;--bdl:-3.3s">
+    <img class="bub" src="assets/decor/bubbles/b2.webp" alt="" style="left:522px;top:126px;width:58px;--bd:2.9s;--bdl:-1.5s">
+    <img class="bub" src="assets/decor/bubbles/b3.webp" alt="" style="left:596px;top:182px;width:28px;--bd:3.6s;--bdl:-0.1s">
+    <img class="bub" src="assets/decor/bubbles/b4.webp" alt="" style="left:1279px;top:539px;width:177px;--bd:3.2s;--bdl:-0.7s">
+    <img class="bub" src="assets/decor/bubbles/b5.webp" alt="" style="left:183px;top:1170px;width:62px;--bd:2.6s;--bdl:-0.2s">
+    <img class="bub" src="assets/decor/bubbles/b6.webp" alt="" style="left:36px;top:1244px;width:244px;--bd:3.8s;--bdl:-0.5s">
+    <img class="bub" src="assets/decor/bubbles/b7.webp" alt="" style="left:1319px;top:1849px;width:102px;--bd:2.8s;--bdl:-1.6s">
+    <img class="bub" src="assets/decor/bubbles/b8.webp" alt="" style="left:1271px;top:1926px;width:41px;--bd:4.0s;--bdl:-0.3s">
+    <img class="bub" src="assets/decor/bubbles/b9.webp" alt="" style="left:253px;top:2655px;width:138px;--bd:3.2s;--bdl:-2.2s">
+    <img class="bub" src="assets/decor/bubbles/b10.webp" alt="" style="left:0px;top:2661px;width:242px;--bd:4.0s;--bdl:-3.3s">
+    <img class="bub" src="assets/decor/bubbles/b11.webp" alt="" style="left:1157px;top:5274px;width:244px;--bd:4.0s;--bdl:-1.1s">
+    <img class="bub" src="assets/decor/bubbles/b12.webp" alt="" style="left:1297px;top:5525px;width:34px;--bd:3.1s;--bdl:-1.4s">
+    <img class="bub" src="assets/decor/bubbles/b13.webp" alt="" style="left:1190px;top:5554px;width:62px;--bd:4.0s;--bdl:-3.8s">
+    <img class="bub" src="assets/decor/bubbles/b14.webp" alt="" style="left:1247px;top:5657px;width:34px;--bd:2.7s;--bdl:-0.7s">
+    <img class="bub" src="assets/decor/bubbles/b15.webp" alt="" style="left:489px;top:5949px;width:239px;--bd:2.8s;--bdl:-0.9s">
+    <img class="bub" src="assets/decor/bubbles/b16.webp" alt="" style="left:785px;top:6127px;width:202px;--bd:3.3s;--bdl:-2.4s">
+    <img class="bub" src="assets/decor/bubbles/b17.webp" alt="" style="left:802px;top:6336px;width:34px;--bd:2.9s;--bdl:-0.0s">
+    <img class="bub" src="assets/decor/bubbles/b18.webp" alt="" style="left:695px;top:6365px;width:62px;--bd:3.2s;--bdl:-1.5s">
+    <img class="bub" src="assets/decor/bubbles/b19.webp" alt="" style="left:752px;top:6468px;width:34px;--bd:3.4s;--bdl:-3.8s">
   </div>
 
-  <!-- sparkle decorations -->
-  
-  <img src="./assets/decor/star-a.png" alt="" aria-hidden="true" style="position: absolute; top: 3%; left: 8%; width: 26px; opacity: 0.8; animation: star-bounce 3.2s ease-in-out infinite; z-index: 1;">
-  <img src="./assets/decor/star-b.png" alt="" aria-hidden="true" style="position: absolute; top: 9%; right: 12%; width: 20px; opacity: 0.7; animation: star-bounce 2.6s ease-in-out infinite 0.4s; z-index: 1;">
-  <img src="./assets/decor/star-a.png" alt="" aria-hidden="true" style="position: absolute; top: 17%; left: 42%; width: 16px; opacity: 0.65; animation: star-bounce 3.6s ease-in-out infinite 0.9s; z-index: 1;">
-  <img src="./assets/decor/star-b.png" alt="" aria-hidden="true" style="position: absolute; top: 24%; right: 6%; width: 30px; opacity: 0.8; animation: star-bounce 2.9s ease-in-out infinite 1.2s; z-index: 1;">
-  <img src="./assets/decor/star-a.png" alt="" aria-hidden="true" style="position: absolute; top: 33%; left: 5%; width: 22px; opacity: 0.7; animation: star-bounce 3.1s ease-in-out infinite 0.6s; z-index: 1;">
-  <img src="./assets/decor/star-b.png" alt="" aria-hidden="true" style="position: absolute; top: 41%; left: 35%; width: 18px; opacity: 0.6; animation: star-bounce 3.4s ease-in-out infinite 1.6s; z-index: 1;">
-  <img src="./assets/decor/star-a.png" alt="" aria-hidden="true" style="position: absolute; top: 48%; right: 20%; width: 24px; opacity: 0.75; animation: star-bounce 2.7s ease-in-out infinite 0.2s; z-index: 1;">
-  <img src="./assets/decor/star-b.png" alt="" aria-hidden="true" style="position: absolute; top: 58%; left: 14%; width: 20px; opacity: 0.65; animation: star-bounce 3.3s ease-in-out infinite 1.1s; z-index: 1;">
-  <img src="./assets/decor/star-a.png" alt="" aria-hidden="true" style="position: absolute; top: 66%; right: 9%; width: 28px; opacity: 0.8; animation: star-bounce 3s ease-in-out infinite 0.7s; z-index: 1;">
-  <img src="./assets/decor/star-b.png" alt="" aria-hidden="true" style="position: absolute; top: 75%; left: 48%; width: 18px; opacity: 0.6; animation: star-bounce 2.8s ease-in-out infinite 1.4s; z-index: 1;">
-  <img src="./assets/decor/star-a.png" alt="" aria-hidden="true" style="position: absolute; top: 84%; left: 10%; width: 22px; opacity: 0.7; animation: star-bounce 3.5s ease-in-out infinite 0.3s; z-index: 1;">
-  <img src="./assets/decor/star-b.png" alt="" aria-hidden="true" style="position: absolute; top: 92%; right: 15%; width: 26px; opacity: 0.75; animation: star-bounce 2.5s ease-in-out infinite 1s; z-index: 1;">
+  <!-- ===== hero ===== -->
+  <section class="hero" aria-labelledby="name">
+    <img class="m-lily" src="assets/decor/lilypads.webp" srcset="assets/decor/lilypads@2x.webp 2x" alt="">
+    <p class="kicker" id="name">Pehara - Vidanagamachchi</p>
+    <h1 class="wonk">PORTFOLIO</h1>
+    <img class="m-flower" src="assets/decor/flower-hero.webp" alt="">
+  </section>
 
-  <!-- shooting stars -->
-  <div aria-hidden="true" style="position: absolute; top: 6%; left: 20%; width: 70px; height: 2px; background: linear-gradient(90deg, transparent, rgba(236,230,214,0.9)); border-radius: 2px; transform-origin: left center; animation: shooting-star 8s ease-in infinite; z-index: 1;"></div>
-  <div aria-hidden="true" style="position: absolute; top: 28%; right: 30%; width: 60px; height: 2px; background: linear-gradient(90deg, transparent, rgba(200,199,147,0.9)); border-radius: 2px; transform-origin: left center; animation: shooting-star 11s ease-in infinite 2.5s; z-index: 1;"></div>
-  <div aria-hidden="true" style="position: absolute; top: 52%; left: 55%; width: 55px; height: 2px; background: linear-gradient(90deg, transparent, rgba(236,230,214,0.9)); border-radius: 2px; transform-origin: left center; animation: shooting-star 9.5s ease-in infinite 5s; z-index: 1;"></div>
-  <div aria-hidden="true" style="position: absolute; top: 78%; right: 12%; width: 65px; height: 2px; background: linear-gradient(90deg, transparent, rgba(200,199,147,0.9)); border-radius: 2px; transform-origin: left center; animation: shooting-star 10s ease-in infinite 3.8s; z-index: 1;"></div>
-  <svg width="30" height="30" viewBox="0 0 24 24" style="position: absolute; top: 52%; left: 3%; filter: drop-shadow(0 0 14px rgba(138,140,224,0.75)); animation: twinkle 5s ease-in-out infinite 1.2s; z-index: 1;"><path d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8 Z" fill="#8a8ce0"></path></svg>
-  <svg width="22" height="22" viewBox="0 0 24 24" style="position: absolute; bottom: 14%; right: 22%; filter: drop-shadow(0 0 10px rgba(200,199,147,0.7)); animation: twinkle 6s ease-in-out infinite 0.6s; z-index: 1;"><path d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8 Z" fill="#c8c793"></path></svg>
+  <section class="programmer" aria-labelledby="role">
+    <h2 id="role">PROGRAMMER</h2>
+    <p>Software Engineer, Game Developer,<br>Creating meaningful products and experiences.</p>
+    <a class="pill" href="#contact">Contact me?</a>
+  </section>
 
-  
-<canvas id="starfield-canvas" aria-hidden="true" style="position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;"></canvas>
-<div id="cursor-tail" aria-hidden="true" style="position: fixed; top: 0; left: 0; width: 0; height: 3px; pointer-events: none; z-index: 9998; opacity: 0; border-radius: 2px; background: linear-gradient(90deg, transparent, rgba(198,195,242,0.9)); transform-origin: right center; filter: drop-shadow(0 0 5px rgba(138,140,224,0.8));"></div>
-<div id="cursor-comet" aria-hidden="true" style="position: fixed; top: 0; left: 0; width: 16px; height: 16px; pointer-events: none; z-index: 9999; opacity: 0; transform: translate(-50%, -50%);">
-  <svg width="16" height="16" viewBox="0 0 24 24" style="filter: drop-shadow(0 0 8px rgba(138,140,224,0.95));"><path d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8 Z" fill="#e4e2fa"></path></svg>
+  <!-- ===== about ===== -->
+  <section class="about" id="about" aria-labelledby="about-t">
+    <h2 class="wonk sec-title" id="about-t">ABOUT ME</h2>
+    <div class="portrait">
+      <img src="assets/decor/portrait.webp" alt="Pehara in a UCSC graduation stole, sitting between library shelves" width="478" height="637">
+      <a class="pill pink" href="#contact">Contact me?</a>
+    </div>
+    <div class="copy">
+      <h3>Close to the screen, Rarely close to done.</h3>
+      <p>I'm a Computer Science &amp; Game Design graduate from UC Santa Cruz. Growing up, I was fascinated by how things worked, the mechanics behind them and the artistry in how they came together. That curiosity followed me into software, where coding became its own form of art: building games, tools, and entire experiences out of nothing but logic and imagination.</p>
+      <p>Most of my hands-on experience comes from games: two multiplayer titles live on Steam, where I've worked on UI systems, gameplay architecture, and performance. I've also branched into data analysis with Python and NumPy, built a TypeScript drawing app from scratch, and I'm now building my first mobile app. I'm a quick learner: once something catches my interest, I don't stop until I've actually gotten good at it, and I bring that same mindset to every project.</p>
+    </div>
+    <dl class="facts">
+      <div><dt>Based in</dt><dd>San Jose</dd></div>
+      <div><dt>Currently working</dt><dd>Trader Joe's<br>MetaFuze</dd></div>
+      <div><dt>Languages</dt><dd>English, Sinhala</dd></div>
+    </dl>
+  </section>
+
+  <!-- ===== hobbies ===== -->
+  <section class="hobbies" id="hobbies" aria-labelledby="hob-t">
+    <h2 class="wonk sec-title" id="hob-t">OUTSIDE OF WORK</h2>
+    <p class="intro">I love picking up a new hobby and spending my time meaningfully, where I can develop new skills. Here are a few of the things I spend time on when I'm not writing code.</p>
+    <div class="hobby-grid">
+      <article class="hobby"><h3>Digi art</h3><p>2D illustration and 3D renders, usually the thing open in a second monitor while a build compiles.</p><button class="pill small" type="button" data-gallery="art">See More...</button></article>
+      <article class="hobby"><h3>Gel-X</h3><p>A creative outlet with an actual finished product every time, see the gallery below for examples.</p><button class="pill small" type="button" data-gallery="nails">See More...</button></article>
+      <article class="hobby"><h3>Reading</h3><p>Keeping the brain sharp, one book at a time.</p><button class="pill small" type="button" data-gallery="reading">See More...</button></article>
+      <article class="hobby"><h3>Travel</h3><p>Exploring new places and meeting new people.</p><button class="pill small" type="button" data-gallery="travel">See More...</button></article>
+      <article class="hobby"><h3>Gaming</h3><p>Solo or with friends, still the reason I got into building software in the first place.</p><button class="pill small" type="button" data-gallery="gaming">See More...</button></article>
+      <article class="hobby"><h3>Music</h3><p>Always something playing in the background, helps set the pace for whatever I'm building.</p><button class="pill small" type="button" data-gallery="music">See More...</button></article>
+      <article class="hobby"><h3>Food</h3><p>Working through as many cuisines as I can, from my own kitchen experiments to favorite dishes I've found eating out.</p><button class="pill small" type="button" data-gallery="food">See More...</button></article>
+    </div>
+  </section>
+
+  <!-- ===== projects ===== -->
+  <section class="projects" id="projects" aria-labelledby="proj-t">
+    <div class="head"><h2 class="wonk sec-title" id="proj-t">PROJECTS</h2></div>
+    <p class="desc">A collection of projects across game development, data analysis, and software engineering. Each one reflects the same instinct: understand how something works, then build it well.</p>
+    <div class="filters" role="group" aria-label="Filter projects">
+      <button class="pill" type="button" data-filter="Python" aria-pressed="false">Python</button>
+      <button class="pill" type="button" data-filter="Web" aria-pressed="false">Web</button>
+      <button class="pill" type="button" data-filter="Games" aria-pressed="false">Games</button>
+      <button class="pill" type="button" data-filter="All" aria-pressed="true">All</button>
+    </div>
+    <div class="pager" id="pager" hidden><button class="pill" type="button" id="pg-prev" aria-label="Previous projects">‹ Previous</button><span id="pg-label"></span><button class="pill" type="button" id="pg-next" aria-label="More projects">More ›</button></div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <!-- ===== skills ===== -->
+  <img class="m-fish" src="assets/decor/fish.webp" alt="" loading="lazy">
+  <section class="skills" id="skills" aria-labelledby="sk-t">
+    <h2 class="wonk sec-title" id="sk-t">SKILLS</h2>
+    <div class="skill-cols">
+      <div><h3>Languages</h3><ul><li>C#</li><li>C++</li><li>Python</li><li>Java</li><li>JavaScript</li><li>SQL</li><li>HTML / CSS</li></ul></div>
+      <div><h3>Traits</h3><ul><li>Creativity</li><li>Detail-oriented</li><li>Intuitive</li><li>Communication</li><li>Adaptability</li><li>Committed</li></ul></div>
+      <div><h3>Engines/Tools</h3><ul><li>Unity</li><li>Godot</li><li>Blender</li><li>Git</li><li>Vite</li><li>Linux</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ===== contact ===== -->
+  <section class="contact" id="contact-section" aria-labelledby="contact">
+    <h2 class="wonk sec-title" id="contact">CONTACT ME</h2>
+    <p class="lead">Open to software engineering roles and collaborations. I read every message myself.</p>
+    <p class="elsewhere">
+      <a href="mailto:pehara002@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>pehara002@gmail.com</a>
+      <a href="https://github.com/pehara" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>github.com/pehara</a>
+      <a href="https://www.linkedin.com/in/pehara" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 12.5h18"/></svg>linkedin.com/in/pehara</a>
+    </p>
+    <form class="form" id="form" novalidate>
+      <label class="l1" for="f-name">Your Name</label>
+      <input class="i1" id="f-name" name="name" type="text" autocomplete="name" required>
+      <label class="l2" for="f-email">Email Address</label>
+      <input class="i2" id="f-email" name="email" type="email" autocomplete="email" required>
+      <label class="l3" for="f-msg">Whats on your mind?</label>
+      <textarea class="i3" id="f-msg" name="message" placeholder="Tell me a bit about your project or inquiry..." required></textarea>
+      <input type="text" name="_honey" id="f-honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <button class="submit" type="submit">Send Message
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <p class="note" id="note" aria-live="polite"></p>
+    </form>
+    <div class="m-bottom" aria-hidden="true">
+      <img src="assets/decor/seaweed.webp" srcset="assets/decor/seaweed@2x.webp 2x" alt="" style="width:900px;left:-200px;top:-60px">
+      <img src="assets/decor/sand.webp" srcset="assets/decor/sand@2x.webp 2x" alt="" style="width:1100px;left:50%;transform:translateX(-50%);top:210px">
+      <img src="assets/decor/flower-sand-r.webp" srcset="assets/decor/flower-sand-r@2x.webp 2x" alt="" style="width:260px;right:-40px;top:230px">
+      <img src="assets/decor/flower-sand-l.webp" srcset="assets/decor/flower-sand-l@2x.webp 2x" alt="" style="width:150px;left:0;top:250px">
+    </div>
+  </section>
+
+  <footer>© 2026 Pehara Vidanagamachchi</footer>
+</main>
 </div>
-<div style="position: relative; z-index: 2;">
 
-  <nav class="nav" style="position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--color-bg) 92%, transparent); padding: var(--space-3) clamp(20px, 5vw, 72px);">
-    <span class="nav-brand" style="font-family: 'Sparky Dream', cursive; font-size: 28px;">Pehara Vidana</span>
-    <a href="#work">Work</a>
-    <a href="#galleries">Galleries</a>
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#contact">Contact</a>
-    <a href="#contact" class="btn btn-primary" style="margin-left: var(--space-2);">Get in touch</a>
-  </nav>
-
-  <section style="position: relative; padding: clamp(72px, 11vw, 148px) clamp(20px, 5vw, 72px) clamp(56px, 9vw, 104px); max-width: 1280px; margin: 0 auto; overflow: visible;">
-    <span aria-hidden="true" style="position: absolute; top: -0.15em; left: 50%; transform: translateX(-50%); font-family: 'Desevon', serif; font-weight: 700; font-size: clamp(90px, 16vw, 220px); letter-spacing: -0.02em; color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, #c8c793 22%, transparent); white-space: nowrap; z-index: 0; pointer-events: none; user-select: none;">PORTFOLIO<svg width="70" height="70" viewBox="0 0 24 24" style="position: absolute; top: 228px; filter: drop-shadow(0 0 20px rgba(200,199,147,0.75)); animation: twinkle 4s ease-in-out infinite; z-index: 5; left: 801px"><path d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8 Z" fill="#ece6d6"></path></svg></span>
-    <p style="position: absolute; top: 40px; left: clamp(20px, 5vw, 72px); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 50%, transparent); max-width: 160px; line-height: 1.5; animation: drift 7s ease-in-out infinite;">Building software with care and intent</p>
-    <p style="position: absolute; top: 150px; right: clamp(20px, 6vw, 140px); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 50%, transparent); max-width: 170px; line-height: 1.5; text-align: right; animation: drift 8s ease-in-out infinite 1s;">Learning by doing, then doing it well</p>
-
-    <div id="hero-grid" style="display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(32px, 5vw, 80px); align-items: center; margin-top: 104px; position: relative; z-index: 1;">
-      <div style="position: relative">
-        <span class="tag tag-outline" style="margin-bottom: var(--space-4);">Software Engineer &amp; Game Developer · UCSC '26</span>
-        <h1 data-reveal="true" style="font-family: 'Desevon', serif; font-weight: 700; font-size: clamp(44px, 6.6vw, 84px); line-height: 1.03; letter-spacing: -0.02em; margin: var(--space-4) 0 0;">
-          I build software<br>
-          <span style="font-family: &quot;Sparky Dream&quot;, cursive; font-weight: 400; background: linear-gradient(100deg, rgb(200, 199, 147), rgb(236, 230, 214) 40%, rgb(162, 161, 232) 75%) text; color: transparent; font-size: 1.05em;">worth the craft</span><br>out of logic and imagination</h1>
-        <div style="font-size: 17px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 46ch; margin: var(--space-6) 0 0;"><div><span style="color: color-mix(in srgb, var(--color-text) 78%, transparent); font-family: var(--font-body); text-wrap-mode: initial;">I've shipped two multiplayer games on Steam, handling UI systems, gameplay architecture, and performance. Lately that's grown into data analysis, a TypeScript drawing app, and my first mobile app always chasing software good enough to make someone's day a little better.</span></div></div>
-        <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-8);">
-          <a href="#work" class="btn btn-primary">View selected work</a>
-          <a href="#contact" class="btn btn-secondary">Say hello</a>
-        </div>
-      <div style="box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 96px; height: 96px; border-radius: 50%; position: absolute; left: 272px; top: 70px; width: 374px; height: 385px; box-shadow: 0px 4px 12px 0px #ECE6D682"></div></div>
-      <div style="position: relative;">
-        <div style="position: absolute; inset: -14%; background: conic-gradient(from 120deg, #35369C, #7C679E, #c8c793, #3F2548, #35369C); opacity: 0.5; filter: blur(36px); border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%; animation: spin-slow 22s linear infinite;"></div>
-        <div style="position: absolute; inset: -14px; border: 1.5px dotted color-mix(in srgb, #c8c793 55%, transparent); border-radius: 20px; pointer-events: none;"></div>
-        <span style="position: absolute; bottom: -32px; left: -14px; font-family: 'Sparky Dream', cursive; font-size: 17px; color: color-mix(in srgb, var(--color-text) 65%, transparent);">N.01 · currently</span>
-        <figure style="position: relative; margin: 0; border-radius: 16px; overflow: hidden; aspect-ratio: 4/5;">
-          <image-slot id="hero-portrait" shape="rect" placeholder=" " style="width: 100%; height: 100%;"></image-slot>
-        <div style="box-sizing: border-box; display: flex; flex-direction: column; width: 475px; height: 526px; border-radius: 1px; position: absolute; left: -25px; top: 18px; background: url(&quot;./assets/decor/hero-top-3059.png&quot;) center / cover no-repeat"></div></figure>
+<!-- hobby pop-up -->
+<div class="modal away" id="modal" role="dialog" aria-modal="true" aria-labelledby="g-title" aria-hidden="true">
+  <div class="sheet" id="sheet" data-kind="gallery">
+    <button class="close" type="button" id="g-close" aria-label="Close">✕</button>
+    <h2 class="wonk" id="g-title">Digital Art</h2>
+    <div class="tabs" id="g-tabs"></div>
+    <div class="stage">
+      <img id="g-big" alt="">
+      <div class="tcard big" id="g-tcard" hidden></div>
+      <p class="soon" id="g-soon" hidden>Photos coming soon</p>
+      <span class="count" id="g-count"></span>
+      <span class="chip" id="g-chip" hidden><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span id="g-place"></span></span>
+      <div class="nav">
+        <button type="button" id="g-prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button type="button" id="g-next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
       </div>
     </div>
-  <svg width="70" height="70" viewBox="0 0 24 24" style="position: absolute; top: 617px; filter: drop-shadow(0 0 20px rgba(200,199,147,0.75)); animation: twinkle 4s ease-in-out infinite; z-index: 5; left: -1px"><path d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8 Z" fill="#ece6d6"></path></svg></section>
-
-  <div style="overflow: hidden; padding: var(--space-4) 0; margin-top: -24px;">
-    <div style="display: flex; width: max-content; gap: 32px; animation: marquee-bounce {{ marqueeSpeed }}s ease-in-out infinite alternate; font-family: 'Desevon', serif; font-style: italic; font-size: clamp(13px, 1.5vw, 17px); white-space: nowrap; color: var(--color-accent-2);">
-      <sc-for list="{{ marqueeItems }}" as="m" hint-placeholder-count="16">
-        <span style="display: inline-flex; align-items: center; gap: 16px;">{{ m }} <svg width="14" height="14" viewBox="0 0 24 24" style="flex: none;"><path d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8 Z" fill="#8a8ce0"></path></svg></span>
-      </sc-for>
+    <div class="info" id="g-info" aria-live="polite"><h3 id="g-ititle"></h3><p class="by" id="g-by"></p><p class="note" id="g-note"></p></div>
+    <div class="thumbs" id="g-thumbs"></div>
+    <div class="music">
+      <div class="vinyl" id="vinyl">
+        <div class="record" id="record" role="button" tabindex="0" aria-label="Spin the record"><div class="label"><b id="rec-title">Pehara's</b><i id="rec-sub">playlist</i></div></div><div class="sheen" aria-hidden="true"></div>
+        <div class="arm" aria-hidden="true"></div>
+        <p class="hint" id="vinyl-hint">Pick a song to drop the needle.</p>
+      </div>
+      <div class="player">
+        <div class="pl-head"><b id="pl-name">Princess Bubblegum</b><span id="pl-count"></span></div>
+        <ol class="tracks" id="tracks"></ol>
+        <div class="dock">
+          <div class="fallback"><a class="pill small" id="sp-link" href="https://open.spotify.com/playlist/1uYKeQtZfpnok5DBZbClkB" target="_blank" rel="noopener">Listen on Spotify ↗</a></div>
+          <div id="sp-host"></div>
+        </div>
+      </div>
     </div>
   </div>
+</div>
+<button class="mini" id="mini" type="button" hidden aria-label="Now playing. Open the music player"><span class="disc" aria-hidden="true"></span>Now playing</button>
+<div class="zoom" id="zoom" hidden><img id="zoom-img" alt=""></div>
 
-  <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 72px);"><hr class="hr" style="margin: 0px; background: linear-gradient(to right, transparent, color-mix(in srgb, #c8c793 30%, transparent) 48px, color-mix(in srgb, #c8c793 30%, transparent) calc(100% - 48px), transparent)"></div>
+<script>
+(function(){
+  /* ---- scale the 1440 artboard (and the 1180 pop-up) to the window ---- */
+  const root=document.documentElement;
+  const fit=()=>{const w=root.clientWidth,h=innerHeight;root.style.setProperty('--z',w>=640?Math.min(1,w/1440):1);
+    root.style.setProperty('--mz',Math.min(1,(w-32)/1180,(h-32)/801))};
+  fit();addEventListener('resize',fit);
 
-  <section id="work" style="max-width: 1280px; margin: 0 auto; padding: clamp(56px, 8vw, 96px) clamp(20px, 5vw, 72px); position: relative; overflow: hidden;">
-    <span aria-hidden="true" style="position: absolute; top: -0.1em; left: -0.02em; font-family: 'Desevon', serif; font-weight: 700; font-size: clamp(70px, 13vw, 170px); color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, #c8c793 20%, transparent); white-space: nowrap; z-index: 0; pointer-events: none; user-select: none;">WORK</span>
-    <div aria-hidden="true" style="position: absolute; top: 46px; width: 107px; height: 109px; border: 1.5px dotted color-mix(in srgb, #8a8ce0 55%, transparent); border-radius: 50%; pointer-events: none; animation: spin-slow 30s linear infinite; left: 1129px"></div>
-    
-    
-    <div style="display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-6); flex-wrap: wrap; position: relative; z-index: 1;">
-      <div>
-        <span style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-2); display: inline-flex; align-items: center; gap: 8px;"><svg width="12" height="12" viewBox="0 0 24 24" style="filter: drop-shadow(0 0 4px rgba(200,199,147,0.7));"><path d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8 Z" fill="#c8c793"></path></svg>Selected work</span>
-        <h2 data-reveal="true" style="font-family: 'Desevon', serif; font-weight: 700; font-size: clamp(30px, 3.8vw, 44px); margin: var(--space-2) 0 0;">Selected work, built with intent.</h2>
-      </div>
-      <p style="font-size: 14px; color: color-mix(in srgb, var(--color-text) 55%, transparent); max-width: 34ch; margin: 0;">A collection of projects across game development, data analysis, and software engineering. Each one reflects the same instinct: understand how something works, then build it well.</p>
-    </div>
+  /* ---- opening animation: petals tumble down past the camera, then a big one falls close and reveals the page.
+         Plays once per visit; click or press any key to skip. ---- */
+  if('scrollRestoration' in history)history.scrollRestoration='manual';
+  scrollTo({top:0,behavior:'instant'});
+  let introDelay=0;
+  (function intro(){
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches||!document.body.animate)return;
+    try{if(sessionStorage.getItem('pondIntro'))return;sessionStorage.setItem('pondIntro','1');}catch(e){}
+    const W=innerWidth,H=innerHeight,P='assets/decor/lotus/hero/',rnd=(a,b)=>a+Math.random()*(b-a);
+    const box=document.createElement('div');box.id='intro';box.setAttribute('aria-hidden','true');
+    box.innerHTML='<div class="water"></div><div class="sky"></div><p class="name">Hello!</p><button class="skip" type="button">skip</button>';
+    document.body.appendChild(box);document.body.classList.add('locked');
+    const water=box.querySelector('.water'),name=box.querySelector('.name'),sky=box.querySelector('.sky');
+    name.animate([{opacity:0,transform:'translateY(14px)'},{opacity:1,transform:'none',offset:.3},{opacity:1,offset:.75},{opacity:0,transform:'translateY(-10px)'}],{duration:3000,delay:200,easing:'ease-in-out',fill:'both'});
+    const anims=[];
+    /* one tumbling fall: drifts down and across while flipping in 3D like a real petal */
+    function fall(el,{x0,y0,x1,y1,z0,z1,dur,delay,spin,flips,sway}){
+      const k=[],N=9;
+      for(let i=0;i<=N;i++){const t=i/N,x=x0+(x1-x0)*t+Math.sin(t*Math.PI*2*sway.n+sway.ph)*sway.a,y=y0+(y1-y0)*(t*t*.35+t*.65),z=z0+(z1-z0)*t;
+        k.push({transform:`translate3d(${x}px,${y}px,${z}px) rotateZ(${spin.z0+spin.z*t}deg) rotateX(${flips.x*t*360+Math.sin(t*9+sway.ph)*25}deg) rotateY(${flips.y*t*360}deg)`,
+          opacity:i===0?0:(i===N?0:1)});}
+      const an=el.animate(k,{duration:dur,delay,easing:'linear',fill:'both'});anims.push(an);return an;}
+    for(let i=0;i<34;i++){
+      const im=new Image();im.src=P+'p'+(1+i%6)+'.webp';im.className='fl';im.alt='';
+      const near=i%7===0,sz=near?rnd(220,340):rnd(50,150);im.style.width=sz+'px';if(near)im.style.filter='blur(3px)';
+      box.appendChild(im);
+      fall(im,{x0:rnd(-.35,.75)*W,y0:-sz-rnd(0,H*.3),x1:rnd(.25,1.2)*W,y1:H+sz,z0:near?rnd(150,260):rnd(-300,60),z1:near?rnd(200,320):rnd(-200,120),
+        dur:rnd(2600,4000)*(near?.8:1),delay:rnd(0,2600),spin:{z0:rnd(0,360),z:rnd(-160,160)},flips:{x:rnd(.6,1.6)*(Math.random()<.5?-1:1),y:rnd(.3,1.1)},
+        sway:{a:rnd(30,90),n:rnd(.6,1.4),ph:rnd(0,6)}});}
+    /* the water backdrop melts away while the petals keep falling over the page, like the reveal in an anime opening */
+    const fadeAt=1500;
+    const back=[water,sky].map(el=>el.animate([{opacity:1},{opacity:0}],{duration:1300,delay:fadeAt,easing:'ease-in-out',fill:'forwards'}));
+    setTimeout(()=>{box.style.pointerEvents='none';box.style.cursor='auto';document.body.classList.remove('locked');scrollTo({top:0,behavior:'instant'});},fadeAt+700);
+    introDelay=fadeAt+300;
+    let done=false;const finish=()=>{if(done)return;done=true;scrollTo({top:0,behavior:'instant'});
+      box.animate([{opacity:1},{opacity:0}],{duration:400,fill:'forwards'}).onfinish=()=>box.remove();document.body.classList.remove('locked');};
+    Promise.all(anims.map(a=>a.finished)).then(finish,finish);
+    const skip=()=>{anims.forEach(a=>a.cancel());back.forEach(a=>a.finish());finish();};
+    box.querySelector('.skip').addEventListener('click',skip);box.addEventListener('click',e=>{if(box.style.pointerEvents!=='none')skip();});
+    addEventListener('keydown',function k(){removeEventListener('keydown',k);skip();});
+    setTimeout(finish,7500);
+  })();
 
-    <div style="display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-8); position: relative; z-index: 1;">
-      <sc-for list="{{ engineFilters }}" as="f" hint-placeholder-count="6">
-        <button type="button" onclick="{{ f.onClick }}" class="btn" style="{{ f.style }}" style-hover="background: color-mix(in srgb, var(--color-text) 10%, transparent);">{{ f.name }}</button>
-      </sc-for>
-    </div>
+  /* ---- projects ---- */
+  /* All projects and hobby content live in content/projects.json and content/hobbies.json (edit it with Pages CMS, or by hand). */
+  const contentReady=Promise.all(['projects','hobbies'].map(n=>fetch(`content/${n}.json`,{cache:'no-cache'}).then(r=>{if(!r.ok)throw 0;return r.json();})))
+    .then(([p,h])=>({...h,...p}))
+    .catch(()=>{console.warn('content/*.json could not be loaded. If you opened index.html straight from your computer, preview it through a local web server instead.');
+      document.getElementById('cards').innerHTML='<p class="load-note">Projects couldn\u2019t load here. Open the site through a web server (see README) to see them.</p>';return {};});
+  const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const cards=document.getElementById('cards');
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function renderProjects(list){
+  cards.innerHTML=list.map(p=>{
+    const media=p.video
+      ?`<video muted loop playsinline preload="none"${p.image?` poster="${esc(p.image)}"`:''} aria-label="${esc(p.title)} gameplay"><source src="${esc(p.video)}" type="video/mp4"></video>`
+      :`<img src="${esc(p.image||'')}" alt="${esc(p.title)} screenshot" loading="lazy" onerror="this.remove()">`;
+    return `<article class="card" data-cat="${(p.categories||[]).join(' ')}">
+      <div class="media">${media}</div>
+      <span class="type">${esc(p.platform||'')}</span>
+      <h3 title="${esc(p.title)}">${esc(p.title)}</h3>
+      <p class="blurb">${esc(p.description||'')}</p>
+      <div class="tags">${(p.tags||[]).map(t=>`<span>${esc(t)}</span>`).join('')}</div>
+      ${p.link_url?`<a class="go" href="${esc(p.link_url)}" target="_blank" rel="noopener">${esc(p.link_label||'View project')} <u>→</u></a>`:''}
+    </article>`}).join('');
+  /* play looping clips only while on screen */
+  const vids=[...cards.querySelectorAll('video')];
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;
+      if(e.isIntersecting){v.preload='auto';if(!reduce)v.play().catch(()=>{})}else v.pause()}),{rootMargin:'200px'});
+    vids.forEach(v=>io.observe(v));
+  }}
+  contentReady.then(c=>{renderProjects(c.projects||[]);paginate();});
+  let page=0;const PER=12,pager=document.getElementById('pager');
+  function paginate(){const vis=[...cards.querySelectorAll('.card:not(.hide)')],pages=Math.max(1,Math.ceil(vis.length/PER));
+    page=Math.min(page,pages-1);vis.forEach((c,i)=>c.classList.toggle('off',Math.floor(i/PER)!==page));
+    cards.querySelectorAll('.card.hide').forEach(c=>c.classList.remove('off'));
+    pager.hidden=pages<=1;document.getElementById('pg-label').textContent=`${page+1} / ${pages}`;
+    document.getElementById('pg-prev').disabled=page===0;document.getElementById('pg-next').disabled=page>=pages-1;}
+  const turnPage=d=>{page+=d;paginate();const top=cards.getBoundingClientRect().top+scrollY-140;scrollTo({top,behavior:reduce?'auto':'smooth'});};
+  document.getElementById('pg-prev').addEventListener('click',()=>turnPage(-1));document.getElementById('pg-next').addEventListener('click',()=>turnPage(1));
+  document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{
+    const f=b.dataset.filter;
+    document.querySelectorAll('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    cards.querySelectorAll('.card').forEach(c=>c.classList.toggle('hide',f!=='All'&&!c.dataset.cat.split(' ').includes(f)));page=0;paginate();
+    if(!reduce)[...cards.querySelectorAll('.card:not(.hide)')].forEach((c,i)=>c.animate([{opacity:0,transform:'translateY(26px) scale(.97)'},{opacity:1,transform:'none'}],{duration:520,delay:i*60,easing:'cubic-bezier(.2,.8,.2,1)',fill:'backwards'}));
+  }));
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--space-6); position: relative; z-index: 1;">
-      <sc-for list="{{ projects }}" as="p" hint-placeholder-count="6">
-        <div class="card elev-sm" style="padding: 0; overflow: hidden; position: relative; background: linear-gradient(160deg, color-mix(in srgb, #3F2548 55%, var(--color-surface)), var(--color-surface)); transform: rotate({{ p.rot }}deg); transition: transform 0.25s ease, box-shadow 0.25s ease;" style-hover="transform: rotate(0deg) translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.5);">
-          <span aria-hidden="true" style="position: absolute; top: 6px; right: 12px; font-family: 'Desevon', serif; font-weight: 700; font-size: 42px; color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, #ece6d6 25%, transparent); z-index: 1; pointer-events: none;">{{ p.idx }}</span>
-          <div style="height: 4px; background: {{ p.dotColor }}; color: {{ p.dotColor }}; animation: pulse-glow 3.5s ease-in-out infinite;"></div>
-          <div style="width: 100%; aspect-ratio: 16/10; background-image: url({{ p.img }}); background-size: cover; background-position: center;"></div>
-          <div style="padding: var(--space-4); position: relative;">
-            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: var(--space-2);">
-              <span style="width: 8px; height: 8px; border-radius: 50%; background: {{ p.dotColor }}; flex: none;"></span>
-              <span style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent);">{{ p.engine }}</span>
-            </div>
-            <h3 class="card-title" style="font-family: 'Desevon', serif; font-weight: 700;">{{ p.title }}</h3>
-            <p class="card-body">{{ p.blurb }}</p>
-            <div style="display: flex; gap: var(--space-2); flex-wrap: wrap; margin: var(--space-2) 0 var(--space-3);">
-              <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="2">
-                <span class="tag tag-accent-2">{{ t }}</span>
-              </sc-for>
-            </div>
-            <sc-if value="{{ p.link }}" hint-placeholder-val="{{ false }}">
-              <a href="{{ p.link.url }}" target="_blank" rel="noopener" style="font-size: 13px; color: var(--color-accent-2);">{{ p.link.label }} →</a>
-            </sc-if>
-          </div>
-        </div>
-      </sc-for>
-    </div>
-  </section>
+  /* ---- hobby pop-ups ------------------------------------------------------------
+     Content comes from content/hobbies.json — add books, games, trips, food and songs there
+     (Pages CMS gives you a form for it). Covers look best at 2:3 (e.g. 600x900).
+  ---------------------------------------------------------------------------------- */
+  const steamArt=(id,size)=>`https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${id}/library_600x900${size}.jpg`;
+  const pics=L=>(L||[]).filter(x=>x.image).map(x=>({img:x.image,thumb:x.thumb||x.image}));
+  const hobbies={};
+  contentReady.then(c=>Object.assign(hobbies,{
+    art:{title:'Digital Art',kind:'gallery',sets:[['2D',pics(c.art_2d)],['3D',pics(c.art_3d)]]},
+    nails:{title:'Gel-X Nails',kind:'gallery',sets:[['All',pics(c.nails)]]},
+    reading:{title:'Reading',kind:'shelf',empty:['My bookshelf','Favourite reads and what I thought of them are on their way.'],
+      items:(c.reading||[]).map(b=>({img:b.cover,thumb:b.cover,title:b.title,by:b.author,note:b.note}))},
+    gaming:{title:'Gaming',kind:'shelf',empty:['My game shelf','The games that got me into making games are on their way.'],
+      items:(c.gaming||[]).map(g=>({img:g.cover||(g.steam_id?steamArt(g.steam_id,'_2x'):''),thumb:g.cover||(g.steam_id?steamArt(g.steam_id,''):''),title:g.title,by:g.by,note:g.note}))},
+    travel:{title:'Travel',kind:'gallery',empty:'Travel photos coming soon',items:(c.travel||[]).map(t=>({img:t.photo,thumb:t.photo,place:t.place,when:t.when}))},
+    food:{title:'Food',kind:'gallery',empty:'Photos coming soon',sets:[
+      ['Homemade',(c.food_homemade||[]).map(f=>({img:f.photo,thumb:f.photo,place:f.name,when:f.note}))],
+      ['Favorites',(c.food_favorites||[]).map(f=>({img:f.photo,thumb:f.photo,place:f.name,when:f.note}))]]},
+    music:{title:'Music',kind:'music',name:(c.music||{}).playlist_name||'',playlist:(c.music||{}).playlist_id||'',tracks:(c.music||{}).tracks||[]}
+  }));
 
-  <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 72px);"><hr class="hr" style="margin: 0; background: linear-gradient(to right, transparent, color-mix(in srgb, #c8c793 30%, transparent) 48px, color-mix(in srgb, #c8c793 30%, transparent) calc(100% - 48px), transparent);"></div>
+  const $=id=>document.getElementById(id);
+  const modal=$('modal'),sheet=$('sheet'),big=$('g-big'),thumbs=$('g-thumbs'),tabs=$('g-tabs'),count=$('g-count'),soon=$('g-soon'),
+        chip=$('g-chip'),place=$('g-place'),prev=$('g-prev'),next=$('g-next'),zoom=$('zoom'),zimg=$('zoom-img'),
+        ititle=$('g-ititle'),iby=$('g-by'),inote=$('g-note'),vinyl=$('vinyl'),mini=$('mini');
+  let items=[],idx=0,label='',kind='gallery',isOpen=false,lastFocus=null,playing=false;
+  const tcard=$('g-tcard');
+  const card=it=>`<b>${esc(it.title||'')}</b><i>${esc((it.by||'').split(' · ')[0])}</i>`;
+  function bigCard(it){big.hidden=true;tcard.innerHTML=card(it);tcard.hidden=false;}
+  big.addEventListener('error',()=>{const it=items[idx];if(!it)return;
+    if(it.thumb&&big.src!==new URL(it.thumb,location.href).href){big.src=it.thumb;}else bigCard(it);});
+  function show(i){if(!items.length)return;idx=(i+items.length)%items.length;const it=items[idx];
+    tcard.hidden=true;if(!it.img){bigCard(it);}else{big.hidden=false;}
+    if(it.img)big.src=it.img;else big.removeAttribute('src');big.alt=it.title||it.place||`${label} ${idx+1} of ${items.length}`;
+    count.textContent=`${idx+1} / ${items.length}`;
+    chip.hidden=!it.place;place.innerHTML=it.place?esc(it.place)+(it.when?` <small>${esc(it.when)}</small>`:''):'';
+    if(kind==='shelf'){ititle.textContent=it.title||'';iby.textContent=it.by||'';inote.textContent=it.note||'';}
+    thumbs.querySelectorAll('button').forEach((b,j)=>b.setAttribute('aria-current',j===idx));
+    const cur=thumbs.children[idx];if(cur)cur.scrollIntoView({block:'nearest'});
+    if(items.length>1){const nx=new Image();nx.src=items[(idx+1)%items.length].img;}}
+  function load(list,emptyMsg){items=list;tcard.hidden=true;
+    const empty=!list.length;soon.hidden=!empty;big.hidden=empty;count.hidden=empty;prev.disabled=next.disabled=empty;chip.hidden=true;
+    if(empty){thumbs.innerHTML='<span></span>'.repeat(kind==='shelf'?8:16);thumbs.scrollTop=0;big.removeAttribute('src');
+      if(kind==='shelf'){ititle.textContent=emptyMsg[0];iby.textContent='Coming soon';inote.textContent=emptyMsg[1];soon.textContent='Covers coming soon';}
+      else soon.textContent=emptyMsg||'Photos coming soon';
+      return;}
+    thumbs.innerHTML=list.map((it,i)=>`<button type="button" aria-label="Show ${esc(it.title||it.place||'piece '+(i+1))}">${(it.thumb||it.img)?`<img src="${it.thumb||it.img}" alt="" loading="lazy">`:''}<strong class="tcard">${card(it)}</strong></button>`).join('');
+    thumbs.querySelectorAll('img').forEach(im=>im.addEventListener('error',()=>im.remove()));
+    [...thumbs.children].forEach((b,i)=>b.addEventListener('click',()=>show(i)));thumbs.scrollTop=0;show(0);}
+  function open(key){const g=hobbies[key];if(!g){contentReady.then(()=>hobbies[key]&&open(key));return;}if(!isOpen)lastFocus=document.activeElement;
+    kind=g.kind;label=g.title;sheet.dataset.kind=kind;sheet.dataset.g=key;if(window.goatcounter&&goatcounter.count)goatcounter.count({path:'hobby-'+key,title:'Opened '+g.title,event:true});$('g-title').textContent=g.title;tabs.innerHTML='';
+    if(kind==='music'){renderTracks(g);initMusic(g.playlist);}
+    else if(g.sets){
+      const first=Math.max(0,g.sets.findIndex(s=>s[1].length));   /* open on the first tab that has pictures */
+      tabs.innerHTML=g.sets.length>1?g.sets.map((s,i)=>`<button class="pill small" type="button" aria-pressed="${i===first}">${s[0]}</button>`).join(''):'';
+      [...tabs.children].forEach((b,i)=>b.addEventListener('click',()=>{[...tabs.children].forEach(x=>x.setAttribute('aria-pressed',x===b));load(g.sets[i][1],g.empty)}));
+      load(g.sets.length?g.sets[first][1]:[],g.empty);
+    } else load(g.items,g.empty);
+    isOpen=true;modal.classList.remove('away');modal.setAttribute('aria-hidden','false');mini.hidden=true;
+    document.body.classList.add('locked');$('g-close').focus();
+    if(!reduce){sheet.animate([{opacity:0,transform:'translateY(18px) scale(.96)'},{opacity:1,transform:'none'}],{duration:420,easing:'cubic-bezier(.2,.8,.2,1)'});
+      [...thumbs.children].slice(0,16).forEach((t,i)=>t.animate([{opacity:0,transform:'translateY(12px)'},{opacity:1,transform:'none'}],{duration:380,delay:120+i*28,easing:'ease-out',fill:'backwards'}));}}
+  function close(){isOpen=false;zoom.hidden=true;modal.classList.add('away');modal.setAttribute('aria-hidden','true');
+    document.body.classList.remove('locked');mini.hidden=!playing;if(lastFocus)lastFocus.focus();}
+  document.querySelectorAll('[data-gallery]').forEach(b=>b.addEventListener('click',()=>open(b.dataset.gallery)));
+  $('g-close').addEventListener('click',close);
+  prev.addEventListener('click',()=>show(idx-1));
+  next.addEventListener('click',()=>show(idx+1));
+  modal.addEventListener('click',e=>{if(e.target===modal)close()});
+  big.addEventListener('click',()=>{if(!items.length||big.hidden)return;zimg.src=items[idx].img;zimg.alt=big.alt;zoom.hidden=false});
+  zoom.addEventListener('click',()=>zoom.hidden=true);
+  mini.addEventListener('click',()=>open('music'));
+  addEventListener('keydown',e=>{if(!isOpen)return;
+    if(e.key==='Escape'){if(!zoom.hidden)zoom.hidden=true;else close()}
+    else if(kind!=='music'&&e.key==='ArrowRight')show(idx+1);else if(kind!=='music'&&e.key==='ArrowLeft')show(idx-1);});
+  let sx=null;big.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+  big.addEventListener('touchend',e=>{if(sx===null)return;const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>40)show(idx+(d<0?1:-1));sx=null});
 
-  <section id="galleries" style="position: relative; padding: clamp(56px, 8vw, 96px) 0; background: radial-gradient(900px 500px at 15% -20%, color-mix(in srgb, #7C679E 55%, transparent), transparent 65%), linear-gradient(180deg, #241a2b, #1c1710); overflow: hidden;">
-    
-    <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 72px); position: relative;">
-      <span style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-2); display: inline-flex; align-items: center; gap: 8px;"><svg width="12" height="12" viewBox="0 0 24 24" style="filter: drop-shadow(0 0 4px rgba(200,199,147,0.7));"><path d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8 Z" fill="#c8c793"></path></svg>Galleries</span>
-      <h2 data-reveal="true" style="font-family: 'Desevon', serif; font-weight: 700; font-size: clamp(30px, 3.8vw, 44px); margin: var(--space-2) 0 var(--space-8);">I'm not just technical. I'm creative, too.</h2>
-      <sc-if value="{{ showOverview }}" hint-placeholder-val="{{ true }}">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6); align-items: start; position: relative">
+  /* Spotify: the official embed plays 30-second previews for visitors who aren't logged in
+     (full songs for logged-in Spotify users). Its iFrame API tells us when music is playing,
+     which spins the record and keeps a "Now playing" button on screen after the pop-up closes. */
+  let musicStarted=false;
+  let spinning=false,ctrl=null;
+  function setPlaying(p){playing=p;spin(p);if(!isOpen)mini.hidden=!p;}
+  function spin(on){spinning=on;vinyl.classList.toggle('playing',on);startTurntable();}
+  /* Turntable: the record speeds up and slows down like a real one (33 rpm ≈ 200°/s). */
+  const rec=$('record');let ang=0,vel=0,tt=0,lastT=0;
+  function startTurntable(){if(!tt){lastT=performance.now();tt=requestAnimationFrame(turn);}}
+  function turn(t){const dt=Math.min(.05,(t-lastT)/1000);lastT=t;
+    vel+=((spinning?200:0)-vel)*Math.min(1,dt*(spinning?1.6:1.1));ang=(ang+vel*dt)%360;rec.style.rotate=ang+'deg';
+    if(!spinning&&vel<.5){vel=0;tt=0;return;}tt=requestAnimationFrame(turn);}
+  function labelSong(title,artist){const b=$('rec-title'),i=$('rec-sub');
+    if(title){b.textContent=title;b.classList.add('song');i.textContent=(artist||'').split(',')[0];}
+    else{b.textContent="Pehara's";b.classList.remove('song');i.textContent='playlist';}}
+  /* Clicking the record plays/pauses Spotify when its player is there; otherwise it just spins. */
+  function toggleRecord(){if(ctrl&&$('sp-host')===null&&document.querySelector('.player.live')){ctrl.togglePlay();return;}spin(!spinning);}
+  rec.addEventListener('click',toggleRecord);
+  rec.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleRecord();}});
+  function plainEmbed(id){const host=$('sp-host');if(!host)return;
+    host.outerHTML=`<iframe title="Spotify playlist" src="https://open.spotify.com/embed/playlist/${id}?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+    const f=document.querySelector('.dock iframe');if(f)f.addEventListener('load',()=>setTimeout(()=>{if(!document.querySelector('.dock.blocked'))document.querySelector('.player').classList.add('live');},300));}
+  function renderTracks(g){const ol=$('tracks');if(ol.dataset.done)return;ol.dataset.done=1;
+    const rows=(g.tracks||[]).map(t=>[t.title,t.artist,t.length]).filter(r=>r[0]);
+    $('pl-count').textContent=rows.length+' songs';if(g.name)$('pl-name').textContent=g.name;
+    if(g.playlist)$('sp-link').href='https://open.spotify.com/playlist/'+g.playlist;
+    ol.addEventListener('click',e=>{const a=e.target.closest('a');if(!a)return;const r=rows[+a.dataset.i];labelSong(r[0],r[1]);spin(true);ol.querySelectorAll('a[aria-current]').forEach(x=>x.removeAttribute('aria-current'));a.setAttribute('aria-current','true');});
+    ol.innerHTML=rows.map((r,i)=>`<li><a data-i="${i}" href="https://open.spotify.com/search/${encodeURIComponent(r[0]+' '+(r[1]||''))}" target="_blank" rel="noopener" title="Open on Spotify"><span class="n">${i+1}</span><span class="tt"><b>${esc(r[0])}</b><i>${esc(r[1]||'')}</i></span><span class="d">${esc(r[2]||'')}</span></a></li>`).join('');}
+  function initMusic(id){if(musicStarted)return;musicStarted=true;
+    window.onSpotifyIframeApiReady=API=>{const host=$('sp-host');if(!host)return;
+      API.createController(host,{uri:'spotify:playlist:'+id,width:'100%',height:'100%'},c=>{ctrl=c;
+        c.addListener('ready',()=>{const p=document.querySelector('.player');if(!document.querySelector('.dock.blocked'))p.classList.add('live');$('vinyl-hint').textContent='Press play on any song for a preview.';});
+        c.addListener('playback_update',e=>{labelSong();setPlaying(!e.data.isPaused&&e.data.position<e.data.duration);});});};
+    const sc=document.createElement('script');sc.src='https://open.spotify.com/embed/iframe-api/v1';sc.async=true;
+    sc.onerror=()=>plainEmbed(id);document.head.appendChild(sc);
+    setTimeout(()=>{if($('sp-host'))plainEmbed(id)},6000);}
+  /* If the page is shown somewhere that forbids embedded players (a preview, a strict privacy setting),
+     remove the blocked frame so the "Open on Spotify" button underneath is visible instead. */
+  document.addEventListener('securitypolicyviolation',e=>{if(!/spotify/.test(e.blockedURI||''))return;
+    document.querySelectorAll('.player iframe, #sp-host').forEach(n=>n.remove());
+    const d=document.querySelector('.dock');if(d)d.classList.add('blocked');document.querySelector('.player').classList.remove('live');const h=$('vinyl-hint');if(h)h.textContent='Pick a song to drop the needle — or tap the record.';});
 
-          <div class="elev-md" style="border-radius: var(--radius-lg); padding: var(--space-5); background: color-mix(in srgb, #1c1710 82%, transparent); border: 1px solid color-mix(in srgb, {{ gallery2dItems.accent }} 30%, transparent); transition: transform 0.3s ease; transform: rotate(-1deg); cursor: pointer;" style-hover="transform: rotate(0deg) translateY(-6px);" onclick="{{ gallery2dItems.onView }}">
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: var(--space-4);">
-              <sc-for list="{{ gallery2dItems.previewImgs }}" as="pimg" hint-placeholder-count="4">
-                <div style="width: 100%; aspect-ratio: 1; border-radius: 8px; background-image: url({{ pimg }}); background-size: cover; background-position: center;"></div>
-              </sc-for>
-            </div>
-            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3);">
-              <div>
-                <p class="card-title" style="color: {{ gallery2dItems.accent }}; margin: 0; font-family: 'Desevon', serif; font-weight: 700;">{{ gallery2dItems.title }}</p>
-                <p class="card-meta" style="margin-top: 4px;">{{ gallery2dItems.count }} pieces</p>
-              </div>
-              <button type="button" onclick="{{ gallery2dItems.onView }}" class="btn btn-secondary" style="font-size: 12px; padding: 6px 14px; border-color: {{ gallery2dItems.accent }}; color: {{ gallery2dItems.accent }};" style-hover="background: color-mix(in srgb, {{ gallery2dItems.accent }} 18%, transparent);">View gallery →</button>
-            </div>
-          </div>
 
-          <div class="elev-md" style="border-radius: var(--radius-lg); padding: var(--space-5); background: color-mix(in srgb, #1c1710 82%, transparent); border: 1px solid color-mix(in srgb, {{ gallery3dItems.accent }} 30%, transparent); transition: transform 0.3s ease; transform: rotate(1deg); cursor: pointer;" style-hover="transform: rotate(0deg) translateY(-6px);" onclick="{{ gallery3dItems.onView }}">
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: var(--space-4);">
-              <sc-for list="{{ gallery3dItems.previewImgs }}" as="pimg" hint-placeholder-count="4">
-                <div style="width: 100%; aspect-ratio: 1; border-radius: 8px; background-image: url({{ pimg }}); background-size: cover; background-position: center;"></div>
-              </sc-for>
-            </div>
-            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3);">
-              <div>
-                <p class="card-title" style="color: {{ gallery3dItems.accent }}; margin: 0; font-family: 'Desevon', serif; font-weight: 700;">{{ gallery3dItems.title }}</p>
-                <p class="card-meta" style="margin-top: 4px;">{{ gallery3dItems.count }} pieces</p>
-              </div>
-              <button type="button" onclick="{{ gallery3dItems.onView }}" class="btn btn-secondary" style="font-size: 12px; padding: 6px 14px; border-color: {{ gallery3dItems.accent }}; color: {{ gallery3dItems.accent }};" style-hover="background: color-mix(in srgb, {{ gallery3dItems.accent }} 18%, transparent);">View gallery →</button>
-            </div>
-          </div>
+  /* ================= life on the pond ================= */
+  const motionOK=!reduce;
+  const pageEl=document.querySelector('.page');
+  const zoomOf=()=>parseFloat(getComputedStyle(root).getPropertyValue('--z'))||1;
+  const isDesktop=()=>root.clientWidth>=640;
 
-          <div class="elev-md" style="border-radius: var(--radius-lg); padding: var(--space-5); background: color-mix(in srgb, #1c1710 82%, transparent); border: 1px solid color-mix(in srgb, {{ galleryGelxItems.accent }} 30%, transparent); transition: transform 0.3s ease; transform: rotate(0.5deg); cursor: pointer;" style-hover="transform: rotate(0deg) translateY(-6px);" onclick="{{ galleryGelxItems.onView }}">
-            <div style="display: flex; gap: 10px; margin-bottom: var(--space-4);">
-              <sc-for list="{{ galleryGelxItems.previewImgs }}" as="pimg" hint-placeholder-count="4">
-                <div style="width: 100%; aspect-ratio: 1; border-radius: 50%; flex: 1; background-image: url({{ pimg }}); background-size: cover; background-position: center;"></div>
-              </sc-for>
-            </div>
-            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3);">
-              <div>
-                <p class="card-title" style="color: {{ galleryGelxItems.accent }}; margin: 0; font-family: 'Desevon', serif; font-weight: 700;">{{ galleryGelxItems.title }}</p>
-                <p class="card-meta" style="margin-top: 4px;">{{ galleryGelxItems.count }} pieces</p>
-              </div>
-              <button type="button" onclick="{{ galleryGelxItems.onView }}" class="btn btn-secondary" style="font-size: 12px; padding: 6px 14px; border-color: {{ galleryGelxItems.accent }}; color: {{ galleryGelxItems.accent }};" style-hover="background: color-mix(in srgb, {{ galleryGelxItems.accent }} 18%, transparent);">View gallery →</button>
-            </div>
-          </div>
+  /* lotus flowers: every petal sways on its own and gets pushed when the cursor brushes it */
+  const lotuses=[...document.querySelectorAll('.lotus')].map((el,fi)=>({el,a:0,v:0,ph:fi*1.3,
+    petals:[...el.querySelectorAll('.petal')].map((p,i)=>{const c=(p.dataset.c||'0,0,1').split(',').map(Number);return {el:p,cx:c[0],cy:c[1],r:c[2],a:0,v:0,ph:fi*2.1+i*1.37,sp:.55+((i*37+fi*11)%10)*.045,amp:1.6+((i*13+fi)%5)*.4};})}));
+  lotuses.forEach(f=>f.el.style.transformOrigin='50% 75%');
+  /* buds bob on the water and wobble or dunk when touched */
+  const buds=[...document.querySelectorAll('.bud')].map(el=>({el,a:0,v:0,s:0,sv:0}));
+  let lastX=null,lastY=null;
+  function brush(x,y,dx,dy){
+    for(const f of lotuses){const r=f.el.getBoundingClientRect();
+      if(x<r.left||x>r.right||y<r.top||y>r.bottom)continue;
+      const k=r.width/f.el.offsetWidth;
+      for(const p of f.petals){const cx=r.left+p.cx*k,cy=r.top+p.cy*k,reach=p.r*k*1.15,d=Math.hypot(x-cx,y-cy);
+        if(d<reach){const w=1-d/reach;p.v+=Math.max(-4.5,Math.min(4.5,(dx-dy*.4)*.22))*w+(Math.random()-.5)*.6*w;}}
+      f.v+=Math.max(-.6,Math.min(.6,dx*.02));}
+    for(const b of buds){const r=b.el.getBoundingClientRect();const cx=r.left+r.width/2,cy=r.top+r.height/2;
+      const d=Math.hypot(x-cx,y-cy),reach=Math.max(r.width,r.height)*.6;
+      if(d<reach){const w=1-d/reach;b.v+=Math.max(-4,Math.min(4,dx*.25))*w;b.sv-=.08*w;}}
+  }
+  addEventListener('pointermove',e=>{
+    if(!motionOK||!isDesktop()){lastX=e.clientX;lastY=e.clientY;return;}
+    const dx=lastX===null?0:e.clientX-lastX,dy=lastY===null?0:e.clientY-lastY;lastX=e.clientX;lastY=e.clientY;
+    brush(e.clientX,e.clientY,dx,dy);
+    for(const b of bubbles){if(b.state==='up'){const r=b.el.getBoundingClientRect();
+      const cx=r.left+r.width/2,cy=r.top+r.height/2,rad=r.width/2;
+      if((e.clientX-cx)**2+(e.clientY-cy)**2<rad*rad)pop(b);}}
+  },{passive:true});
+  addEventListener('pointerdown',e=>{if(motionOK&&isDesktop())brush(e.clientX,e.clientY,(Math.random()-.5)*28,6)},{passive:true});
+  let tPrev=performance.now();
+  /* only animate what's on screen: off-screen flowers and buds cost nothing */
+  if('IntersectionObserver' in window){const vis=new IntersectionObserver(es=>es.forEach(e=>{e.target._on=e.isIntersecting}),{rootMargin:'150px'});
+    lotuses.forEach(f=>{f.el._on=false;vis.observe(f.el)});buds.forEach(b=>{b.el._on=false;vis.observe(b.el)});}
+  else{lotuses.forEach(f=>f.el._on=true);buds.forEach(b=>b.el._on=true);}
+  function frame(t){const dt=Math.min(.05,(t-tPrev)/1000);tPrev=t;const ts=t/1000;
+    for(const f of lotuses){if(!f.el._on)continue;
+      f.v+=(-20*f.a-3*f.v)*dt*6;f.a+=f.v*dt*6;f.el.style.rotate=(Math.sin(ts*.4+f.ph)*.6+f.a).toFixed(3)+'deg';
+      for(const p of f.petals){p.v+=(-24*p.a-2.6*p.v)*dt*6;p.a+=p.v*dt*6;p.a=Math.max(-16,Math.min(16,p.a));
+        p.el.style.rotate=(Math.sin(ts*p.sp+p.ph)*p.amp+p.a).toFixed(3)+'deg';}}
+    for(const b of buds){if(!b.el._on)continue;b.v+=(-14*b.a-1.6*b.v)*dt*6;b.a+=b.v*dt*6;b.sv+=(-30*b.s-3.2*b.sv)*dt*6;b.s+=b.sv*dt*6;
+      b.el.style.rotate=b.a.toFixed(2)+'deg';b.el.style.scale=(1+b.s).toFixed(4);}
+    requestAnimationFrame(frame);}
+  if(motionOK)requestAnimationFrame(frame);
 
-        </div>
-      </sc-if>
+  /* bubbles: pop now and then (or when touched) and drift back a little elsewhere */
+  const bubbleBox=document.querySelector('.d-bubbles');
+  const bubbles=[...document.querySelectorAll('.bub')].map(el=>({el,x:parseFloat(el.style.left),y:parseFloat(el.style.top),w:parseFloat(el.style.width),state:'up',t:0}));
+  function splash(b){const cx=parseFloat(b.el.style.left)+b.w/2,cy=parseFloat(b.el.style.top)+b.w/2;
+    const ring=document.createElement('span');ring.className='splash';ring.style.cssText=`left:${cx}px;top:${cy}px;--s0:${b.w*.8}px;--s1:${b.w*1.6}px`;
+    bubbleBox.appendChild(ring);setTimeout(()=>ring.remove(),600);
+    for(let k=0;k<6;k++){const d=document.createElement('span');d.className='splash dot';const ang=k/6*Math.PI*2+Math.random();const dist=b.w*(.5+Math.random()*.5);const sz=Math.max(3,b.w*.06);
+      d.style.cssText=`left:${cx}px;top:${cy}px;width:${sz}px;height:${sz}px;--tx:${Math.cos(ang)*dist}px;--ty:${Math.sin(ang)*dist}px`;bubbleBox.appendChild(d);setTimeout(()=>d.remove(),600);}}
+  function pop(b){if(b.state!=='up')return;b.state='popped';clearTimeout(b.t);b.el.classList.add('popped');splash(b);
+    b.t=setTimeout(()=>{b.el.classList.remove('popped');b.el.classList.add('gone');b.state='gone';
+      b.el.style.left=(b.x+(Math.random()-.5)*50)+'px';b.el.style.top=(b.y+(Math.random()-.5)*40)+'px';
+      b.t=setTimeout(()=>respawn(b),1800+Math.random()*3500);},200);}
+  function respawn(b){b.el.offsetWidth;b.el.classList.remove('gone');b.state='up';schedule(b);}
+  function schedule(b){b.t=setTimeout(()=>{if(document.hidden){schedule(b);return;}pop(b)},6000+Math.random()*12000);}
+  if(motionOK)bubbles.forEach(schedule);
 
-      <sc-if value="{{ openGalleryData }}" hint-placeholder-val="{{ false }}">
-        <div>
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-5);">
-            <button type="button" onclick="{{ closeGallery }}" class="btn btn-secondary" style="font-size: 13px;">← back to galleries</button>
-            <p class="card-title" style="color: {{ openGalleryData.accent }}; margin: 0; font-size: 22px; font-family: 'Desevon', serif; font-weight: 700;">{{ openGalleryData.title }}</p>
-          </div>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space-3);">
-            <sc-for list="{{ openGalleryData.items }}" as="it" hint-placeholder-count="8">
-              <button type="button" onclick="{{ it.onClick }}" style="padding: 0; border: none; cursor: pointer; aspect-ratio: 1; border-radius: 10px; overflow: hidden; background-image: url({{ it.img }}); background-size: cover; background-position: center; transition: transform 0.15s ease;" style-hover="transform: scale(1.04);"></button>
-            </sc-for>
-          </div>
-        </div>
-      </sc-if>
-    <div style="box-sizing: border-box; display: flex; flex-direction: column; width: 218px; height: 262px; border-radius: 8px; position: absolute; left: -90px; top: -52px; background: url(&quot;./img_3051_white_transparent-ms76uk7k-yjo1.png&quot;) center / cover no-repeat; opacity: 0.79"></div><svg width="90" height="90" viewBox="0 0 24 24" style="position: absolute; top: -39px; opacity: 0.8; filter: drop-shadow(0 0 22px rgba(200,199,147,0.6)); animation: twinkle 5s ease-in-out infinite; left: 945px"><path d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8 Z" fill="#c8c793"></path></svg></div>
-  </section>
-
-  <sc-if value="{{ lightboxOpen }}" hint-placeholder-val="{{ false }}">
-    <div style="position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-4); background: color-mix(in srgb, #0d0a08 92%, transparent); backdrop-filter: blur(4px); padding: clamp(20px, 5vw, 56px);" onclick="{{ closeLightbox }}">
-      <div style="display: flex; align-items: center; justify-content: flex-end; width: min(900px, 100%);">
-        <button type="button" onclick="{{ closeLightbox }}" class="btn btn-icon" style="color: var(--color-text);" aria-label="Close">✕</button>
-      </div>
-      <div style="display: flex; align-items: center; gap: var(--space-4); width: min(900px, 100%);" onclick="{{ stopPropagation }}">
-        <button type="button" onclick="{{ lightboxPrev }}" class="btn btn-icon" style="color: var(--color-text); flex: none;" aria-label="Previous">←</button>
-        <div style="flex: 1; max-width: 760px; max-height: 65vh; overflow: auto; border-radius: 12px; margin: 0 auto;">
-          <div style="{{ lightboxImgStyle }}" onclick="{{ toggleLightboxZoom }}"></div>
-        </div>
-        <button type="button" onclick="{{ lightboxNext }}" class="btn btn-icon" style="color: var(--color-text); flex: none;" aria-label="Next">→</button>
-      </div>
-      <p style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 60%, transparent); margin: 0;">{{ lightboxCounter }} · click image to {{ lightboxZoomLabel }}</p>
-    </div>
-  </sc-if>
-
-  <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 72px);"><hr class="hr" style="margin: 0; background: linear-gradient(to right, transparent, color-mix(in srgb, #c8c793 30%, transparent) 48px, color-mix(in srgb, #c8c793 30%, transparent) calc(100% - 48px), transparent);"></div>
-
-  <section id="about" style="max-width: 1280px; margin: 0 auto; padding: clamp(56px, 8vw, 96px) clamp(20px, 5vw, 72px); display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(32px, 5vw, 72px); align-items: center; position: relative; overflow: hidden;">
-    <span aria-hidden="true" style="position: absolute; top: -0.15em; right: -0.02em; font-family: 'Desevon', serif; font-weight: 700; font-size: clamp(70px, 13vw, 170px); color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, #8a8ce0 22%, transparent); white-space: nowrap; z-index: 0; pointer-events: none; user-select: none;">ABOUT</span>
-    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" style="position: absolute; top: 12%; left: 4%; z-index: 1; filter: drop-shadow(0 0 8px rgba(200,199,147,0.6)); animation: twinkle 5s ease-in-out infinite 0.5s;"><path d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8 Z" fill="#ece6d6"></path></svg>
-    <div aria-hidden="true" style="position: absolute; bottom: 8%; right: 6%; width: 239px; height: 239px; border: 1.5px dotted color-mix(in srgb, #e0a3d0 55%, transparent); border-radius: 50%; pointer-events: none; animation: spin-slow 24s linear infinite reverse"></div>
-    
-    <div style="position: relative; z-index: 1;">
-      <div style="position: absolute; inset: -8%; background: radial-gradient(circle at 30% 20%, color-mix(in srgb, #35369C 55%, transparent), transparent 65%); filter: blur(30px);"></div>
-      <div style="position: relative; z-index: 1;">
-        <div style="width: 100%; aspect-ratio: 4/5; border-radius: 16px; background-image: url(./assets/portrait-real.jpg); background-size: cover; background-position: center;"></div>
-      </div>
-    </div>
-    <div style="position: relative; z-index: 1;">
-      <span style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-2);">About</span>
-      <h2 data-reveal="true" style="font-family: 'Desevon', serif; font-weight: 700; font-size: clamp(28px, 3.2vw, 38px); margin: var(--space-2) 0 0; max-width: 20ch;">Close to the screen. Rarely close to done.</h2>
-      <div style="font-size: 16px; line-height: 1.65; color: color-mix(in srgb, var(--color-text) 80%, transparent); max-width: 52ch; margin: var(--space-4) 0 0;"><div>I'm a Computer Science &amp; Game Design graduate from UC Santa Cruz. Growing up, I was fascinated by how things worked, the mechanics behind them and the artistry in how they came together. That curiosity followed me into software, where coding became its own form of art: building games, tools, and entire experiences out of nothing but logic and imagination.</div><div>Most of my hands-on experience comes from games: two multiplayer titles live on Steam, where I've worked on UI systems, gameplay architecture, and performance. I've also branched into data analysis with Python and NumPy, built a TypeScript drawing app from scratch, and I'm now building my first mobile app. I'm a quick learner: once something catches my interest, I don't stop until I've actually gotten good at it, and I bring that same mindset to every project.</div></div>
-      <p style="font-size: 16px; line-height: 1.65; color: color-mix(in srgb, var(--color-text) 80%, transparent); max-width: 52ch; margin: var(--space-3) 0 0;">Outside of code I draw, cook, and paint nails: creative outlets that keep the same instinct for craft and attention to detail sharp.</p>
-      <div style="display: flex; gap: var(--space-6); margin-top: var(--space-6); flex-wrap: wrap;">
-        <div><p style="font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin: 0 0 4px;">Based in</p><p style="margin: 0; font-size: 15px;">San Jose, California</p></div>
-        <div><p style="font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin: 0 0 4px;">Looking for</p><p style="margin: 0; font-size: 15px;">Software engineering roles, game or otherwise</p></div>
-        <div><p style="margin: 0; font-size: 15px;"></p></div>
-        <div><p style="font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin: 0 0 4px;">Languages</p><p style="margin: 0; font-size: 15px;">Sinhala &amp; English</p></div>
-      </div>
-    <div style="box-sizing: border-box; display: flex; flex-direction: column; width: 139px; height: 133px; border-radius: 8px; position: absolute; left: 562px; top: 240px; background: url(&quot;./img_3050_white_transparent-ms76qsru-vpwn.png&quot;) center / cover no-repeat; opacity: 0.72"></div></div>
-  </section>
-
-  <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 72px);"><hr class="hr" style="margin: 0; background: linear-gradient(to right, transparent, color-mix(in srgb, #c8c793 30%, transparent) 48px, color-mix(in srgb, #c8c793 30%, transparent) calc(100% - 48px), transparent);"></div>
-
-  <section id="hobbies" style="max-width: 1280px; margin: 0 auto; padding: clamp(56px, 8vw, 96px) clamp(20px, 5vw, 72px); position: relative; overflow: hidden;">
-    <span aria-hidden="true" style="position: absolute; top: -0.1em; right: -0.02em; font-family: 'Desevon', serif; font-weight: 700; font-size: clamp(60px, 11vw, 150px); color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, #8a8ce0 20%, transparent); white-space: nowrap; z-index: 0; pointer-events: none; user-select: none;">HOBBIES</span>
-    <div style="position: relative; z-index: 1;">
-      <span style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-2); display: inline-flex; align-items: center; gap: 8px;"><svg width="12" height="12" viewBox="0 0 24 24" style="filter: drop-shadow(0 0 4px rgba(200,199,147,0.7));"><path d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8 Z" fill="#c8c793"></path></svg>Off the clock</span>
-      <h2 data-reveal="true" style="font-family: 'Desevon', serif; font-weight: 700; font-size: clamp(30px, 3.8vw, 44px); margin: var(--space-2) 0 var(--space-3); max-width: 22ch;">Outside of work.</h2>
-      <p style="font-size: 15px; color: color-mix(in srgb, var(--color-text) 60%, transparent); max-width: 50ch; margin: 0 0 var(--space-8);">A few of the things I spend time on when I'm not writing code.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-6);">
-        <sc-for list="{{ hobbies }}" as="h" hint-placeholder-count="5">
-          <div style="padding: var(--space-5) var(--space-4) var(--space-4); border-radius: var(--radius-lg); border: 1px solid var(--color-divider); background: color-mix(in srgb, #3F2548 18%, transparent); position: relative; transition: transform 0.2s ease, border-color 0.2s ease;" style-hover="transform: translateY(-4px); border-color: color-mix(in srgb, #c8c793 40%, transparent);">
-            <span aria-hidden="true" style="position: absolute; top: 10px; right: 14px; font-family: 'Sparky Dream', cursive; font-size: 15px; color: color-mix(in srgb, var(--color-text) 35%, transparent); animation: drift 5s ease-in-out infinite;">{{ h.num }}</span>
-            <h3 style="font-family: 'Desevon', serif; font-weight: 700; font-size: 19px; margin: 0 0 var(--space-2); color: var(--color-accent-2);">{{ h.title }}</h3>
-            <p style="font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 78%, transparent); margin: 0;">{{ h.copy }}</p>
-          </div>
-        </sc-for>
-      </div>
-    </div>
-  </section>
-
-  <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 72px);"><hr class="hr" style="margin: 0; background: linear-gradient(to right, transparent, color-mix(in srgb, #c8c793 30%, transparent) 48px, color-mix(in srgb, #c8c793 30%, transparent) calc(100% - 48px), transparent);"></div>
-
-  <section id="skills" style="max-width: 1280px; margin: 0 auto; padding: clamp(56px, 8vw, 96px) clamp(20px, 5vw, 72px); position: relative; overflow: hidden;">
-    <span aria-hidden="true" style="position: absolute; top: -0.1em; left: -0.02em; font-family: 'Desevon', serif; font-weight: 700; font-size: clamp(60px, 11vw, 150px); color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, #c8c793 20%, transparent); white-space: nowrap; z-index: 0; pointer-events: none; user-select: none;">SKILLS</span>
-    <div style="position: relative; z-index: 1;">
-      <span style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-2);">03 / skills</span>
-      <h2 data-reveal="true" style="font-family: 'Desevon', serif; font-weight: 700; font-size: clamp(30px, 3.8vw, 44px); margin: var(--space-2) 0 var(--space-8);">Toolset</h2>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-8); position: relative">
-        <sc-for list="{{ skillGroups }}" as="g" hint-placeholder-count="3">
-          <div style="border-top: 2px solid color-mix(in srgb, #c8c793 45%, transparent); padding-top: var(--space-4);">
-            <div style="display: flex; align-items: baseline; gap: var(--space-3); margin-bottom: var(--space-4);">
-              <p style="font-family: 'Sparky Dream', cursive; font-size: 26px; color: var(--color-accent-2); margin: 0;">{{ g.num }}</p>
-              <p style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin: 0;">// {{ g.label }}</p>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: var(--space-2);">
-              <sc-for list="{{ g.items }}" as="item" hint-placeholder-count="5">
-                <p style="font-size: 16px; margin: 0; color: var(--color-text); display: flex; align-items: center; gap: 8px;"><span style="width: 5px; height: 5px; border-radius: 50%; background: {{ g.dot }}; flex: none;"></span>{{ item }}</p>
-              </sc-for>
-            </div>
-          </div>
-        </sc-for>
-      </div>
-    </div>
-  </section>
-
-  <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 72px);"><hr class="hr" style="margin: 0; background: linear-gradient(to right, transparent, color-mix(in srgb, #c8c793 30%, transparent) 48px, color-mix(in srgb, #c8c793 30%, transparent) calc(100% - 48px), transparent);"></div>
-
-  <section style="max-width: 1280px; margin: 0 auto; padding: clamp(48px, 7vw, 88px) clamp(20px, 5vw, 72px); position: relative; text-align: center;">
-    <svg width="26" height="26" viewBox="0 0 24 24" style="margin: 0 auto var(--space-4); display: block; filter: drop-shadow(0 0 10px rgba(200,199,147,0.7));"><path d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8 Z" fill="#c8c793"></path></svg>
-    <p style="font-family: 'Sparky Dream', cursive; font-size: clamp(30px, 4.6vw, 56px); line-height: 1.3; max-width: 22ch; margin: 0 auto; color: var(--color-text);">Understand how something works, then build it well.</p>
-  <div style="box-sizing: border-box; display: flex; flex-direction: column; width: 139px; height: 133px; border-radius: 8px; position: absolute; left: 189px; top: 227px; background: url(&quot;./img_3050_white_transparent-ms76qsru-vpwn.png&quot;) center / cover no-repeat; opacity: 0.72"></div><div style="box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 346px; height: 351px; border-radius: 50%; position: absolute; left: 153px; top: -143px; border-width: 2px; border-style: solid; border-color: #C8C793; box-shadow: 0px 4px 12px 0px #C8C793; opacity: 0.65"></div><div style="box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 123px; height: 124px; border-radius: 50%; position: absolute; left: 87px; top: 25px; border-width: 2px; border-style: solid; border-color: #C8C793; box-shadow: 0px 4px 12px 0px #C8C793; opacity: 0.65"></div></section>
-
-  <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 72px);"><hr class="hr" style="margin: 0; background: linear-gradient(to right, transparent, color-mix(in srgb, #c8c793 30%, transparent) 48px, color-mix(in srgb, #c8c793 30%, transparent) calc(100% - 48px), transparent);"></div>
-
-  <section id="contact" style="max-width: 1280px; margin: 0 auto; padding: clamp(56px, 8vw, 96px) clamp(20px, 5vw, 72px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); position: relative; overflow: hidden;">
-    <span aria-hidden="true" style="position: absolute; top: -0.1em; left: -0.02em; font-family: 'Desevon', serif; font-weight: 700; font-size: clamp(70px, 13vw, 170px); color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, #c8c793 20%, transparent); white-space: nowrap; z-index: 0; pointer-events: none; user-select: none;">TALK</span>
-    
-    
-    <div style="position: relative; z-index: 1;">
-      <span style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-2);">Contact</span>
-      <h2 data-reveal="true" style="font-family: 'Desevon', serif; font-weight: 700; font-size: clamp(30px, 3.8vw, 44px); margin: var(--space-2) 0 0; max-width: 16ch;">Let's talk.</h2>
-      <p style="font-size: 16px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 46ch; margin: var(--space-4) 0 0;">
-        Open to software engineering roles and collaborations. I read every message myself.
-      </p>
-      <div style="display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-6); font-size: 15px;">
-        <a href="mailto:pehar002@email.com" style="color: var(--color-text);">pehara002@gmail.com</a>
-        <a href="https://github.com/pehara" style="color: var(--color-text);" target="_blank" rel="noopener noreferrer">github.com/pehara</a>
-        <a href="https://www.linkedin.com/in/pehara" style="color: var(--color-text);" target="_blank" rel="noopener noreferrer">linkedin.com/in/pehara</a>
-      </div>
-    </div>
-    <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
-      <div class="card elev-sm" style="align-self: start; justify-self: stretch; position: relative; z-index: 1; background: linear-gradient(160deg, color-mix(in srgb, #3F2548 55%, var(--color-surface)), var(--color-surface));">
-        <p class="card-kicker" style="color: var(--color-accent-2);">Sent</p>
-        <p class="card-title">Thanks, I'll be in touch soon.</p>
-        <p class="card-body">Usually within a couple of days.</p>
-      </div>
-    </sc-if>
-    <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
-      <form onsubmit="{{ handleSubmit }}" style="display: flex; flex-direction: column; gap: var(--space-4); position: relative; z-index: 1;">
-        <div class="field">
-          <label for="name">Name</label>
-          <input class="input" id="name" name="name" type="text" placeholder="Your name" required="{{ true }}">
-        </div>
-        <div class="field">
-          <label for="email">Email</label>
-          <input class="input" id="email" name="email" type="email" placeholder="you@example.com" required="{{ true }}">
-        </div>
-        <div class="field">
-          <label for="message">Message</label>
-          <textarea class="input" id="message" name="message" placeholder="What's on your mind?" required="{{ true }}"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Send message</button>
-      </form>
-    </sc-if>
-  </section>
-
-  <footer style="max-width: 1280px; margin: 0 auto; padding: var(--space-8) clamp(20px, 5vw, 72px) clamp(40px, 6vw, 64px); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-3); font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent);">
-    <span>© 2026 Pehara Vidana</span>
-    <span>Built after midnight, meant to last past it.</span>
-  </footer>
-
-  <img src="./assets/decor/IMG_3061.png" alt="" aria-hidden="true" style="position: absolute; top: 1070px; left: -130px; width: 449px; opacity: 0.7; filter: brightness(0) saturate(100%) invert(70%) sepia(20%) saturate(400%) hue-rotate(220deg); animation: spin-slow 20s linear infinite; z-index: -26; pointer-events: none; height: 445px"><img src="./assets/decor/IMG_3063.png" alt="" aria-hidden="true" style="position: absolute; top: 6138px; width: 219px; opacity: 0.8; filter: brightness(0) saturate(100%) invert(85%) sepia(10%) saturate(300%) hue-rotate(30deg); animation: drift 7.5s ease-in-out infinite; z-index: 1; pointer-events: none; height: 244px; left: 1322px"><img src="./assets/decor/IMG_3062.png" alt="" aria-hidden="true" style="position: absolute; left: 27px; width: 271px; opacity: 0.65; filter: brightness(0) saturate(100%) invert(80%) sepia(15%) saturate(350%) hue-rotate(210deg); animation: spin-slow 34s linear infinite; z-index: -45; pointer-events: none; height: 272px; top: 6524px"><div style="box-sizing: border-box; display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 2px; box-shadow: 0px 1px 3px 0px #00000000; position: absolute; left: 1243px; top: 1928px; width: 323px; height: 537px; background: url(&quot;./img_3058_white_transparent-ms76ixdz-wsba.png&quot;) center / cover no-repeat; opacity: 0.7"></div><svg width="70" height="70" viewBox="0 0 24 24" style="position: absolute; top: 419px; filter: drop-shadow(0 0 20px rgba(200,199,147,0.75)); animation: twinkle 4s ease-in-out infinite; z-index: 5; left: 1376px"><path d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8 Z" fill="#ece6d6"></path></svg><div style="box-sizing: border-box; display: flex; flex-direction: column; width: 671px; height: 705px; border-radius: 8px; position: absolute; left: 3px; top: 3955px; background: url(&quot;./img_3055_white_transparent-ms76oui2-4sph.png&quot;) center / cover no-repeat; opacity: 0.13"></div></div><svg width="474" height="603" viewBox="0 0 474 603" preserveAspectRatio="none" style="position: absolute; left: 1108px; top: 3251px; width: 474px; height: 603px; overflow: visible; fill: none; stroke: #8a8378; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><path d="M55 603 L51 599 L46 593 L39 584 L23 560 L11 535 L7 523 L4 511 L2 502 L0 487 L0 480 L0 473 L2 467 L6 455 L8 451 L11 447 L14 443 L23 436 L33 428 L38 423 L46 418 L64 406 L74 400 L84 395 L94 390 L104 387 L123 384 L131 384 L137 385 L142 387 L151 393 L155 398 L159 404 L163 410 L170 424 L177 443 L180 455 L183 465 L187 482 L189 497 L189 504 L188 509 L187 514 L180 523 L174 528 L167 533 L159 537 L150 540 L130 543 L120 543 L112 543 L104 542 L90 537 L83 535 L76 531 L69 527 L59 519 L54 515 L50 511 L47 506 L42 498 L38 490 L37 485 L36 480 L35 469 L37 458 L39 452 L41 447 L44 443 L52 434 L56 431 L61 428 L67 425 L79 423 L83 422 L88 422 L92 423 L96 423 L104 425 L108 426 L112 427 L115 428 L123 431 L128 432 L132 433 L136 434 L144 436 L154 436 L159 436 L164 436 L177 433 L190 428 L196 425 L202 422 L213 415 L218 410 L224 406 L229 402 L234 398 L238 394 L247 386 L250 383 L254 380 L257 377 L264 369 L267 364 L270 360 L272 356 L276 347 L280 339 L282 335 L283 331 L286 326 L287 323 L287 320 L288 317 L289 311 L290 308 L290 305 L290 301 L288 293 L284 284 L281 280 L279 276 L276 272 L273 270 L266 264 L262 262 L257 261 L252 259 L241 258 L236 258 L230 258 L225 258 L218 259 L215 260 L213 261 L211 263 L207 268 L204 278 L204 284 L204 291 L205 304 L206 310 L208 314 L210 318 L213 321 L216 324 L226 330 L232 333 L239 335 L246 336 L260 337 L267 336 L276 335 L284 333 L314 319 L350 233 L350 222 L350 212 L349 208 L348 204 L346 195 L344 191 L341 184 L336 177 L334 174 L329 167 L322 161 L313 155 L308 152 L303 149 L298 147 L290 142 L286 139 L279 133 L276 130 L274 127 L270 121 L269 117 L268 113 L268 105 L268 95 L268 90 L269 85 L271 75 L273 71 L275 66 L277 61 L280 57 L287 48 L290 44 L294 39 L298 35 L303 31 L311 24 L315 21 L319 18 L324 15 L332 10 L337 8 L342 6 L346 4 L357 2 L367 1 L372 0 L377 0 L382 0 L387 1 L398 1 L403 2 L409 3 L414 4 L426 9 L431 12 L435 16 L440 20 L448 29 L452 33 L456 38 L459 43 L462 49 L465 54 L469 65 L470 70 L472 79 L473 82 L473 86 L474 89 L474 91 L474 93 L474 95 L474 97 L474 102 L474 104 L474 107"></path></svg></div>
-
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {}, &quot;animationsEnabled&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Behavior&quot;}, &quot;marqueeSpeed&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 45, &quot;min&quot;: 15, &quot;max&quot;: 90, &quot;step&quot;: 5, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Behavior&quot;}, &quot;defaultFilter&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;All&quot;, &quot;options&quot;: [&quot;All&quot;, &quot;Unity&quot;, &quot;Godot&quot;, &quot;Web&quot;, &quot;Python&quot;, &quot;RenPy&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Behavior&quot;}}">
-class Component extends DCLogic {
-  state = { submitted: false, filter: this.props.defaultFilter ?? 'All', openGallery: null, lightboxIndex: null, lightboxZoomed: false };
-
-  engineColors = { Unity: '#8a8ce0', Godot: '#c8a3e0', Web: '#c8c793', Python: '#a3c793', RenPy: '#e0a3b8' };
-
-  projects = [
-    { imgId: 'proj-staythenight', img: './assets/proj-staythenight.avif', title: 'Stay The Night?', engine: 'Unity', tags: ['Unity', 'Horror', 'Low Poly', 'Single Player'], blurb: 'First-person indie horror game. The player has to survive an unexpected night after a first date, using whatever they can find without getting caught.', link: { label: 'Play on itch.io', url: 'https://nilmi.itch.io/stay-the-night' } },
-    { imgId: 'proj-roomforone', img: './assets/proj-roomforone.avif', title: 'Room For One', engine: 'Unity', tags: ['Physics', 'Platformer', 'Multiplayer', 'Unity'], blurb: 'Multiplayer platforming racer — race friends to the last available hotel room. Programmed the networking, UI, and art direction.', link: { label: 'View on Steam', url: 'https://store.steampowered.com/app/3693260/Room_For_One/' } },
-    { imgId: 'proj-golfbash', img: './assets/golf-bash.gif', title: 'Golf Bash: Online', engine: 'Unity', tags: ['Physics', 'Multiplayer', 'Unity'], blurb: 'A multiplayer golf party game built around physics-based chaos. Built with Netcode for GameObjects.', link: { label: 'View on Steam', url: 'https://store.steampowered.com/app/2976320/Golf_Bash_Online/' } },
-    { imgId: 'proj-greatestfilm', img: './assets/greatest-film.gif', title: 'The Greatest Film of All Time', engine: 'Web', tags: ['Phaser', 'JavaScript', 'Browser Game'], blurb: 'A game adaptation inspired by Grave of the Fireflies. You play as Seita, navigating a war-torn landscape while keeping his sister alive.', link: { label: 'Play in browser', url: 'https://pehara.github.io/Game-Development-Experiences/The%20Greatest%20Film%20of%20All%20Time/' } },
-    { imgId: 'proj-aura', img: './assets/aura-game.gif', title: 'Aura Game', engine: 'Godot', tags: ['Godot', 'Hand Drawn', 'Rhythm', 'Single Player'], blurb: "A hand-drawn rhythm game built to capture the vibe of Rhythm Heaven — keep the beat and don't let him trip.", link: null },
-    { imgId: 'proj-lethallove', img: './assets/lethal-love.gif', title: 'Lethal Love', engine: 'RenPy', tags: ['Story', 'Visual Novel', 'RenPy', 'Horror'], blurb: 'A dating sim with a thriller edge — the environment reveals more about itself the further you get into the story.', link: { label: 'Download build', url: 'https://www.nilmi.net/_files/archives/4d702e_86733a831a574eb7b18b48a57ff02649.zip?dn=Lethal_Love-1.0-pc.zip' } },
-    { imgId: 'proj-sketchpad', img: './assets/sketchpad.gif', title: 'Sketchpad', engine: 'Web', tags: ['HTML5', 'Vite', 'Web App', 'TypeScript'], blurb: 'A TypeScript + HTML5 Canvas drawing app with adjustable brush tools, sticker placement, and undo/redo — built to demonstrate clean state management.', link: { label: 'View source', url: 'https://github.com/pehara/Sticker-Sketchpad' } },
-    { imgId: 'proj-tidal', img: './assets/proj-tidal.avif', title: 'Tidal Residual Analysis', engine: 'Python', tags: ['Data Analysis', 'NumPy', 'Python', 'Matplotlib'], blurb: 'Analyzed real tidal datasets to evaluate the accuracy of predicted tide models by computing residuals between observed and expected values.', link: { label: 'View source', url: 'https://github.com/pehara/Tidal-Report-Data' } },
-    { imgId: 'proj-astro', img: './assets/proj-astro.avif', title: 'Astronomical Data Analysis', engine: 'Python', tags: ['Python', 'Image Analysis', 'Data Visualization'], blurb: 'Processed astronomical image data to detect and evaluate objects captured in telescopic imagery.', link: { label: 'View source', url: 'https://github.com/pehara/astr-19' } },
-    { imgId: 'proj-creativecoding', img: './assets/creative-coding.gif', title: 'Creative Coding', engine: 'Web', tags: ['P5js', 'Creative', 'Interactive Tool'], blurb: 'A series of interactive web-based creative coding experiments built with JavaScript and p5.js — procedural generation, visual systems, user interaction, and real-time rendering in the browser.', link: { label: 'View project', url: 'https://pehara.github.io/cmpm-169/' } },
-    { imgId: 'proj-heatsync', img: './assets/proj-heatsync.avif', title: 'HeatSync', engine: 'Unity', tags: ['Unity', 'Blender', 'HLSL'], blurb: 'A wave-based survival combat game: fight off a horde of snowmen while managing your own heat level.', link: { label: 'Play on itch.io', url: 'https://aguizaro.itch.io/strike-when-the-iron-is-hot' } },
-  ].map((p, i) => ({ ...p, dotColor: this.engineColors[p.engine] || '#c6c3f2', rot: [-2.5, 1.5, -1, 2, -1.5, 1, -2, 1.5, -1, 2][i % 10], idx: String(i + 1).padStart(2, '0') }));
-
-  gallery2dExt = ['jpg','png','jpg','png','png','png','png','png','png','png','png','png','png','png','png','png','png','png','png','png','png','png','png','png','png','jpg','jpg','jpg','jpg','png','png','png','png','png','png','png','png','png','png'];
-  gallery2dImgs = this.gallery2dExt.map((ext, i) => './assets/gallery-2d-b2/d' + (i < 2 ? i + 9 : i + 10) + '.' + ext)
-    .concat(['./assets/gallery-2d-b2/d49.png', './assets/gallery-2d-b2/d50.png', './assets/gallery-2d-b2/d51.png', './assets/gallery-2d-b2/d52.png', './assets/gallery-2d-b2/d53.png', './assets/gallery-2d-b2/d54.jpg', './assets/gallery-2d-b2/d55.jpg']);
-  gallery2d = { key: 'art2d', title: '2D art', accent: '#a2a1e8', imgs: this.gallery2dImgs, ids: this.gallery2dImgs.map((_, i) => 'g2d-' + (i + 1)) };
-  gallery3dImgs = Array.from({ length: 22 }, (_, i) => './assets/gallery-3d-b2/t' + (i + 1) + '.png');
-  gallery3d = { key: 'art3d', title: '3D art', accent: '#e0a3d0', imgs: this.gallery3dImgs, ids: this.gallery3dImgs.map((_, i) => 'g3d-' + (i + 1)) };
-  galleryGelxImgs = ['n1.jpg','n2.jpg','n3.jpg','n4.jpg','n5.jpg','n7.jpg','n8.jpg','n9.jpg','n10.jpg','n12.jpg','n13.jpg','n14.jpg','n15.jpg','n16.jpg','n17.jpg','n18.jpg','n19.jpg','n20.jpg','n21.jpg','n22.jpg','n23.jpg'].map(f => './assets/gallery-nails/' + f);
-  galleryGelx = { key: 'gelx', title: 'Gel-X nails', accent: '#c8c793', imgs: this.galleryGelxImgs, ids: this.galleryGelxImgs.map((_, i) => 'gx-' + (i + 1)) };
-
-  galleriesByKey = { art2d: this.gallery2d, art3d: this.gallery3d, gelx: this.galleryGelx };
-  openGallery = (key) => this.setState({ openGallery: key, lightboxIndex: null });
-  closeGallery = () => this.setState({ openGallery: null, lightboxIndex: null });
-  selectImage = (i) => this.setState({ lightboxIndex: i, lightboxZoomed: false });
-  closeLightbox = () => this.setState({ lightboxIndex: null, lightboxZoomed: false });
-  toggleLightboxZoom = () => this.setState(s => ({ lightboxZoomed: !s.lightboxZoomed }));
-  stopPropagation = (e) => e.stopPropagation();
-  lightboxNext = () => this.setState(s => {
-    const g = this.galleriesByKey[s.openGallery];
-    return { lightboxIndex: (s.lightboxIndex + 1) % g.ids.length, lightboxZoomed: false };
-  });
-  lightboxPrev = () => this.setState(s => {
-    const g = this.galleriesByKey[s.openGallery];
-    return { lightboxIndex: (s.lightboxIndex - 1 + g.ids.length) % g.ids.length, lightboxZoomed: false };
+  /* click the water: ripples spread out and nearby lily pads get nudged */
+  const ripples=document.createElement('div');ripples.className='ripples';pageEl.appendChild(ripples);
+  const pads=[...document.querySelectorAll('.pad')];
+  addEventListener('pointerdown',e=>{
+    if(e.button!==0||e.target.closest('a,button,input,textarea,label,.card,.modal,.mini,.portrait,video,.filters'))return;
+    const pr=pageEl.getBoundingClientRect();const x=e.clientX-pr.left,y=e.clientY-pr.top;
+    const rp=document.createElement('span');rp.className='ripple';rp.style.left=x+'px';rp.style.top=y+'px';
+    rp.innerHTML='<b></b><i></i><i></i><i></i>';ripples.appendChild(rp);setTimeout(()=>rp.remove(),2300);
+    if(!motionOK)return;
+    /* the ring travels outward, so things further away respond a little later and a little less */
+    const wave=(el,strength)=>{const r=el.getBoundingClientRect();if(!r.width)return null;
+      const cx=r.left+r.width/2,cy=r.top+r.height/2,dx=cx-e.clientX,dy=cy-e.clientY,d=Math.hypot(dx,dy),reach=Math.max(420,r.width*.9);
+      if(d>reach)return null;return {f:(1-d/reach)*strength/zoomOf(),ux:dx/(d||1),uy:dy/(d||1),delay:d*1.1};};
+    for(const p of pads){const w=wave(p,4.5);if(!w)continue;
+      p.animate([{transform:'translate(0,0) rotate(0deg)'},{transform:`translate(${w.ux*w.f}px,${w.uy*w.f}px) rotate(${w.ux*w.f*.08}deg)`},
+        {transform:`translate(${-w.ux*w.f*.45}px,${-w.uy*w.f*.45}px) rotate(${-w.ux*w.f*.04}deg)`},{transform:`translate(${w.ux*w.f*.15}px,${w.uy*w.f*.15}px)`},{transform:'translate(0,0) rotate(0deg)'}],
+        {duration:3000,delay:w.delay,easing:'ease-in-out',composite:'add'});}
+    for(const b of buds){const w=wave(b.el,1);if(w)setTimeout(()=>{b.sv-=.09*w.f;b.v+=w.ux*6*w.f;},w.delay);}
+    for(const f of lotuses){const w=wave(f.el,1);if(w)setTimeout(()=>{f.petals.forEach(p=>p.v+=(Math.random()-.5)*2.4*w.f);f.v+=w.ux*.5*w.f;},w.delay);}
+    for(const b of bubbles){if(b.state!=='up')continue;const r=b.el.getBoundingClientRect();
+      if(Math.hypot(r.left+r.width/2-e.clientX,r.top+r.height/2-e.clientY)<120)setTimeout(()=>pop(b),300+Math.random()*300);}
   });
 
-  skillGroups = [
-    { num: '01', label: 'languages', dot: '#8a8ce0', items: ['C#', 'C++', 'Python', 'Java', 'JavaScript', 'SQL', 'HTML / CSS'] },
-    { num: '02', label: 'engines & tools', dot: '#c8a3e0', items: ['Unity', 'Godot', 'Blender', 'Git', 'Vite'] },
-    { num: '03', label: 'traits', dot: '#c8c793', items: ['Creativity', 'Detail-oriented', 'Intuitive', 'Communication', 'Adaptability'] },
-  ];
+  /* buttons: water-drop ripple from the press point */
+  document.addEventListener('pointerdown',e=>{const btn=e.target.closest('.pill,.submit,.nav button,.close,.mini');if(!btn||!motionOK)return;
+    const r=btn.getBoundingClientRect(),k=r.width/btn.offsetWidth||1;const d=document.createElement('span');d.className='drop';
+    d.style.cssText=`left:${(e.clientX-r.left)/k}px;top:${(e.clientY-r.top)/k}px;--ds:${Math.max(btn.offsetWidth,btn.offsetHeight)*2.4}px`;
+    btn.appendChild(d);setTimeout(()=>d.remove(),650);});
 
-  hobbies = [
-    { num: '01', title: 'Digital art', copy: '2D illustration and 3D renders, usually the thing open in a second monitor while a build compiles.' },
-    { num: '02', title: 'Cooking', copy: 'Working through as many different cuisines as I can, comfort food and the occasional ambitious dinner project.' },
-    { num: '03', title: 'Music', copy: 'Always something playing in the background, helps set the pace for whatever I\u2019m building.' },
-    { num: '04', title: 'Gel-X nails', copy: 'A creative outlet with an actual finished product every time, see the gallery below for examples.' },
-    { num: '05', title: 'Bouquet making', copy: 'Started as a favor for a friend\u2019s event, turned into something I actually keep doing.' },
-    { num: '06', title: 'Gaming', copy: 'Solo or with friends, still the reason I got into building software in the first place.' },
-    { num: '07', title: 'Hiking', copy: 'Occasional hikes to track down a good view.' },
-    { num: '08', title: 'Travel', copy: 'Exploring new places and meeting new people.' },
-    { num: '09', title: 'Reading', copy: 'Keeping the brain sharp, one book at a time.' },
-    { num: '10', title: 'Toast', copy: 'My cat, and yes, he\u2019s super cute.' },
-    { num: '11', title: 'Eating out', copy: 'Trying new cuisines, which usually ends up inspiring what I cook next.' },
-  ];
+  /* PORTFOLIO rises letter by letter on load */
+  const h1=document.querySelector('.hero h1');
+  if(h1&&motionOK){const txt=h1.textContent;h1.setAttribute('aria-label',txt);
+    h1.innerHTML=[...txt].map(c=>`<span class="ch" aria-hidden="true">${c}</span>`).join('');
+    h1.querySelectorAll('.ch').forEach((c,i)=>c.animate([{opacity:0,transform:'translateY(40px) rotate(4deg)'},{opacity:1,transform:'none'}],
+      {duration:900,delay:introDelay+150+i*70,easing:'cubic-bezier(.2,.8,.2,1)',fill:'backwards'}));
+    const k=document.querySelector('.hero .kicker');if(k)k.animate([{opacity:0,letterSpacing:'.3em'},{opacity:1}],{duration:1200,delay:introDelay,easing:'ease-out',fill:'backwards'});}
 
-  marqueeItems = ['Game Developer', 'Software Engineer', 'Quick Learner', 'Game Developer', 'Software Engineer', 'Quick Learner', 'Game Developer', 'Software Engineer'];
+  /* scroll reveal: things below the fold rise in as they come into view */
+  if(motionOK&&'IntersectionObserver' in window){
+    const groups=[['.sec-title'],['.programmer p','.programmer .pill'],['.about .copy','.facts','.about .portrait'],['.hobbies .intro'],['.hobby',90],
+      ['.projects .desc','.filters'],['.card',70],['.skill-cols > div',120],['.contact .lead','.form','.elsewhere']];
+    const els=[];
+    groups.forEach(g=>{const step=typeof g[g.length-1]==='number'?g.pop():0;
+      g.forEach(sel=>document.querySelectorAll(sel).forEach((el,i)=>{el.style.setProperty('--rvd',(step?((i%3)*step):0)+'ms');els.push(el)}));});
+    const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.remove('out');io.unobserve(en.target);
+      setTimeout(()=>en.target.classList.remove('rv'),1600);}}),{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    els.forEach(el=>{const r=el.getBoundingClientRect();if(r.top<innerHeight*.92)return;el.classList.add('rv','out');io.observe(el);});
+  }
 
-  engineFilters = ['All', 'Unity', 'Godot', 'Web', 'Python', 'RenPy'];
 
-  setFilter = (f) => this.setState({ filter: f });
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.setState({ submitted: true });
-  };
-
-  componentDidMount() {
-    const revealEls = document.querySelectorAll('[data-reveal]');
-    const reveal = (el) => {
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
-    };
-    revealEls.forEach(el => {
-      const rect = el.getBoundingClientRect();
-      const alreadyVisible = rect.top < window.innerHeight && rect.bottom > 0;
-      if (alreadyVisible) return; // leave fully visible, no animation needed
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(28px)';
-      el.style.transition = 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
+  /* ---- kelp: swaying strands rooted in the sand that bend away from the cursor ---- */
+  const kelpSvg=document.querySelector('.d-kelp');
+  if(kelpSvg){
+    const NS='http://www.w3.org/2000/svg',TOP=6900;
+    const sandPts=[[68.9,395.1],[455.9,235],[699,287.7],[812.4,147.9],[994.8,117.5],[1122.4,188.4],[1294.6,208.7],[1393.9,105.4],[1582.3,0],[1712,72.9]].map(([x,y])=>[x-142.5,8552+y]);
+    const sandY=x=>{if(x<=sandPts[0][0])return sandPts[0][1]+(sandPts[0][0]-x)*.4;for(let i=1;i<sandPts.length;i++){const [x0,y0]=sandPts[i-1],[x1,y1]=sandPts[i];if(x<=x1)return y0+(y1-y0)*(x-x0)/(x1-x0);}return sandPts[sandPts.length-1][1];};
+    let seed=7;const rand=()=>(seed=(seed*16807)%2147483647)/2147483647;
+    const spots=[-120,-40,40,140,235,330,1040,1110,1180,1260,1340,1420,1500,1580];
+    const g=document.createElementNS(NS,'g');kelpSvg.appendChild(g);
+    const strands=spots.map((x,i)=>{
+      const side=x<700?-1:1,edge=Math.min(1,Math.abs(x-700)/700);
+      const len=260+edge*420+rand()*160,n=5+Math.round(len/120),style=i%3===1?'ribbon':'leafy';
+      const tone=['a','b','c'][Math.floor(rand()*3)],root=[x+rand()*30,sandY(x)+28-TOP];
+      const el=document.createElementNS(NS,'g');g.appendChild(el);
+      const stem=document.createElementNS(NS,'path');stem.setAttribute('fill','none');stem.setAttribute('stroke',`url(#kelp-${tone})`);
+      stem.setAttribute('stroke-width',style==='ribbon'?0:(10+rand()*4).toFixed(1));stem.setAttribute('stroke-linecap','round');el.appendChild(stem);
+      const blade=document.createElementNS(NS,'path');blade.setAttribute('fill',`url(#kelp-${tone})`);if(style==='ribbon')el.appendChild(blade);
+      const leaves=[];if(style==='leafy')for(let k=1;k<n;k++)for(const s of [-1,1]){if(k===n-1&&s===1)continue;
+        const e=document.createElementNS(NS,'ellipse');const t=k/n,L=(58-t*24)*(.85+rand()*.3);
+        e.setAttribute('rx',L.toFixed(1));e.setAttribute('ry',(L*.58).toFixed(1));e.setAttribute('fill',`url(#kelp-${tone})`);el.appendChild(e);
+        leaves.push({e,k,s,L,tilt:48+rand()*18});}
+      return {root,len,n,seg:len/n,style,stem,blade,leaves,lean:side*(4+rand()*8)*(Math.PI/180),ph:rand()*6,sp:.5+rand()*.4,a:0,v:0,w:style==='ribbon'?26+rand()*12:0};
     });
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          reveal(entry.target);
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
-    revealEls.forEach(el => {
-      if (el.style.opacity !== '0') return;
-      io.observe(el);
-    });
-
-    const mount = () => {
-      const f = document.querySelector('iframe[data-src]');
-      if (f && !f.src) f.src = f.getAttribute('data-src');
-    };
-    // Plain timer, independent of the load event — window 'load' is not
-    // reliable to depend on in every host environment.
-    setTimeout(mount, 800);
-
-    // Shooting-star cursor: a comet head + fading tail that trails movement direction.
-    if (window.matchMedia('(pointer: fine)').matches) {
-      const comet = document.getElementById('cursor-comet');
-      const tail = document.getElementById('cursor-tail');
-      if (comet && tail) {
-        let lastX = null, lastY = null, fadeTimer = null;
-        const onMove = (e) => {
-          const x = e.clientX, y = e.clientY;
-          comet.style.opacity = '1';
-          comet.style.left = x + 'px';
-          comet.style.top = y + 'px';
-          if (lastX !== null) {
-            const dx = x - lastX, dy = y - lastY;
-            const dist = Math.hypot(dx, dy);
-            const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-            const len = Math.min(90, 16 + dist * 2.2);
-            tail.style.opacity = Math.min(0.9, dist / 10).toString();
-            tail.style.width = len + 'px';
-            tail.style.left = x + 'px';
-            tail.style.top = y + 'px';
-            tail.style.transform = `translate(-100%, -50%) rotate(${angle}deg)`;
-          }
-          lastX = x; lastY = y;
-          clearTimeout(fadeTimer);
-          fadeTimer = setTimeout(() => { tail.style.opacity = '0'; }, 150);
-        };
-        document.addEventListener('mousemove', onMove, { passive: true });
-        document.addEventListener('mouseleave', () => { comet.style.opacity = '0'; tail.style.opacity = '0'; });
-      }
-    }
-
-    // Full-page animated starfield behind all content.
-    const canvas = document.getElementById('starfield-canvas');
-    if (canvas) {
-      const ctx = canvas.getContext('2d');
-      let stars = [];
-      // Fixed to the viewport (canvas is position:fixed), not full scroll
-      // height — coupling canvas size to scrollHeight caused a resize/layout
-      // feedback loop once many real images inflated the page's height.
-      const resize = () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      };
-      const makeStars = () => {
-        stars = Array.from({ length: 90 }, () => ({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          r: Math.random() * 1.4 + 0.4,
-          baseAlpha: Math.random() * 0.7 + 0.2,
-          phase: Math.random() * Math.PI * 2,
-          twinkleSpeed: Math.random() * 0.02 + 0.01,
-          driftY: Math.random() * 0.06 + 0.02,
-        }));
-      };
-      resize();
-      makeStars();
-      let resizeTimer = null;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => { resize(); makeStars(); }, 200);
-      });
-      let visible = true;
-      document.addEventListener('visibilitychange', () => { visible = !document.hidden; });
-      let scrolling = false, scrollTimer = null;
-      window.addEventListener('scroll', () => {
-        scrolling = true;
-        clearTimeout(scrollTimer);
-        scrollTimer = setTimeout(() => { scrolling = false; }, 120);
-      }, { passive: true });
-      let last = 0;
-      const draw = (t) => {
-        // Skip frames while scrolling (keeps the scroll thread free) and cap to ~30fps otherwise.
-        if (visible && !scrolling && t - last > 32) {
-          last = t;
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          for (const s of stars) {
-            s.phase += s.twinkleSpeed;
-            s.y -= s.driftY;
-            if (s.y < -5) { s.y = canvas.height + 5; s.x = Math.random() * canvas.width; }
-            const a = s.baseAlpha * (0.5 + 0.5 * Math.sin(s.phase));
-            ctx.beginPath();
-            ctx.fillStyle = `rgba(236,230,214,${a})`;
-            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-            ctx.fill();
-          }
-        }
-        requestAnimationFrame(draw);
-      };
-      requestAnimationFrame(draw);
+    let kelpOn=false;new IntersectionObserver(es=>{kelpOn=es[0].isIntersecting},{rootMargin:'200px'}).observe(kelpSvg);
+    function drawKelp(ts){
+      for(const s of strands){
+        s.v+=(-2.2*s.a-.55*s.v)*.016*6;s.a+=s.v*.016*6;s.a=Math.max(-1.6,Math.min(1.6,s.a));
+        let [x,y]=s.root,ang=-Math.PI/2+s.lean;const pts=[[x,y]],angs=[ang];
+        for(let k=1;k<=s.n;k++){const t=k/s.n;
+          ang+=Math.sin(ts*s.sp-k*.45+s.ph)*.07*t+s.a*.2*t*t*1.6;
+          x+=Math.cos(ang)*s.seg;y+=Math.sin(ang)*s.seg;pts.push([x,y]);angs.push(ang);}
+        s.pts=pts;
+        let d=`M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
+        for(let k=1;k<pts.length-1;k++){const mx=(pts[k][0]+pts[k+1][0])/2,my=(pts[k][1]+pts[k+1][1])/2;d+=`Q${pts[k][0].toFixed(1)} ${pts[k][1].toFixed(1)} ${mx.toFixed(1)} ${my.toFixed(1)}`;}
+        if(s.style==='leafy'){s.stem.setAttribute('d',d);
+          for(const l of s.leaves){const p=pts[l.k],a=angs[l.k]*180/Math.PI+l.s*l.tilt+Math.sin(ts*1.3+l.k+s.ph)*6;
+            l.e.setAttribute('transform',`translate(${p[0].toFixed(1)} ${p[1].toFixed(1)}) rotate(${a.toFixed(1)}) translate(${(l.L*.8).toFixed(1)} 0)`);}}
+        else{const L=[],R=[];pts.forEach((p,k)=>{const t=k/(pts.length-1),w=s.w*(1-t*.85)*(1+Math.sin(ts*2+k*.9+s.ph)*.08),a=angs[k]+Math.PI/2;
+            L.push([p[0]+Math.cos(a)*w,p[1]+Math.sin(a)*w]);R.push([p[0]-Math.cos(a)*w,p[1]-Math.sin(a)*w]);});
+          const tip=pts[pts.length-1];const f=q=>`${q[0].toFixed(1)} ${q[1].toFixed(1)}`;
+          s.blade.setAttribute('d',`M${f(L[0])}`+L.slice(1).map(q=>`L${f(q)}`).join('')+`Q${f([tip[0]+Math.cos(angs[angs.length-1])*s.w,tip[1]+Math.sin(angs[angs.length-1])*s.w])} ${f(R[R.length-1])}`+R.slice(0,-1).reverse().map(q=>`L${f(q)}`).join('')+'Z');}
+      }}
+    drawKelp(0);
+    if(motionOK){
+      /* gentle idle sway updates at ~30fps; full rate while the kelp is being pushed */
+      let odd=false;(function loop(t){odd=!odd;if(kelpOn&&(odd||strands.some(s=>Math.abs(s.v)>.02||Math.abs(s.a)>.02)))drawKelp(t/1000);requestAnimationFrame(loop);})(0);
+      const toBoard=(cx,cy)=>{const r=kelpSvg.getBoundingClientRect(),k=r.width/1440;return [(cx-r.left)/k,(cy-r.top)/k];};
+      let kx=null;
+      addEventListener('pointermove',e=>{if(!kelpOn||!isDesktop())return;const [bx,by]=toBoard(e.clientX,e.clientY);const dx=kx===null?0:bx-kx;kx=bx;
+        for(const s of strands){if(!s.pts)continue;for(const p of s.pts){if(Math.abs(p[0]-bx)<75&&Math.abs(p[1]-by)<75){s.v+=Math.max(-.35,Math.min(.35,dx*.018));break;}}}},{passive:true});
+      addEventListener('pointerdown',e=>{if(!kelpOn||!isDesktop())return;const [bx,by]=toBoard(e.clientX,e.clientY);
+        for(const s of strands){const d=Math.hypot(s.root[0]-bx,(s.root[1]-s.len*.5)-by);if(d<600){const f=(1-d/600)*.5;setTimeout(()=>{s.v+=(s.root[0]>bx?1:-1)*f;},d*1.1);}}});
     }
   }
 
-  renderVals() {
-    const filter = this.state.filter;
-    const filtered = filter === 'All' ? this.projects : this.projects.filter(p => p.engine === filter);
-    const og = this.state.openGallery ? this.galleriesByKey[this.state.openGallery] : null;
-    return {
-      projects: filtered,
-      gallery2dItems: { ...this.gallery2d, count: this.gallery2d.ids.length, previewImgs: this.gallery2d.imgs.slice(0, 4), onView: () => this.openGallery('art2d') },
-      gallery3dItems: { ...this.gallery3d, count: this.gallery3d.ids.length, previewImgs: this.gallery3d.imgs.slice(0, 4), onView: () => this.openGallery('art3d') },
-      galleryGelxItems: { ...this.galleryGelx, count: this.galleryGelx.ids.length, previewImgs: this.galleryGelx.imgs.slice(0, 4), onView: () => this.openGallery('gelx') },
-      showOverview: !og,
-      openGalleryData: og ? { ...og, items: og.ids.map((id, i) => ({ id, img: og.imgs ? og.imgs[i] : null, onClick: () => this.selectImage(i) })) } : null,
-      closeGallery: this.closeGallery,
-      lightboxOpen: !!og && this.state.lightboxIndex !== null,
-      lightboxImgStyle: `width: 100%; height: ${this.state.lightboxZoomed ? '160vh' : '65vh'}; min-height: 65vh; background-image: url(${og ? (og.imgs ? og.imgs[this.state.lightboxIndex] : og.img) : ''}); background-size: contain; background-repeat: no-repeat; background-position: center; cursor: ${this.state.lightboxZoomed ? 'zoom-out' : 'zoom-in'};`,
-      toggleLightboxZoom: this.toggleLightboxZoom,
-      stopPropagation: this.stopPropagation,
-      lightboxZoomLabel: this.state.lightboxZoomed ? 'zoom out' : 'zoom in',
-      lightboxCounter: og && this.state.lightboxIndex !== null ? `${this.state.lightboxIndex + 1} / ${og.ids.length}` : '',
-      lightboxAccent: og ? og.accent : '#8a8ce0',
-      closeLightbox: this.closeLightbox,
-      lightboxNext: this.lightboxNext,
-      lightboxPrev: this.lightboxPrev,
-      engineFilters: this.engineFilters.map(f => ({
-        name: f,
-        onClick: () => this.setFilter(f),
-        style: f === filter
-          ? 'font-size: 13px; padding: 6px 16px; border: 1px solid var(--color-accent); color: var(--color-accent-2); background: color-mix(in srgb, var(--color-accent) 16%, transparent);'
-          : 'font-size: 13px; padding: 6px 16px; border: 1px solid var(--color-divider); color: color-mix(in srgb, var(--color-text) 75%, transparent);',
-      })),
-      marqueeItems: this.marqueeItems.concat(this.marqueeItems),
-      marqueeSpeed: this.props.marqueeSpeed ?? 45,
-      skillGroups: this.skillGroups,
-      hobbies: this.hobbies,
-      submitted: this.state.submitted,
-      notSubmitted: !this.state.submitted,
-      handleSubmit: this.handleSubmit,
-      animState: (this.props.animationsEnabled ?? true) ? 'on' : 'off',
-    };
+  /* ---- fish: drift on their own, eyes follow the cursor, click the water to feed them ---- */
+  const fishBox=document.querySelector('.d-fish');
+  if(fishBox&&motionOK){
+    const fish=[...fishBox.querySelectorAll('.fishy')].map((el,i)=>({el,face:+el.dataset.face,dir:+el.dataset.face,turn:1,
+      mx:+el.dataset.mx,my:+el.dataset.my,w:parseFloat(el.style.width),hx:parseFloat(el.style.left),hy:parseFloat(el.style.top),
+      x:0,y:0,vx:0,vy:0,flipT:0,appetite:3+Math.floor(Math.random()*6),satedUntil:0,open:0,chomp:0,mouth:el.querySelector('.mouth'),ph:i*1.9,sp:.36+i*.05,gulp:0,full:0,pupils:[...el.querySelectorAll('.eye i')].map(p=>({p,x:0,y:0,max:+p.dataset.max}))}));
+    const flakes=[];let on=false,raf=0,last=0,px=null,py=null;
+    new IntersectionObserver(es=>{on=es[0].isIntersecting;if(on)kick();},{rootMargin:'150px'}).observe(fishBox);
+    function kick(){if(!raf){last=performance.now();raf=requestAnimationFrame(step);}}
+    const mouth=f=>{const s=f.dir*f.face;return [f.hx+f.x+(s>0?f.mx:f.w-f.mx),f.hy+f.y+f.my];};
+    function step(t){raf=0;if(!on)return;const dt=Math.min(.05,(t-last)/1000);last=t;const ts=t/1000;
+      for(let i=flakes.length-1;i>=0;i--){const k=flakes[i];k.age+=dt;k.vy+=(26-k.vy)*dt*1.5;k.y+=k.vy*dt;k.x+=Math.sin(ts*2.2+k.ph)*14*dt;k.r+=k.vr*dt;
+        if(k.age>16||k.y>1760){k.el.style.opacity=0;setTimeout(()=>k.el.remove(),400);flakes.splice(i,1);continue;}
+        k.el.style.transform=`translate(${k.x.toFixed(1)}px,${k.y.toFixed(1)}px) rotate(${k.r.toFixed(0)}deg)`;}
+      for(const f of fish){let [mx,my]=mouth(f),tgt=null,best=1300;
+        /* each fish only goes after food within reach of its own spot; big fish don't turn around */
+        const small=f.w<900,leash=small?650:380,homeY=f.hy+f.my,ahead=f.hx+f.mx,behind=f.hx+f.w-f.mx;
+        /* each fish eats 3–8 flakes, then is full for a while and ignores the rest */
+        if(f.satedUntil&&ts>f.satedUntil){f.satedUntil=0;f.appetite=3+Math.floor(Math.random()*6);}
+        if(f.full<=0&&!f.satedUntil)for(const k of flakes){const fwd=(k.x-ahead)*f.face>-40,ox=k.x-(fwd?ahead:behind),oy=k.y-homeY;
+          if(!fwd&&!small)continue;if(Math.hypot(ox,oy)>leash)continue;
+          const d=Math.hypot(k.x-mx,k.y-my);if(d<best){best=d;tgt=k;}}
+        let dvx,dvy;
+        if(tgt){const dx=tgt.x-mx,dy=tgt.y-my,d=Math.hypot(dx,dy)||1,sp=Math.min(340,60+d*1.4);dvx=dx/d*sp;dvy=dy/d*sp;
+          const want=(tgt.x-ahead)*f.face>-40?f.face:-f.face;if(want!==f.dir&&ts-f.flipT>.9){f.dir=want;f.flipT=ts;}
+          if(d<26){tgt.el.remove();flakes.splice(flakes.indexOf(tgt),1);f.gulp=1;f.full=.6;f.chomp=.28;if(--f.appetite<=0)f.satedUntil=ts+8+Math.random()*6;}}
+        else if(f.full>0&&flakes.length&&!f.satedUntil){dvx=0;dvy=0;}  /* chewing: hover in place, then go for the next flake */
+        else{const ix=-13+13*Math.cos(ts*f.sp+f.ph),iy=Math.sin(ts*f.sp*1.3+f.ph)*7;dvx=(ix-f.x)*1.2;dvy=(iy-f.y)*1.2;
+          if(f.dir!==f.face&&ts-f.flipT>.9){f.dir=f.face;f.flipT=ts;}}
+        /* mouth opens wider as the flake gets close, then snaps shut on the bite */
+        f.chomp=Math.max(0,f.chomp-dt);
+        const mouthWant=f.chomp>0?0:(tgt?Math.max(0,Math.min(1,(170-best)/120)):0);
+        f.open+=(mouthWant-f.open)*Math.min(1,dt*(mouthWant<f.open?22:9));
+        if(f.mouth){f.mouth.style.opacity=f.open>.03?1:0;f.mouth.style.transform=`scale(${(.55+.45*f.open).toFixed(3)},${f.open.toFixed(3)})`;}
+        f.full-=dt;f.vx+=(dvx-f.vx)*Math.min(1,dt*2.2);f.vy+=(dvy-f.vy)*Math.min(1,dt*2.2);f.x+=f.vx*dt;f.y+=f.vy*dt;
+        const s=f.dir*f.face;f.turn+=(s-f.turn)*Math.min(1,dt*3.2);f.gulp=Math.max(0,f.gulp-dt*3);
+        const tilt=Math.max(-10,Math.min(10,f.vy/30))*f.dir,g=1+Math.sin(f.gulp*Math.PI)*.05;
+        f.el.style.transform=`translate(${f.x.toFixed(1)}px,${f.y.toFixed(1)}px) rotate(${tilt.toFixed(2)}deg) scale(${(f.turn*g).toFixed(3)},${g.toFixed(3)})`;
+        /* eyes: watch the cursor, or the food when there is some */
+        const lookAt=tgt?(()=>{const r=fishBox.getBoundingClientRect(),k=r.width/fishBox.offsetWidth;return [r.left+tgt.x*k,r.top+tgt.y*k];})():(px===null?null:[px,py]);
+        for(const e of f.pupils){let tx=0,ty=0;
+          if(lookAt){const r=e.p.parentNode.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dx=lookAt[0]-cx,dy=lookAt[1]-cy,d=Math.hypot(dx,dy)||1,
+            reach=Math.min(1,d/(260*(r.height/e.p.parentNode.offsetHeight||1)));tx=dx/d*e.max*reach*Math.sign(f.turn||1);ty=dy/d*e.max*reach;}
+          e.x+=(tx-e.x)*.18;e.y+=(ty-e.y)*.18;e.p.style.transform=`translate(${e.x.toFixed(2)}px,${e.y.toFixed(2)}px)`;}}
+      raf=requestAnimationFrame(step);}
+    addEventListener('pointermove',e=>{px=e.clientX;py=e.clientY;},{passive:true});
+    /* click anywhere in the fish's stretch of water to sprinkle food */
+    document.addEventListener('click',e=>{if(!on||!isDesktop()||e.target.closest('a,button,input,textarea,select,label,.modal,.mini'))return;
+      const r=fishBox.getBoundingClientRect(),k=r.width/fishBox.offsetWidth,x=(e.clientX-r.left)/k,y=(e.clientY-r.top)/k;
+      if(y<-80||y>fishBox.offsetHeight+80||x<500||x>2140)return;
+      const MAX_FLAKES=14,n=Math.min(5+Math.floor(Math.random()*3),MAX_FLAKES-flakes.length);   /* never more than 14 flakes in the water */
+      for(let i=0;i<n;i++){const el=document.createElement('span');el.className='flake';fishBox.appendChild(el);
+        flakes.push({el,x:x+(Math.random()-.5)*60,y:y+(Math.random()-.5)*24,vy:-30-Math.random()*30,ph:Math.random()*6,r:Math.random()*180,vr:(Math.random()-.5)*90,age:0});}
+      kick();});
   }
-}
 
+  /* ---- drifting specks in the deeper water: a single small canvas, only drawn while you're underwater ---- */
+  const motes=document.getElementById('motes');
+  if(motes&&motionOK){const ctx=motes.getContext('2d');let W=0,H=0,dpr=1,lastY=scrollY,running=false,lt=0;
+    const P=Array.from({length:46},()=>({x:Math.random(),y:Math.random(),r:.8+Math.random()*2.4,s:4+Math.random()*10,ph:Math.random()*6,a:.18+Math.random()*.32,z:.3+Math.random()*.7}));
+    function size(){dpr=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;motes.width=W*dpr;motes.height=H*dpr;}
+    size();addEventListener('resize',size);
+    /* how far into the deep water the viewport is (0 near the surface, 1 down by the fish) */
+    const board=document.querySelector('.board');
+    function depth(){const r=board.getBoundingClientRect(),k=r.height/9098,mid=(H/2-r.top)/k;return Math.max(0,Math.min(1,(mid-2600)/1400))*(mid>8500?Math.max(0,1-(mid-8500)/500):1);}
+    function draw(t){const dt=Math.min(.05,(t-lt)/1000||0);lt=t;
+      const d=isDesktop()?depth():0;motes.style.opacity=d;
+      if(d<=0.01){running=false;return;}
+      const dy=scrollY-lastY;lastY=scrollY;
+      ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);
+      for(const p of P){p.y-=(p.s*dt)/H*p.z+(dy*.35*p.z)/H;p.x+=Math.sin(t/1000*.6+p.ph)*.00012;
+        if(p.y<-.02){p.y=1.02;p.x=Math.random();}if(p.y>1.02){p.y=-.02;p.x=Math.random();}
+        const x=p.x*W,y=p.y*H,g=ctx.createRadialGradient(x,y,0,x,y,p.r*2.2);
+        g.addColorStop(0,`rgba(236,255,225,${p.a})`);g.addColorStop(1,'rgba(236,255,225,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,p.r*2.2,0,6.283);ctx.fill();}
+      requestAnimationFrame(draw);}
+    function wake(){if(!running&&isDesktop()&&depth()>0.01){running=true;lt=performance.now();requestAnimationFrame(draw);}else if(!running)motes.style.opacity=0;}
+    addEventListener('scroll',wake,{passive:true});wake();}
+
+  /* ---- "Contact me?" buttons glide to the contact form at the bottom of the page ---- */
+  document.querySelectorAll('a[href="#contact"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();
+    scrollTo({top:document.documentElement.scrollHeight,behavior:reduce?'auto':'smooth'});
+    setTimeout(()=>document.getElementById('f-name').focus({preventScroll:true}),reduce?0:900);}));
+
+  /* ---- contact form: sends straight to your inbox through FormSubmit (formsubmit.co).
+     The very first message triggers a one-time "confirm your email" from FormSubmit; after that every
+     message arrives as a normal email. If sending ever fails, visitors get a mailto link instead. ---- */
+  const TO='pehara002@gmail.com';
+  const FORM_ENDPOINT='https://formsubmit.co/ajax/'+TO;
+  const form=document.getElementById('form'),note=document.getElementById('note'),sendBtn=form.querySelector('.submit');
+  function mailtoFallback(n,em,m){
+    const url=`mailto:${TO}?subject=${encodeURIComponent('Portfolio message from '+n)}&body=${encodeURIComponent(m+'\n\n'+n+' ('+em+')')}`;
+    note.innerHTML=`Couldn't send just now. <a href="${url}">Email me instead</a> or write to ${TO}.`;}
+  form.addEventListener('submit',async e=>{e.preventDefault();
+    const n=document.getElementById('f-name').value.trim(),em=document.getElementById('f-email').value.trim(),m=document.getElementById('f-msg').value.trim();
+    if(!n||!em||!m||!/^\S+@\S+\.\S+$/.test(em)){note.textContent='Please fill in your name, a valid email, and a message.';return;}
+    if(document.getElementById('f-honey').value)return;   /* bots fill the hidden field */
+    sendBtn.disabled=true;note.textContent='Sending…';
+    try{
+      const r=await fetch(FORM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+        body:JSON.stringify({name:n,email:em,message:m,_replyto:em,_subject:'Portfolio message from '+n,_template:'box',_captcha:'false'})});
+      const j=await r.json().catch(()=>({}));
+      if(!r.ok||String(j.success)==='false')throw new Error(j.message||r.status);
+      form.reset();note.textContent='Thank you! Your message is on its way, and I’ll get back to you soon.';
+    }catch(err){mailtoFallback(n,em,m);}
+    finally{sendBtn.disabled=false;}});
+})();
 </script>
 </body>
 </html>

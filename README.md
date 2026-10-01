@@ -1,48 +1,50 @@
-# Deploying nilmi.net on GitHub Pages
+# nilmi.net — pond redesign
 
-This folder is your whole site, ready to push as-is:
-- `index.html` — the site
-- `assets/`, `fonts/`, `_ds/`, `support.js`, `image-slot.js` — everything the site loads
-- `CNAME` — tells GitHub Pages to serve this repo at nilmi.net
+Static site built from the "Pehara Portfolio" Figma file. No build step.
 
-Don't rename or move any of these — `index.html` references them by relative path.
+**New here? Read `SETUP-GUIDE.md`**: how to preview in VS Code, publish on GitHub Pages, and finish setup.
 
-## 1. Push to GitHub
-1. Create a new **public** repo on GitHub (e.g. `nilmi-portfolio`). Leave it empty (no README/license).
-2. On your computer, inside this unzipped folder, run:
-   ```
-   git init
-   git add .
-   git commit -m "Initial site"
-   git branch -M main
-   git remote add origin https://github.com/<your-username>/<repo-name>.git
-   git push -u origin main
-   ```
+## Deploy (GitHub Pages)
+Copy everything in this folder into the root of the existing nilmi.net repo — including the hidden
+`.pages.yml` file — and keep the repo's existing `CNAME` file. Commit and push.
 
-## 2. Turn on GitHub Pages
-1. In the repo, go to **Settings → Pages**.
-2. Under "Build and deployment", set **Source** to `Deploy from a branch`.
-3. Set **Branch** to `main` and folder to `/ (root)`. Save.
-4. GitHub gives you a URL like `https://<your-username>.github.io/<repo-name>/` — wait a minute and confirm it loads.
+## Adding content without touching code (Pages CMS)
+All projects and hobby content live in two files:
+- `content/projects.json` — the project cards
+- `content/hobbies.json` — books, games, travel, food, art, nails and the music song list
 
-## 3. Point nilmi.net at GitHub Pages
-nilmi.net's DNS currently points at Wix (or wherever it's hosted now). You need to move it:
+To edit them with simple forms:
+1. Go to https://app.pagescms.org and sign in with GitHub.
+2. Pick the nilmi.net repo. It reads `.pages.yml` and shows **Projects** and **Outside of work**.
+3. Add or edit entries, upload pictures (they're saved to `assets/uploads/`), then **Save**.
+   Saving commits to GitHub, and the live site updates a minute or two later.
 
-1. **In GitHub**: Settings → Pages → "Custom domain" → enter `nilmi.net` → Save.
-2. **At your domain registrar** (wherever nilmi.net is managed — check Wix or your registrar account):
-   - Remove the DNS records currently pointing to Wix.
-   - Add these instead:
-     - Four **A** records for `@` pointing to GitHub's IPs:
-       - 185.199.108.153
-       - 185.199.109.153
-       - 185.199.110.153
-       - 185.199.111.153
-     - One **CNAME** record for `www` pointing to `<your-username>.github.io`
-3. Back in GitHub Pages settings, once DNS has propagated (can take a few hours), check **Enforce HTTPS**.
+Tips
+- Book and game covers look best at 2:3 (e.g. 600×900). Keep photos under ~500 KB; export as WebP or JPG.
+- Games on Steam: just fill in the Steam app ID (the number in the store link) and leave the cover empty.
+- Projects: add as many as you like; computers show 12 at a time with Previous / More buttons.
+- The music song list doesn't sync with Spotify by itself. Add songs to it when you change the playlist.
 
-## One thing to check after deploying
-The hero portrait photo (and any other photo you dropped into a placeholder in the editor) is stored in the editor's own browser storage, not in these files. Open the live site once it's up and re-drop any photos that show as empty placeholders.
+## Previewing on your computer
+The page loads its content files, so opening `index.html` by double-clicking won't show projects.
+Instead, in this folder run `python3 -m http.server` and open http://localhost:8000.
 
-## Notes
-- If you update the site later, come back here, ask for a fresh export, replace these files, commit, and push again.
-- Wix will stop serving nilmi.net once you switch the DNS records in step 3 — there's no way to run both at once.
+## Contact form
+Messages are sent through FormSubmit (formsubmit.co) to pehara002@gmail.com.
+The **first** message triggers a one-time "Activate form" email from FormSubmit — click the link in it.
+After that every message arrives as a normal email. To send yourself a test, use the form on the live site.
+
+## Visitor stats (GoatCounter)
+1. Sign up free at https://www.goatcounter.com with the code **nilmi** (so the dashboard is nilmi.goatcounter.com).
+   If you choose a different code, change `CODE='nilmi'` near the top of `index.html`.
+2. That's it. Visits are only counted on nilmi.net (not local previews), no cookies, no consent banner needed.
+   Opening each hobby pop-up is also counted, as an event.
+
+## Folders
+- `assets/decor/` – illustrations from Figma, pre-rendered to WebP at 1× and 2× (`@2x`) so the textured
+  grain looks exactly like the design without the browser having to recompute it while scrolling
+- `assets/art/2d|3d|nails/` – gallery images (`N.webp` full size, `N-t.webp` thumbnail)
+- `assets/projects/` – project clips (MP4) and stills
+- `assets/uploads/` – images you add through Pages CMS
+- `assets/fonts/` – Desevon, Semika, Sparky Dream and Ethereal, plus Crimson Text, Playfair Display and Source Serif 4 (SIL OFL)
+- `assets/favicon.svg`, `favicon-32.png`, `apple-touch-icon.png` – the lotus tab icon
