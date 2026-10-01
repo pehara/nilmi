@@ -1,4 +1,4 @@
-# nilmi.net — Pehara Vidanagamachchi's Portfolio
+# My Portfolio Website
 
 A hand-built, pond-themed portfolio site for myself, a software engineer and game developer
 (B.S. Computer Science & Game Design, UC Santa Cruz).
