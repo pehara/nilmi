@@ -7,7 +7,6 @@
         "Games"
       ],
       "image": "assets/projects/StayTheNight.webp",
-      "video": "",
       "tags": [
         "Horror",
         "Low Poly",
@@ -24,7 +23,6 @@
         "Games"
       ],
       "image": "assets/projects/RoomForOne.webp",
-      "video": "",
       "tags": [
         "Multiplayer",
         "Physics",
@@ -81,9 +79,7 @@
         "Hand Drawn",
         "Godot"
       ],
-      "description": "A hand-drawn rhythm game built to capture the vibe of Rhythm Heaven. Keep the beat and don't let him trip.",
-      "link_label": "",
-      "link_url": ""
+      "description": "A hand-drawn rhythm game built to capture the vibe of Rhythm Heaven. Keep the beat and don't let him trip."
     },
     {
       "title": "Lethal Love",
@@ -125,7 +121,6 @@
         "Python"
       ],
       "image": "assets/projects/TidalResidual.webp",
-      "video": "",
       "tags": [
         "NumPy",
         "Matplotlib"
@@ -141,7 +136,6 @@
         "Python"
       ],
       "image": "assets/projects/AstronomicalData.webp",
-      "video": "",
       "tags": [
         "Python",
         "Imaging"
@@ -173,7 +167,6 @@
         "Games"
       ],
       "image": "assets/projects/HeatSync.webp",
-      "video": "",
       "tags": [
         "Unity",
         "Blender",
@@ -182,6 +175,16 @@
       "description": "A wave-based survival combat game: fight off a horde of snowmen while managing your own heat level.",
       "link_label": "Play on itch.io",
       "link_url": "https://aguizaro.itch.io/strike-when-the-iron-is-hot"
+    },
+    {
+      "title": "My Website",
+      "platform": "HTML",
+      "categories": [
+        "Web"
+      ],
+      "tags": [
+        "HTML"
+      ]
     }
   ]
 }
